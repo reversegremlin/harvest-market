@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-header">
+        <h2>Create Account</h2>
+        <p class="text-muted">Join our community today</p>
+    </div>
+    
+    <div class="auth-form">
+        <form method="POST" class="needs-validation" novalidate>
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="username" name="username" required>
+                <div class="invalid-feedback">Please choose a username.</div>
+            </div>
+            
+            <div class="mb-3">
+                <label for="email" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+                <div class="invalid-feedback">Please enter a valid email address.</div>
+            </div>
+            
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+                <div id="password-strength" class="form-text"></div>
+                <div class="invalid-feedback">Please enter a strong password.</div>
+            </div>
+            
+            <div class="mb-3">
+                <label for="confirm_password" class="form-label">Confirm Password</label>
+                <input type="password" class="form-control" id="confirm_password" required>
+                <div class="invalid-feedback">Passwords must match.</div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary w-100">Register</button>
+        </form>
+        
+        <div class="text-center mt-3">
+            <p>
+                Already have an account? 
+                <a href="{{ url_for('auth.login') }}" class="text-white">Login</a>
+            </p>
+        </div>
+    </div>
+</div>
+{% endblock %}
