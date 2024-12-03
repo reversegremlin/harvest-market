@@ -138,16 +138,32 @@ def site_settings():
     
     if request.method == 'POST':
         try:
-            settings.site_title = request.form.get('site_title', 'Market Harvest')
-            settings.site_icon = request.form.get('site_icon')
-            settings.default_theme = request.form.get('default_theme', 'autumn')
-            settings.welcome_message = request.form.get('welcome_message')
-            settings.footer_text = request.form.get('footer_text')
+            # Get values from form
+            new_title = request.form.get('site_title', 'Market Harvest')
+            new_icon = request.form.get('site_icon')
+            new_theme = request.form.get('default_theme', 'autumn')
+            new_message = request.form.get('welcome_message')
+            new_footer = request.form.get('footer_text')
+            
+            # Debug log before update
+            current_app.logger.debug(f'Current welcome message: {settings.welcome_message}')
+            current_app.logger.debug(f'New welcome message: {new_message}')
+            
+            # Update settings
+            settings.site_title = new_title
+            settings.site_icon = new_icon
+            settings.default_theme = new_theme
+            settings.welcome_message = new_message
+            settings.footer_text = new_footer
             settings.updated_at = datetime.utcnow()
             
-            current_app.logger.info(f'Updating site settings - default theme: {settings.default_theme}')
+            current_app.logger.info(f'Updating site settings - title: {new_title}, theme: {new_theme}')
             db.session.commit()
+            
+            # Refresh the settings object from the database
+            db.session.refresh(settings)
             current_app.logger.info(f'Site settings updated by admin {current_user.username}')
+            current_app.logger.debug(f'Refreshed welcome message: {settings.welcome_message}')
             flash('Site settings updated successfully.', 'success')
         except Exception as e:
             db.session.rollback()

@@ -67,7 +67,9 @@ else:
 def inject_site_settings():
     from models import SiteSettings
     def get_settings():
-        return SiteSettings.get_settings()
+        settings = SiteSettings.get_settings()
+        app.logger.debug(f'Injecting site settings - title: {settings.site_title}, welcome: {settings.welcome_message}')
+        return settings
     return dict(site_settings=get_settings)
 
 @app.template_filter('b64encode')

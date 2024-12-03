@@ -39,9 +39,11 @@ class SiteSettings(db.Model):
     @classmethod
     def get_settings(cls):
         """Get the current site settings or create default ones if they don't exist."""
-        settings = cls.query.first()
+        # Use with_for_update() to ensure we get a fresh copy and lock the row
+        settings = cls.query.with_for_update().first()
         if not settings:
             settings = cls()
             db.session.add(settings)
             db.session.commit()
+            db.session.refresh(settings)
         return settings
