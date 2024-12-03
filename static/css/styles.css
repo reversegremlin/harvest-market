@@ -359,41 +359,29 @@ body {
     margin-right: 0.5rem;
 }
 
-/* Large screens */
-@media (min-width: 1200px) {
-    .profile-card h3 { font-size: 1.75rem; }
-    .profile-card p { font-size: 1rem; }
-    .account-details h5 { font-size: 1.25rem; }
+/* Update username and email font sizes */
+.profile-card h3 {
+    font-size: 1.4rem; /* Reduced from 1.75rem */
 }
 
-/* Medium screens */
+.account-details p {
+    font-size: 0.875rem; /* Reduced size */
+}
+
+/* Responsive adjustments */
 @media (max-width: 991px) {
-    .profile-card h3 { font-size: 1.5rem; }
-    .profile-card p { font-size: 0.95rem; }
-    .account-details h5 { font-size: 1.1rem; }
-}
-
-/* Small screens */
-@media (max-width: 767px) {
-    .profile-card {
-        font-size: 14px; /* Smaller base size for mobile */
-    }
     .profile-card h3 { font-size: 1.3rem; }
-    .profile-card p { font-size: 0.9rem; }
-    .account-details h5 { font-size: 1rem; }
-    .account-details p {
-        font-size: 0.85rem;
-        line-height: 1.4;
-    }
+    .account-details p { font-size: 0.85rem; }
 }
 
-/* Extra small screens */
-@media (max-width: 575px) {
-    .profile-card {
-        font-size: 13px;
-    }
+@media (max-width: 767px) {
     .profile-card h3 { font-size: 1.2rem; }
-    .account-details h5 { font-size: 0.95rem; }
+    .account-details p { font-size: 0.825rem; }
+}
+
+@media (max-width: 575px) {
+    .profile-card h3 { font-size: 1.1rem; }
+    .account-details p { font-size: 0.8rem; }
 }
 
 /* Responsive Design */
