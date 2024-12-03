@@ -41,6 +41,24 @@ def send_email(to_email, subject, html_content):
     except requests.RequestException as e:
         current_app.logger.error(f'Mailgun API request error: {str(e)}')
         return False
+@auth_bp.route('/check-username', methods=['POST'])
+def check_username():
+    username = request.form.get('username', '')
+    
+    # Input validation
+    if not username or len(username) < 3 or len(username) > 20:
+        return {'available': False, 'message': 'Username must be between 3 and 20 characters'}
+        
+    if not username.isalnum() and '_' not in username:
+        return {'available': False, 'message': 'Username can only contain letters, numbers, and underscores'}
+    
+    # Check if username exists
+    user = User.query.filter_by(username=username).first()
+    if user:
+        return {'available': False, 'message': 'Username already taken'}
+        
+    return {'available': True, 'message': 'Username available'}
+
 
 @auth_bp.route('/register', methods=['GET', 'POST'])
 def register():

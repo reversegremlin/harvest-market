@@ -2,7 +2,12 @@
 
 {% block title %}Register{% endblock %}
 
+{% block extra_head %}
+<meta name="csrf-token" content="{{ csrf_token() }}">
+{% endblock %}
+
 {% block content %}
+<script src="{{ url_for('static', filename='js/registration.js') }}"></script>
 <div class="auth-container">
     <div class="auth-header">
         <h2>Create Account</h2>
@@ -37,6 +42,7 @@
                        title="Username must be 3-20 characters long and can only contain letters, numbers, and underscores"
                        required>
                 <div class="form-text">3-20 characters, letters, numbers, and underscores only</div>
+                <div id="username-validation" class="text-muted"></div>
                 <div class="invalid-feedback">Please choose a valid username (3-20 characters, letters, numbers, and underscores only).</div>
             </div>
             
