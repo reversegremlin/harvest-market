@@ -517,6 +517,11 @@ body {
     margin-top: 2rem;
 }
 
+.cta-buttons .btn {
+    min-width: 160px;
+    margin: 0 0.5rem;
+}
+
 .feature-card {
     background: rgba(255, 255, 255, 0.9);
     border-radius: 1.5rem;
