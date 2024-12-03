@@ -1,4 +1,4 @@
-2024-12-03 19:26:55,451 ERROR: Exception on / [GET] [in /home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py:875]
+2024-12-03 15:57:28,924 ERROR: Exception on /reset-password [POST] [in /home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py:875]
 Traceback (most recent call last):
   File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
     response = self.full_dispatch_request()
@@ -12,81 +12,70 @@ Traceback (most recent call last):
   File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/app.py", line 83, in index
-    return render_template('landing.html')
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/templating.py", line 150, in render_template
-    return _render(app, template, context)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/templating.py", line 131, in _render
-    rv = template.render(context)
-         ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/jinja2/environment.py", line 1304, in render
-    self.environment.handle_exception()
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/jinja2/environment.py", line 939, in handle_exception
-    raise rewrite_traceback_stack(source=source)
-  File "/home/runner/Market-Harvest/templates/landing.html", line 1, in top-level template code
-    {% extends "base.html" %}
-  File "/home/runner/Market-Harvest/templates/base.html", line 21, in top-level template code
-    <a class="navbar-brand d-flex align-items-center" href="{{ url_for('landing_page') }}">
-    ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1121, in url_for
-    return self.handle_url_build_error(error, endpoint, values)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1110, in url_for
-    rv = url_adapter.build(  # type: ignore[union-attr]
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/werkzeug/routing/map.py", line 924, in build
-    raise BuildError(endpoint, values, method, self)
-werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'landing_page'. Did you mean 'admin.force_password_reset' instead?
-2024-12-03 22:19:22,434 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:48]
-2024-12-03 22:19:22,434 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:57]
-2024-12-03 22:19:39,047 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:51]
-2024-12-03 22:19:39,048 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:60]
-2024-12-03 22:19:50,150 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:51]
-2024-12-03 22:19:50,151 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:60]
-2024-12-03 22:20:07,250 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:46]
-2024-12-03 22:20:07,250 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:55]
-2024-12-03 22:20:07,879 ERROR: Exception on / [GET] [in /home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py:875]
-Traceback (most recent call last):
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
-    response = self.full_dispatch_request()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
-    rv = self.dispatch_request()
-         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/app.py", line 86, in index
-    return render_template('landing.html')
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/templating.py", line 150, in render_template
-    return _render(app, template, context)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/templating.py", line 131, in _render
-    rv = template.render(context)
-         ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/jinja2/environment.py", line 1304, in render
-    self.environment.handle_exception()
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/jinja2/environment.py", line 939, in handle_exception
-    raise rewrite_traceback_stack(source=source)
-  File "/home/runner/Market-Harvest/templates/landing.html", line 1, in top-level template code
-    {% extends "base.html" %}
-  File "/home/runner/Market-Harvest/templates/base.html", line 21, in top-level template code
-    <a class="navbar-brand d-flex align-items-center" href="{{ url_for('profile.dashboard') }}">
-    ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1121, in url_for
-    return self.handle_url_build_error(error, endpoint, values)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1110, in url_for
-    rv = url_adapter.build(  # type: ignore[union-attr]
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/werkzeug/routing/map.py", line 924, in build
-    raise BuildError(endpoint, values, method, self)
-werkzeug.routing.exceptions.BuildError: Could not build url for endpoint 'profile.dashboard'. Did you mean 'profile_blueprint.dashboard' instead?
-2024-12-03 22:20:26,308 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:46]
-2024-12-03 22:20:26,308 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:55]
+  File "/home/runner/Market-Harvest/auth.py", line 195, in reset_password
+    html_content = render_template('emails/reset_password.html', token=token)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/templating.py", line 149, in render_template
+    template = app.jinja_env.get_or_select_template(template_name_or_list)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/jinja2/environment.py", line 1084, in get_or_select_template
+    return self.get_template(template_name_or_list, parent, globals)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/jinja2/environment.py", line 1013, in get_template
+    return self._load_template(name, globals)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/jinja2/environment.py", line 972, in _load_template
+    template = self.loader.load(self, name, self.make_globals(globals))
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/jinja2/loaders.py", line 126, in load
+    source, filename, uptodate = self.get_source(environment, name)
+                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/templating.py", line 65, in get_source
+    return self._get_source_fast(environment, template)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/templating.py", line 99, in _get_source_fast
+    raise TemplateNotFound(template)
+jinja2.exceptions.TemplateNotFound: emails/reset_password.html
+2024-12-03 15:59:12,688 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:47]
+2024-12-03 15:59:12,688 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:56]
+2024-12-03 16:01:27,183 INFO: User logged in: reversegremlin [in /home/runner/Market-Harvest/auth.py:158]
+2024-12-03 16:05:29,423 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:47]
+2024-12-03 16:05:29,424 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:56]
+2024-12-03 16:06:15,422 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:47]
+2024-12-03 16:06:15,422 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:56]
+2024-12-03 16:07:52,157 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:48]
+2024-12-03 16:07:52,157 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:57]
+2024-12-03 16:08:18,446 INFO: User logged in: nadiabellamorris [in /home/runner/Market-Harvest/auth.py:158]
+2024-12-03 16:12:01,983 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:48]
+2024-12-03 16:12:01,984 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:57]
+2024-12-03 16:13:35,768 INFO: Site settings updated by admin nadiabellamorris [in /home/runner/Market-Harvest/admin.py:149]
+2024-12-03 16:15:18,143 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:48]
+2024-12-03 16:15:18,144 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:57]
+2024-12-03 16:15:40,336 INFO: Updating site settings - default theme: winter [in /home/runner/Market-Harvest/admin.py:149]
+2024-12-03 16:15:40,427 INFO: Site settings updated by admin nadiabellamorris [in /home/runner/Market-Harvest/admin.py:151]
+2024-12-03 16:20:14,173 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:48]
+2024-12-03 16:20:14,173 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:57]
+2024-12-03 16:20:20,264 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:48]
+2024-12-03 16:20:20,264 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:57]
+2024-12-03 16:21:23,381 INFO: Updating site settings - default theme: winter [in /home/runner/Market-Harvest/admin.py:149]
+2024-12-03 16:21:23,469 INFO: Site settings updated by admin nadiabellamorris [in /home/runner/Market-Harvest/admin.py:151]
+2024-12-03 16:21:48,881 INFO: Updating site settings - default theme: winter [in /home/runner/Market-Harvest/admin.py:149]
+2024-12-03 16:21:48,969 INFO: Site settings updated by admin nadiabellamorris [in /home/runner/Market-Harvest/admin.py:151]
+2024-12-03 16:22:20,590 INFO: Updating site settings - default theme: winter [in /home/runner/Market-Harvest/admin.py:149]
+2024-12-03 16:22:20,678 INFO: Site settings updated by admin nadiabellamorris [in /home/runner/Market-Harvest/admin.py:151]
+2024-12-03 16:29:53,182 INFO: Updating site settings - default theme: winter [in /home/runner/Market-Harvest/admin.py:149]
+2024-12-03 16:29:53,270 INFO: Site settings updated by admin nadiabellamorris [in /home/runner/Market-Harvest/admin.py:151]
+2024-12-03 16:31:33,520 INFO: Updating site settings - default theme: winter [in /home/runner/Market-Harvest/admin.py:149]
+2024-12-03 16:31:33,610 INFO: Site settings updated by admin nadiabellamorris [in /home/runner/Market-Harvest/admin.py:151]
+2024-12-03 16:32:15,821 INFO: Updating site settings - default theme: winter [in /home/runner/Market-Harvest/admin.py:149]
+2024-12-03 16:32:15,909 INFO: Site settings updated by admin nadiabellamorris [in /home/runner/Market-Harvest/admin.py:151]
+2024-12-03 16:33:35,411 INFO: Updating site settings - default theme: winter [in /home/runner/Market-Harvest/admin.py:149]
+2024-12-03 16:33:35,498 INFO: Site settings updated by admin nadiabellamorris [in /home/runner/Market-Harvest/admin.py:151]
+2024-12-03 16:35:03,097 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:48]
+2024-12-03 16:35:03,098 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:57]
+2024-12-03 16:35:46,463 INFO: Updating site settings - title: Market Harvest, theme: winter [in /home/runner/Market-Harvest/admin.py:160]
+2024-12-03 16:35:46,572 INFO: Site settings updated by admin nadiabellamorris [in /home/runner/Market-Harvest/admin.py:165]
+2024-12-03 16:37:55,347 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:48]
+2024-12-03 16:37:55,347 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:57]
+2024-12-03 16:39:17,208 INFO: Updating site settings - title: Market Harvest, theme: winter [in /home/runner/Market-Harvest/admin.py:160]
+2024-12-03 16:39:17,348 INFO: Site settings updated by admin nadiabellamorris [in /home/runner/Market-Harvest/admin.py:165]

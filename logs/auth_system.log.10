@@ -1,79 +1,78 @@
-2024-12-03 05:00:11,212 ERROR: Exception on /profile/edit [GET] [in /home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py:875]
+2024-12-02 23:54:46,923 INFO: Auth system startup [in /home/runner/CozyAuthHub/app.py:58]
+2024-12-02 23:55:48,471 ERROR: Error sending test email: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials ada2fe7eead31-4af590e725esm1927761137.10 - gsmtp') [in /home/runner/CozyAuthHub/auth.py:125]
+2024-12-02 23:55:48,478 ERROR: Error sending test email: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials ada2fe7eead31-4af590b1d97sm1943314137.5 - gsmtp') [in /home/runner/CozyAuthHub/auth.py:125]
+2024-12-02 23:56:56,999 ERROR: Error sending test email: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials ada2fe7eead31-4af590ac4b0sm1959016137.3 - gsmtp') [in /home/runner/CozyAuthHub/auth.py:125]
+2024-12-03 00:01:32,108 INFO: Auth system startup [in /home/runner/CozyAuthHub/app.py:63]
+2024-12-03 00:02:35,509 INFO: Attempting to send test email to marketharvestgame [in /home/runner/CozyAuthHub/auth.py:127]
+2024-12-03 00:02:35,515 INFO: Attempting to send test email to marketharvestgame [in /home/runner/CozyAuthHub/auth.py:127]
+2024-12-03 00:02:35,664 ERROR: Error sending test email: {'marketharvestgame': (553, b'5.1.3 The recipient address <marketharvestgame> is not a valid RFC 5321\n5.1.3 address. For more information, go to\n5.1.3  https://support.google.com/a/answer/3221692 and review RFC 5321\n5.1.3 specifications. 71dfb90a1353d-5156cbe04aesm1265231e0c.6 - gsmtp')} [in /home/runner/CozyAuthHub/auth.py:135]
+2024-12-03 00:02:35,667 ERROR: Error sending test email: {'marketharvestgame': (553, b'5.1.3 The recipient address <marketharvestgame> is not a valid RFC 5321\n5.1.3 address. For more information, go to\n5.1.3  https://support.google.com/a/answer/3221692 and review RFC 5321\n5.1.3 specifications. 71dfb90a1353d-5156cbe04d1sm1247055e0c.11 - gsmtp')} [in /home/runner/CozyAuthHub/auth.py:135]
+2024-12-03 00:02:52,410 INFO: Auth system startup [in /home/runner/CozyAuthHub/app.py:63]
+2024-12-03 00:02:58,995 ERROR: Invalid email format in MAIL_USERNAME [in /home/runner/CozyAuthHub/auth.py:123]
+2024-12-03 00:02:59,299 ERROR: Invalid email format in MAIL_USERNAME [in /home/runner/CozyAuthHub/auth.py:123]
+2024-12-03 00:04:07,841 INFO: Auth system startup [in /home/runner/CozyAuthHub/app.py:63]
+2024-12-03 00:05:11,961 INFO: New user registered successfully: nadiabellamorris (nadiabellamorris@gmail.com) [in /home/runner/CozyAuthHub/auth.py:66]
+2024-12-03 00:05:53,839 INFO: Email verified for user: nadiabellamorris [in /home/runner/CozyAuthHub/auth.py:122]
+2024-12-03 00:06:17,921 INFO: User logged in: nadiabellamorris [in /home/runner/CozyAuthHub/auth.py:101]
+2024-12-03 00:10:53,441 INFO: Auth system startup [in /home/runner/CozyAuthHub/app.py:63]
+2024-12-03 00:11:07,214 INFO: Auth system startup [in /home/runner/CozyAuthHub/app.py:63]
+2024-12-03 00:11:07,806 ERROR: Exception on / [GET] [in /home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/flask/app.py:875]
 Traceback (most recent call last):
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
     response = self.full_dispatch_request()
                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 920, in full_dispatch_request
-    return self.finalize_request(rv)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 939, in finalize_request
-    response = self.make_response(rv)
-               ^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1212, in make_response
-    raise TypeError(
-TypeError: The view function for 'profile.edit_profile' did not return a valid response. The function either returned None or ended without a return statement.
-2024-12-03 05:02:03,800 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:70]
-2024-12-03 05:02:29,042 INFO: User logged in: nadiabellamorris [in /home/runner/Market-Harvest/auth.py:101]
-2024-12-03 05:07:23,545 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:70]
-2024-12-03 05:07:24,276 ERROR: Exception on / [GET] [in /home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py:875]
-Traceback (most recent call last):
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
-    response = self.full_dispatch_request()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
     rv = self.handle_user_exception(e)
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
     rv = self.dispatch_request()
          ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/app.py", line 82, in index
-    return render_template('landing.html')
-           ^^^^^^^^^^^^^^^
-NameError: name 'render_template' is not defined
-2024-12-03 05:07:24,991 ERROR: Exception on / [GET] [in /home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py:875]
+  File "/home/runner/CozyAuthHub/app.py", line 73, in index
+    return redirect(url_for('auth.login'))
+           ^^^^^^^^
+NameError: name 'redirect' is not defined
+2024-12-03 00:11:09,267 ERROR: Exception on / [GET] [in /home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/flask/app.py:875]
 Traceback (most recent call last):
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
     response = self.full_dispatch_request()
                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
     rv = self.handle_user_exception(e)
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
     rv = self.dispatch_request()
          ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/app.py", line 82, in index
-    return render_template('landing.html')
-           ^^^^^^^^^^^^^^^
-NameError: name 'render_template' is not defined
-2024-12-03 05:07:25,569 ERROR: Exception on / [GET] [in /home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py:875]
+  File "/home/runner/CozyAuthHub/app.py", line 73, in index
+    return redirect(url_for('auth.login'))
+           ^^^^^^^^
+NameError: name 'redirect' is not defined
+2024-12-03 00:11:09,416 ERROR: Exception on / [GET] [in /home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/flask/app.py:875]
 Traceback (most recent call last):
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
     response = self.full_dispatch_request()
                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
     rv = self.handle_user_exception(e)
          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
     rv = self.dispatch_request()
          ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/app.py", line 82, in index
-    return render_template('landing.html')
-           ^^^^^^^^^^^^^^^
-NameError: name 'render_template' is not defined
-2024-12-03 05:07:38,183 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:70]
-2024-12-03 05:08:59,643 INFO: User logged in: nadiabellamorris [in /home/runner/Market-Harvest/auth.py:101]
-2024-12-03 05:10:04,809 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:70]
-2024-12-03 05:10:51,562 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:70]
-2024-12-03 05:11:43,994 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:70]
-2024-12-03 06:15:42,149 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:70]
-2024-12-03 06:16:00,717 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:70]
-2024-12-03 06:18:46,466 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:70]
+  File "/home/runner/CozyAuthHub/app.py", line 73, in index
+    return redirect(url_for('auth.login'))
+           ^^^^^^^^
+NameError: name 'redirect' is not defined
+2024-12-03 00:11:25,014 INFO: Auth system startup [in /home/runner/CozyAuthHub/app.py:63]
+2024-12-03 00:12:00,757 INFO: User logged in: nadiabellamorris [in /home/runner/CozyAuthHub/auth.py:101]
+2024-12-03 00:13:12,333 INFO: Auth system startup [in /home/runner/CozyAuthHub/app.py:63]
+2024-12-03 00:13:28,839 INFO: User logged in: nadiabellamorris [in /home/runner/CozyAuthHub/auth.py:101]
+2024-12-03 00:16:26,296 INFO: Auth system startup [in /home/runner/CozyAuthHub/app.py:63]
+2024-12-03 00:16:30,060 INFO: Auth system startup [in /home/runner/CozyAuthHub/app.py:63]
