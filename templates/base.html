@@ -10,8 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Quicksand:wght@500;600&family=Baloo+2:wght@500;600&family=Comfortaa:wght@500;600&family=Josefin+Sans:wght@500;600&display=swap" rel="stylesheet">
     <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
     <!-- Cookie Consent -->
-    <script src="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@2.9.2/dist/cookieconsent.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanilla-cookieconsent@2.9.2/dist/cookieconsent.css">
+    <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css">
     {% if settings.site_icon %}
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,{{ settings.site_icon|b64encode }}">
     {% else %}
@@ -19,27 +19,27 @@
     {% endif %}
     
     <script>
-        window.addEventListener('load', function() {
+        window.addEventListener('load', function(){
             window.cookieconsent.initialise({
-                palette: {
-                    popup: {
-                        background: "#2C3E50",
-                        text: "#ffffff"
+                "palette": {
+                    "popup": {
+                        "background": "#2C3E50",
+                        "text": "#ffffff"
                     },
-                    button: {
-                        background: "#E67E22",
-                        text: "#ffffff"
+                    "button": {
+                        "background": "#E67E22",
+                        "text": "#ffffff"
                     }
                 },
-                theme: "edgeless",
-                position: "bottom-right",
-                content: {
-                    message: "We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic.",
-                    dismiss: "Accept",
-                    link: "Learn more",
-                    href: "/privacy"
+                "theme": "classic",
+                "position": "bottom-right",
+                "content": {
+                    "message": "We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic.",
+                    "dismiss": "Accept",
+                    "link": "Learn more",
+                    "href": "/privacy"
                 }
-            });
+            })
         });
     </script>
 </head>
