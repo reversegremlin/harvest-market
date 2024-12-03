@@ -24,10 +24,12 @@ def create_app():
         from models import User
         from auth import auth_bp
         from profile import profile_bp
+        from admin import admin_bp
         
         # Register blueprints
         app.register_blueprint(auth_bp)
         app.register_blueprint(profile_bp)
+        app.register_blueprint(admin_bp)
         
         # Set up logging
         if not os.path.exists('logs'):

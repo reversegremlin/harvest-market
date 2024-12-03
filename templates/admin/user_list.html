@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+
+{% block title %}Manage Users{% endblock %}
+
+{% block content %}
+<div class="admin-user-list">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Manage Users</h2>
+        <a href="{{ url_for('admin.dashboard') }}" class="btn btn-secondary">
+            Back to Dashboard
+        </a>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-body">
+            <form method="GET" class="row g-3">
+                <div class="col-md-8">
+                    <input type="text" class="form-control" name="search" placeholder="Search users..." value="{{ search }}">
+                </div>
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-primary w-100">Search</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Name</th>
+                    <th>Status</th>
+                    <th>Admin</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users.items %}
+                <tr>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.first_name }} {{ user.last_name }}</td>
+                    <td>
+                        {% if user.email_verified %}
+                        <span class="badge bg-success">Verified</span>
+                        {% else %}
+                        <span class="badge bg-warning">Unverified</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if user.is_admin %}
+                        <span class="badge bg-primary">Admin</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <div class="btn-group">
+                            <a href="{{ url_for('admin.edit_user', user_id=user.id) }}" 
+                               class="btn btn-sm btn-outline-primary">Edit</a>
+                            <button type="button" 
+                                    class="btn btn-sm btn-outline-danger" 
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#deleteModal{{ user.id }}">
+                                Delete
+                            </button>
+                            <button type="button" 
+                                    class="btn btn-sm btn-outline-warning" 
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#resetPasswordModal{{ user.id }}">
+                                Reset Password
+                            </button>
+                        </div>
+
+                        <!-- Delete Modal -->
+                        <div class="modal fade" id="deleteModal{{ user.id }}" tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Confirm Delete</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure you want to delete user {{ user.username }}?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <form action="{{ url_for('admin.delete_user', user_id=user.id) }}" method="POST" class="d-inline">
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Reset Password Modal -->
+                        <div class="modal fade" id="resetPasswordModal{{ user.id }}" tabindex="-1">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Confirm Password Reset</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure you want to force a password reset for {{ user.username }}?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                        <form action="{{ url_for('admin.force_password_reset', user_id=user.id) }}" method="POST" class="d-inline">
+                                            <button type="submit" class="btn btn-warning">Reset Password</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% if users.pages > 1 %}
+    <nav aria-label="Page navigation" class="mt-4">
+        <ul class="pagination justify-content-center">
+            {% for page in range(1, users.pages + 1) %}
+            <li class="page-item {% if page == users.page %}active{% endif %}">
+                <a class="page-link" href="{{ url_for('admin.user_list', page=page, search=search) }}">{{ page }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </nav>
+    {% endif %}
+</div>
+{% endblock %}

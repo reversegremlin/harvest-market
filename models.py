@@ -18,6 +18,7 @@ class User(UserMixin, db.Model):
     seasonal_theme = db.Column(db.String(20), default='autumn')  # Added seasonal theme
     avatar_url = db.Column(db.String(200))
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    is_admin = db.Column(db.Boolean, default=False)
     
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
