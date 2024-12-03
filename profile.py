@@ -11,7 +11,7 @@ profile_bp = Blueprint('profile', __name__)
 @profile_bp.route('/dashboard')
 @login_required
 def dashboard():
-    return render_template('profile/dashboard.html', user=current_user)
+    return render_template('profile/dashboard.html', user=current_user, timezone=timezone)
 
 @profile_bp.route('/profile/edit', methods=['GET', 'POST'])
 @login_required
