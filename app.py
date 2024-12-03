@@ -25,6 +25,11 @@ def create_app():
     app.config['MAIL_USE_TLS'] = True
     app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
     app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
+    app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_USERNAME')
+    
+    # Verify mail configuration
+    if not all([app.config['MAIL_USERNAME'], app.config['MAIL_PASSWORD']]):
+        app.logger.warning('Email configuration incomplete. Some features may not work properly.')
     
     # Initialize extensions with app
     db.init_app(app)

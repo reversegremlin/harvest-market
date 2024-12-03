@@ -113,14 +113,29 @@ def reset_password():
 
 @auth_bp.route('/test-email')
 def test_email():
+    if not app.config['MAIL_USERNAME'] or not app.config['MAIL_PASSWORD']:
+        app.logger.error('Email configuration missing')
+        return 'Email configuration missing. Please check MAIL_USERNAME and MAIL_PASSWORD environment variables.'
+    
     try:
+        recipient = app.config['MAIL_USERNAME']
         msg = Message('Test Email',
-                     sender=app.config['MAIL_USERNAME'],
-                     recipients=[app.config['MAIL_USERNAME']])
+                     recipients=[recipient])
         msg.body = 'This is a test email from the authentication system.'
+        msg.html = '<h1>Test Email</h1><p>This is a test email from the authentication system.</p>'
+        
+        app.logger.info(f'Attempting to send test email to {recipient}')
         mail.send(msg)
+        
         app.logger.info('Test email sent successfully')
-        return 'Test email sent successfully'
+        return 'Test email sent successfully! Check your inbox.'
+        
     except Exception as e:
-        app.logger.error(f'Error sending test email: {str(e)}')
-        return f'Error sending test email: {str(e)}'
+        error_msg = str(e)
+        app.logger.error(f'Error sending test email: {error_msg}')
+        
+        if 'Username and Password not accepted' in error_msg:
+            return ('Email authentication failed. Please ensure you are using an App Password '
+                   'for Gmail or have enabled Less Secure App Access.')
+        
+        return f'Error sending test email: {error_msg}'

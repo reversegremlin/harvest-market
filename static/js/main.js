@@ -21,6 +21,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
     
+    // Password confirmation validation
+    const passwordConfirmation = document.getElementById('confirm_password');
+    if (passwordConfirmation) {
+        passwordConfirmation.addEventListener('input', function() {
+            const password = document.querySelector('#password').value;
+            const isMatch = this.value === password;
+            this.setCustomValidity(isMatch ? '' : 'Passwords do not match');
+        });
+    }
     // Password strength indicator
     const passwordInput = document.querySelector('input[type="password"]');
     if (passwordInput) {
@@ -34,11 +43,12 @@ document.addEventListener('DOMContentLoaded', () => {
 function calculatePasswordStrength(password) {
     let strength = 0;
     if (password.length >= 8) strength++;
+    if (password.length >= 12) strength++;
     if (password.match(/[a-z]/)) strength++;
     if (password.match(/[A-Z]/)) strength++;
     if (password.match(/[0-9]/)) strength++;
     if (password.match(/[^a-zA-Z0-9]/)) strength++;
-    return strength;
+    return Math.min(5, strength);
 }
 
 function updatePasswordStrengthIndicator(strength) {
@@ -46,6 +56,8 @@ function updatePasswordStrengthIndicator(strength) {
     if (!indicator) return;
     
     const strengthLabels = ['Very Weak', 'Weak', 'Medium', 'Strong', 'Very Strong'];
-    indicator.textContent = strengthLabels[strength - 1] || '';
-    indicator.className = `text-${strength >= 4 ? 'success' : strength >= 3 ? 'warning' : 'danger'}`;
+    const strengthColors = ['danger', 'danger', 'warning', 'info', 'success'];
+    
+    indicator.textContent = `Strength: ${strengthLabels[strength - 1] || ''}`;
+    indicator.className = `text-${strengthColors[strength - 1] || 'danger'}`;
 }
