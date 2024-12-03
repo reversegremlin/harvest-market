@@ -141,7 +141,6 @@ def site_settings():
             settings.site_title = request.form.get('site_title', 'Market Harvest')
             settings.site_icon = request.form.get('site_icon')
             settings.default_theme = request.form.get('default_theme', 'autumn')
-            settings.custom_css = request.form.get('custom_css')
             settings.welcome_message = request.form.get('welcome_message')
             settings.footer_text = request.form.get('footer_text')
             settings.updated_at = datetime.utcnow()

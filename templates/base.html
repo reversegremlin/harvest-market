@@ -13,11 +13,7 @@
     {% else %}
     <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='img/autumn-leaf.svg') }}">
     {% endif %}
-    {% if settings.custom_css %}
-    <style>
-        {{ settings.custom_css|safe }}
-    </style>
-    {% endif %}
+    
 </head>
 <body class="theme-{{ current_user.seasonal_theme if current_user.is_authenticated else 'autumn' }}">
     <nav class="navbar navbar-expand-lg">

@@ -58,7 +58,7 @@ task = "packager.installForAll"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "flask db upgrade"
+args = "flask db migrate -m 'remove custom css field'"
 
 [[workflows.workflow]]
 name = "Create Admin User"

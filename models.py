@@ -31,7 +31,6 @@ class SiteSettings(db.Model):
     site_title = db.Column(db.String(128), nullable=False, default='Market Harvest')
     site_icon = db.Column(db.Text, nullable=True)  # Stores SVG content
     default_theme = db.Column(db.String(20), nullable=False, default='autumn')
-    custom_css = db.Column(db.Text, nullable=True)
     welcome_message = db.Column(db.Text, nullable=True)
     footer_text = db.Column(db.Text, nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
