@@ -176,10 +176,29 @@ body {
     box-shadow: 0 4px 15px rgba(148, 199, 204, 0.3);
 }
 
+.theme-winter .auth-container {
+    background: var(--season-accent);
+    border: 2px solid var(--season-secondary);
+    box-shadow: 0 8px 32px rgba(148, 199, 204, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+.theme-winter .auth-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--season-primary), transparent);
+}
+
 .theme-winter .auth-form {
     background: linear-gradient(135deg, var(--season-light), var(--season-secondary));
     border: 1px solid var(--season-accent);
     box-shadow: 0 4px 15px rgba(148, 199, 204, 0.2);
+    color: var(--season-dark);
 }
 
 .theme-winter .profile-card {
@@ -214,6 +233,30 @@ body {
 .theme-winter .form-control:focus {
     border-color: var(--season-primary);
     box-shadow: 0 0 0 0.2rem rgba(184, 226, 229, 0.25);
+    background: var(--season-accent);
+}
+
+.theme-winter .form-text {
+    color: var(--season-dark);
+}
+
+.theme-winter .auth-form a {
+    color: var(--season-dark);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.theme-winter .auth-form a:hover {
+    color: var(--season-secondary);
+}
+
+.theme-winter .auth-header {
+    color: var(--season-dark);
+}
+
+.theme-winter .text-muted {
+    color: var(--season-dark) !important;
+    opacity: 0.8;
 }
 
 .theme-winter .nav-link {
