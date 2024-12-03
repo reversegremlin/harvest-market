@@ -191,13 +191,59 @@ def reset_password():
             user.reset_token = token
             db.session.commit()
             
-            subject = 'Reset your password'
-            html_content = render_template('emails/reset_password.html', token=token)
-            send_email(email, subject, html_content)
+            try:
+                subject = 'Reset your password'
+                html_content = render_template('emails/reset_password.html', 
+                                            user=user,
+                                            token=token)
+                if send_email(email, subject, html_content):
+                    flash('Password reset instructions sent to your email.', 'success')
+                else:
+                    flash('Failed to send reset instructions. Please try again later.', 'error')
+            except Exception as e:
+                current_app.logger.error(f'Error sending reset email: {str(e)}')
+                flash('An error occurred. Please try again later.', 'error')
             
-            flash('Password reset instructions sent to your email.', 'success')
             return redirect(url_for('auth.login'))
+        else:
+            flash('Email address not found.', 'error')
     return render_template('auth/reset_password.html')
+
+@auth_bp.route('/reset-password/<token>', methods=['GET', 'POST'])
+def reset_password_confirm(token):
+    user = User.query.filter_by(reset_token=token).first()
+    if not user:
+        flash('Invalid or expired reset token.', 'error')
+        return redirect(url_for('auth.login'))
+        
+    if request.method == 'POST':
+        password = request.form.get('password')
+        confirm_password = request.form.get('confirm_password')
+        
+        if not password or not confirm_password:
+            flash('Both password fields are required.', 'error')
+            return render_template('auth/reset_password_confirm.html')
+            
+        if password != confirm_password:
+            flash('Passwords do not match.', 'error')
+            return render_template('auth/reset_password_confirm.html')
+            
+        if len(password) < 8:
+            flash('Password must be at least 8 characters long.', 'error')
+            return render_template('auth/reset_password_confirm.html')
+            
+        try:
+            user.set_password(password)
+            user.reset_token = None
+            db.session.commit()
+            flash('Your password has been reset successfully. You can now login.', 'success')
+            return redirect(url_for('auth.login'))
+        except Exception as e:
+            db.session.rollback()
+            current_app.logger.error(f'Error resetting password: {str(e)}')
+            flash('An error occurred. Please try again later.', 'error')
+            
+    return render_template('auth/reset_password_confirm.html')
 
 @auth_bp.route('/test-email')
 def test_email():
