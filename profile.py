@@ -86,25 +86,25 @@ def security_settings():
             return redirect(url_for('profile.security_settings'))
         
         # Verify current password
-        if not check_password_hash(current_user.password_hash, current_password):
+        if not current_user.check_password(current_password):
+            current_app.logger.warning(f'Failed password change attempt for user {current_user.username}: incorrect current password')
             flash('Current password is incorrect', 'error')
             return redirect(url_for('profile.security_settings'))
         
         # Validate new password
+        validation_errors = []
         if len(new_password) < 8:
-            flash('New password must be at least 8 characters long', 'error')
-            return redirect(url_for('profile.security_settings'))
-            
+            validation_errors.append('Password must be at least 8 characters long')
         if not any(c.isalpha() for c in new_password):
-            flash('New password must contain at least one letter', 'error')
-            return redirect(url_for('profile.security_settings'))
-            
+            validation_errors.append('Password must contain at least one letter')
         if not any(c.isdigit() for c in new_password):
-            flash('New password must contain at least one number', 'error')
-            return redirect(url_for('profile.security_settings'))
-            
+            validation_errors.append('Password must contain at least one number')
         if not any(c in '@$!%*#?&' for c in new_password):
-            flash('New password must contain at least one special character (@$!%*#?&)', 'error')
+            validation_errors.append('Password must contain at least one special character (@$!%*#?&)')
+        
+        if validation_errors:
+            for error in validation_errors:
+                flash(error, 'error')
             return redirect(url_for('profile.security_settings'))
         
         # Check if passwords match
@@ -112,14 +112,21 @@ def security_settings():
             flash('New passwords do not match', 'error')
             return redirect(url_for('profile.security_settings'))
         
+        # Prevent reusing the current password
+        if current_user.check_password(new_password):
+            flash('New password must be different from your current password', 'error')
+            return redirect(url_for('profile.security_settings'))
+        
         try:
             # Update password
             current_user.set_password(new_password)
             db.session.commit()
+            current_app.logger.info(f'Password successfully changed for user {current_user.username}')
             flash('Password updated successfully', 'success')
             return redirect(url_for('profile.dashboard'))
         except Exception as e:
             db.session.rollback()
+            current_app.logger.error(f'Error changing password for user {current_user.username}: {str(e)}')
             flash('An error occurred while updating your password', 'error')
             return redirect(url_for('profile.security_settings'))
     
