@@ -8,6 +8,17 @@
         <div class="profile-card">
             <h3 class="mb-4">Security Settings</h3>
             
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            
             <form method="POST" class="needs-validation" novalidate>
                 <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
                 
@@ -15,7 +26,7 @@
                     <label for="current_password" class="form-label">Current Password</label>
                     <input type="password" class="form-control" id="current_password" name="current_password" 
                            required>
-                    <div class="invalid-feedback">Please enter your current password.</div>
+                    <div class="invalid-feedback">Please enter your current password to authorize this change.</div>
                 </div>
 
                 <div class="mb-3">
@@ -24,22 +35,22 @@
                            pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
                            title="Password must be at least 8 characters long and include at least one letter, one number, and one special character"
                            required>
-                    <div class="password-requirements form-text">
-                        <small>Password must contain:</small>
-                        <ul class="mb-0">
-                            <li>At least 8 characters</li>
-                            <li>At least one letter</li>
-                            <li>At least one number</li>
-                            <li>At least one special character (@$!%*#?&)</li>
+                    <div class="password-requirements form-text mt-2">
+                        <small>Your new password must include:</small>
+                        <ul class="mb-0 mt-1">
+                            <li class="text-muted">At least 8 characters</li>
+                            <li class="text-muted">At least one letter</li>
+                            <li class="text-muted">At least one number</li>
+                            <li class="text-muted">At least one special character (@$!%*#?&)</li>
                         </ul>
                     </div>
-                    <div class="invalid-feedback">Please enter a strong password that meets all requirements.</div>
+                    <div class="invalid-feedback">Please ensure your password meets all the requirements listed above.</div>
                 </div>
 
                 <div class="mb-3">
                     <label for="confirm_password" class="form-label">Confirm New Password</label>
                     <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
-                    <div class="invalid-feedback">Passwords must match.</div>
+                    <div class="invalid-feedback">The passwords you entered don't match. Please try again.</div>
                 </div>
 
                 <div class="d-grid gap-2">
@@ -50,4 +61,8 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/security.js') }}"></script>
 {% endblock %}
