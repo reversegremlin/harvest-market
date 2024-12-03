@@ -272,6 +272,10 @@ body {
     font-family: 'Quicksand', sans-serif;
 }
 
+.theme-winter .navbar-brand:hover {
+    color: var(--season-secondary) !important;
+}
+
 .theme-spring .navbar-brand {
     font-family: 'Baloo 2', cursive;
 }
