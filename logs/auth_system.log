@@ -40,3 +40,31 @@ DETAIL:  Key (username)=(admin) already exists.
 [SQL: INSERT INTO "user" (username, email, first_name, last_name, timezone, password_hash, email_verified, verification_token, reset_token, theme, seasonal_theme, avatar_url, created_at, is_admin) VALUES (%(username)s, %(email)s, %(first_name)s, %(last_name)s, %(timezone)s, %(password_hash)s, %(email_verified)s, %(verification_token)s, %(reset_token)s, %(theme)s, %(seasonal_theme)s, %(avatar_url)s, %(created_at)s, %(is_admin)s) RETURNING "user".id]
 [parameters: {'username': 'admin', 'email': 'admin@marketharvest.com', 'first_name': 'Admin', 'last_name': 'User', 'timezone': 'UTC', 'password_hash': 'scrypt:32768:8:1$oV1EfriQ12PXIOIL$75d75df49642a1deda3087c630e918940f2fde8e2e67959e180fe49a619ee13d33ca6e692239cffc63bfecff466790d39dfedf04b4423a08bb3c18dfe915f7da', 'email_verified': True, 'verification_token': None, 'reset_token': None, 'theme': 'autumn', 'seasonal_theme': 'autumn', 'avatar_url': 'https://api.dicebear.com/6.x/avataaars/svg?seed=admin', 'created_at': datetime.datetime(2024, 12, 3, 15, 41, 12, 736670), 'is_admin': True}]
 (Background on this error at: https://sqlalche.me/e/20/gkpj) [in /home/runner/Market-Harvest/create_admin.py:37]
+2024-12-03 15:42:31,870 INFO: User logged in: reversegremlin [in /home/runner/Market-Harvest/auth.py:158]
+2024-12-03 15:42:42,382 WARNING: Unauthorized admin access attempt by user: reversegremlin [in /home/runner/Market-Harvest/admin.py:18]
+2024-12-03 15:43:19,773 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:45]
+2024-12-03 15:43:19,773 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:54]
+2024-12-03 15:43:20,248 ERROR: Admin user not found [in /home/runner/Market-Harvest/verify_admin.py:14]
+2024-12-03 15:43:34,530 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:45]
+2024-12-03 15:43:34,530 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:54]
+2024-12-03 15:43:36,011 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:45]
+2024-12-03 15:43:36,012 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:54]
+2024-12-03 15:43:36,374 ERROR: Admin user not found [in /home/runner/Market-Harvest/verify_admin.py:14]
+2024-12-03 15:43:38,737 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:45]
+2024-12-03 15:43:38,737 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:54]
+2024-12-03 15:43:39,285 ERROR: Error creating admin user: (psycopg2.errors.UniqueViolation) duplicate key value violates unique constraint "user_username_key"
+DETAIL:  Key (username)=(admin) already exists.
+
+[SQL: INSERT INTO "user" (username, email, first_name, last_name, timezone, password_hash, email_verified, verification_token, reset_token, theme, seasonal_theme, avatar_url, created_at, is_admin) VALUES (%(username)s, %(email)s, %(first_name)s, %(last_name)s, %(timezone)s, %(password_hash)s, %(email_verified)s, %(verification_token)s, %(reset_token)s, %(theme)s, %(seasonal_theme)s, %(avatar_url)s, %(created_at)s, %(is_admin)s) RETURNING "user".id]
+[parameters: {'username': 'admin', 'email': 'admin@marketharvest.com', 'first_name': 'Admin', 'last_name': 'User', 'timezone': 'UTC', 'password_hash': 'scrypt:32768:8:1$3g5L5zmuBsLINqrC$e59ae294281437abf7f5b10a0bc40e6fa6da7f6aad692ca8cfa42fc9d59e9391348c483607555f93d4866904d1f42edf07f0a201d412de4198bc7b6d975de58f', 'email_verified': True, 'verification_token': None, 'reset_token': None, 'theme': 'autumn', 'seasonal_theme': 'autumn', 'avatar_url': 'https://api.dicebear.com/6.x/avataaars/svg?seed=admin', 'created_at': datetime.datetime(2024, 12, 3, 15, 43, 39, 237211), 'is_admin': True}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj) [in /home/runner/Market-Harvest/create_admin.py:37]
+2024-12-03 15:44:02,522 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:45]
+2024-12-03 15:44:02,523 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:54]
+2024-12-03 15:44:03,028 ERROR: Error creating admin user: (psycopg2.errors.UniqueViolation) duplicate key value violates unique constraint "user_username_key"
+DETAIL:  Key (username)=(admin) already exists.
+
+[SQL: INSERT INTO "user" (username, email, first_name, last_name, timezone, password_hash, email_verified, verification_token, reset_token, theme, seasonal_theme, avatar_url, created_at, is_admin) VALUES (%(username)s, %(email)s, %(first_name)s, %(last_name)s, %(timezone)s, %(password_hash)s, %(email_verified)s, %(verification_token)s, %(reset_token)s, %(theme)s, %(seasonal_theme)s, %(avatar_url)s, %(created_at)s, %(is_admin)s) RETURNING "user".id]
+[parameters: {'username': 'admin', 'email': 'admin@marketharvest.com', 'first_name': 'Admin', 'last_name': 'User', 'timezone': 'UTC', 'password_hash': 'scrypt:32768:8:1$DfO2p2zwURKOIHBh$8445ecc0cc477b5fb445339bdb9e287b1b6db2c42c8a524bb5884247ccfb89cd438b731c41388dc5a334d6b4ebe8be4474371dce7cbe0821d2aab69952e31da0', 'email_verified': True, 'verification_token': None, 'reset_token': None, 'theme': 'autumn', 'seasonal_theme': 'autumn', 'avatar_url': 'https://api.dicebear.com/6.x/avataaars/svg?seed=admin', 'created_at': datetime.datetime(2024, 12, 3, 15, 44, 2, 978777), 'is_admin': True}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj) [in /home/runner/Market-Harvest/create_admin.py:46]
+2024-12-03 15:44:06,136 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:45]
+2024-12-03 15:44:06,137 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:54]

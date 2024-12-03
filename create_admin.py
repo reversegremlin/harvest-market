@@ -10,8 +10,17 @@ def create_admin_user():
             # Check if admin user already exists
             existing_user = User.query.filter_by(email='admin@marketharvest.com').first()
             if existing_user:
-                app.logger.warning('Admin user already exists')
-                return False
+                # Update existing admin user
+                existing_user.username = 'admin'
+                existing_user.first_name = 'Admin'
+                existing_user.last_name = 'User'
+                existing_user.is_admin = True
+                existing_user.email_verified = True
+                existing_user.set_password('MarketHarvest2024!')
+                existing_user.avatar_url = f"https://api.dicebear.com/6.x/avataaars/svg?seed=admin"
+                db.session.commit()
+                app.logger.info('Existing admin user updated successfully')
+                return True
 
             # Create new admin user
             admin = User(
