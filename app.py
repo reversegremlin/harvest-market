@@ -2,6 +2,7 @@ import os
 import logging
 from logging.handlers import RotatingFileHandler
 from flask import Flask, redirect, url_for, render_template
+from base64 import b64encode
 
 # Application configuration
 APP_NAME = "Market Harvest"
@@ -61,6 +62,19 @@ else:
     if not app.config['MAILGUN_DOMAIN']:
         missing_configs.append('MAILGUN_DOMAIN')
     app.logger.warning(f'Mailgun configuration incomplete. Missing: {", ".join(missing_configs)}. Email features will be disabled.')
+# Add template context processors and filters
+@app.context_processor
+def inject_site_settings():
+    from models import SiteSettings
+    def get_settings():
+        return SiteSettings.get_settings()
+    return dict(site_settings=get_settings)
+
+@app.template_filter('b64encode')
+def b64encode_filter(s):
+    if s is None:
+        return ''
+    return b64encode(s.encode()).decode()
 
 @app.route('/')
 def index():

@@ -25,3 +25,24 @@ class User(UserMixin, db.Model):
     
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+
+class SiteSettings(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    site_title = db.Column(db.String(128), nullable=False, default='Market Harvest')
+    site_icon = db.Column(db.Text, nullable=True)  # Stores SVG content
+    default_theme = db.Column(db.String(20), nullable=False, default='autumn')
+    custom_css = db.Column(db.Text, nullable=True)
+    welcome_message = db.Column(db.Text, nullable=True)
+    footer_text = db.Column(db.Text, nullable=True)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    @classmethod
+    def get_settings(cls):
+        """Get the current site settings or create default ones if they don't exist."""
+        settings = cls.query.first()
+        if not settings:
+            settings = cls()
+            db.session.add(settings)
+            db.session.commit()
+        return settings

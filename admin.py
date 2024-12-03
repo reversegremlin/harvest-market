@@ -2,7 +2,7 @@ from functools import wraps
 from flask import Blueprint, render_template, redirect, url_for, flash, request, current_app
 from flask_login import current_user, login_required
 from extensions import db, csrf
-from models import User
+from models import User, SiteSettings
 import logging
 from datetime import datetime
 import secrets
@@ -130,3 +130,27 @@ def force_password_reset(user_id):
         flash('Error processing password reset.', 'error')
     
     return redirect(url_for('admin.user_list'))
+
+@admin_bp.route('/settings', methods=['GET', 'POST'])
+@admin_required
+def site_settings():
+    settings = SiteSettings.get_settings()
+    
+    if request.method == 'POST':
+        try:
+            settings.site_title = request.form.get('site_title', 'Market Harvest')
+            settings.site_icon = request.form.get('site_icon')
+            settings.default_theme = request.form.get('default_theme', 'autumn')
+            settings.custom_css = request.form.get('custom_css')
+            settings.welcome_message = request.form.get('welcome_message')
+            settings.footer_text = request.form.get('footer_text')
+            
+            db.session.commit()
+            current_app.logger.info(f'Site settings updated by admin {current_user.username}')
+            flash('Site settings updated successfully.', 'success')
+        except Exception as e:
+            db.session.rollback()
+            current_app.logger.error(f'Error updating site settings: {str(e)}')
+            flash('Error updating site settings.', 'error')
+            
+    return render_template('admin/site_settings.html', settings=settings)

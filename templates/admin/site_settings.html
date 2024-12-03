@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+
+{% block title %}Site Settings{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title mb-0">Site Settings</h3>
+                </div>
+                <div class="card-body">
+                    <form method="POST" class="needs-validation" novalidate>
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        
+                        <div class="mb-3">
+                            <label for="site_title" class="form-label">Site Title</label>
+                            <input type="text" class="form-control" id="site_title" name="site_title"
+                                   value="{{ settings.site_title }}" required>
+                            <div class="form-text">The name of your site that appears in the navbar and title.</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="site_icon" class="form-label">Site Icon (SVG)</label>
+                            <textarea class="form-control" id="site_icon" name="site_icon" rows="5">{{ settings.site_icon or '' }}</textarea>
+                            <div class="form-text">Paste your SVG icon code here. This will be used as the site's logo.</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="default_theme" class="form-label">Default Theme</label>
+                            <select class="form-select" id="default_theme" name="default_theme">
+                                <option value="autumn" {% if settings.default_theme == 'autumn' %}selected{% endif %}>Autumn</option>
+                                <option value="winter" {% if settings.default_theme == 'winter' %}selected{% endif %}>Winter</option>
+                                <option value="spring" {% if settings.default_theme == 'spring' %}selected{% endif %}>Spring</option>
+                                <option value="summer" {% if settings.default_theme == 'summer' %}selected{% endif %}>Summer</option>
+                            </select>
+                            <div class="form-text">The default theme for new users and guests.</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="custom_css" class="form-label">Custom CSS</label>
+                            <textarea class="form-control" id="custom_css" name="custom_css" rows="5">{{ settings.custom_css or '' }}</textarea>
+                            <div class="form-text">Add custom CSS styles to override the default theme.</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="welcome_message" class="form-label">Welcome Message</label>
+                            <textarea class="form-control" id="welcome_message" name="welcome_message" rows="3">{{ settings.welcome_message or '' }}</textarea>
+                            <div class="form-text">Message displayed on the landing page.</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="footer_text" class="form-label">Footer Text</label>
+                            <textarea class="form-control" id="footer_text" name="footer_text" rows="2">{{ settings.footer_text or '' }}</textarea>
+                            <div class="form-text">Text displayed in the site footer.</div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Save Settings</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title mb-0">Preview</h4>
+                </div>
+                <div class="card-body">
+                    <div class="preview-container">
+                        <div id="icon-preview" class="text-center mb-3">
+                            <!-- Icon preview will be inserted here -->
+                        </div>
+                        <h3 id="title-preview" class="text-center"></h3>
+                        <div id="theme-preview" class="p-3 rounded mb-3">
+                            Theme Preview
+                        </div>
+                        <div id="welcome-preview" class="p-3 border rounded mb-3">
+                        </div>
+                        <div id="footer-preview" class="p-2 border-top text-center">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Update preview functions
+    function updateIconPreview() {
+        const iconContent = document.getElementById('site_icon').value;
+        document.getElementById('icon-preview').innerHTML = iconContent || '<div class="text-muted">No icon set</div>';
+    }
+    
+    function updateTitlePreview() {
+        const title = document.getElementById('site_title').value;
+        document.getElementById('title-preview').textContent = title;
+    }
+    
+    function updateThemePreview() {
+        const theme = document.getElementById('default_theme').value;
+        const preview = document.getElementById('theme-preview');
+        preview.className = `p-3 rounded mb-3 theme-${theme}`;
+    }
+    
+    function updateWelcomePreview() {
+        const welcome = document.getElementById('welcome_message').value;
+        document.getElementById('welcome-preview').innerHTML = welcome || '<em class="text-muted">No welcome message</em>';
+    }
+    
+    function updateFooterPreview() {
+        const footer = document.getElementById('footer_text').value;
+        document.getElementById('footer-preview').innerHTML = footer || '<em class="text-muted">No footer text</em>';
+    }
+    
+    // Add event listeners
+    document.getElementById('site_icon').addEventListener('input', updateIconPreview);
+    document.getElementById('site_title').addEventListener('input', updateTitlePreview);
+    document.getElementById('default_theme').addEventListener('change', updateThemePreview);
+    document.getElementById('welcome_message').addEventListener('input', updateWelcomePreview);
+    document.getElementById('footer_text').addEventListener('input', updateFooterPreview);
+    
+    // Initial preview
+    updateIconPreview();
+    updateTitlePreview();
+    updateThemePreview();
+    updateWelcomePreview();
+    updateFooterPreview();
+});
+</script>
+{% endblock %}
+{% endblock %}
