@@ -6,3 +6,5 @@
  [in /home/runner/Market-Harvest/auth.py:32]
 2024-12-03 07:07:49,341 ERROR: Error sending test email: Failed to send email: {"message":"Domain sandboxa6dc6d2cd4bf42beb71ff909603d2313.mailgun.org is not allowed to send: Free accounts are for test purposes only. Please upgrade or add the address to authorized recipients in Account Settings."}
  [in /home/runner/Market-Harvest/auth.py:204]
+2024-12-03 07:08:25,887 INFO: Attempting to send test email to reversegremlin@gmail.com [in /home/runner/Market-Harvest/auth.py:196]
+2024-12-03 07:08:26,215 INFO: Test email sent successfully [in /home/runner/Market-Harvest/auth.py:199]
