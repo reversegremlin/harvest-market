@@ -332,3 +332,91 @@ body {
 }
 
 /* Custom Animal Crossing inspired elements */
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .auth-container {
+        max-width: 100%;
+        margin: 1rem;
+        padding: 1.5rem;
+    }
+
+    .profile-card {
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .navbar {
+        padding: 0.5rem;
+    }
+
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+
+    .row {
+        margin: 0;
+    }
+
+    .container {
+        padding: 0 1rem;
+    }
+
+    .auth-form {
+        padding: 1.5rem;
+    }
+
+    .btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+
+    .col-md-4, .col-md-8 {
+        padding: 0.5rem;
+    }
+
+    .avatar {
+        width: 100px;
+        height: 100px;
+    }
+
+    /* Quick Actions Grid */
+    .quick-actions .col-6 {
+        padding: 0.5rem;
+    }
+
+    .quick-actions .p-3 {
+        padding: 1rem !important;
+    }
+}
+
+/* Small devices */
+@media (max-width: 576px) {
+    .auth-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .auth-header p {
+        font-size: 0.9rem;
+    }
+
+    .profile-card h3 {
+        font-size: 1.3rem;
+    }
+
+    .form-label {
+        font-size: 0.9rem;
+    }
+
+    .navbar-brand {
+        font-size: 1.1rem;
+    }
+
+    .nav-link {
+        padding: 0.5rem;
+    }
+
+    .container {
+        padding: 0 0.75rem;
+    }
+}
