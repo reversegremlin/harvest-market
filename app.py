@@ -67,7 +67,13 @@ def create_app():
         
         return app
 
+from flask import redirect, url_for
+
 app = create_app()
+@app.route('/')
+def index():
+    return redirect(url_for('auth.login'))
+
 
 @login_manager.user_loader
 def load_user(user_id):

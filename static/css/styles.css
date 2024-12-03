@@ -1,80 +1,163 @@
 :root {
-    --primary-gradient: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
-    --secondary-gradient: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+    /* Warm autumn color palette */
+    --autumn-orange: #E67E22;
+    --autumn-brown: #8B4513;
+    --autumn-beige: #F5DEB3;
+    --autumn-gold: #DAA520;
+    --autumn-cream: #FFEFD5;
+    --autumn-rust: #CD853F;
+    --leaf-green: #556B2F;
+    
+    /* Gradients */
+    --wood-gradient: linear-gradient(135deg, var(--autumn-brown) 0%, var(--autumn-rust) 100%);
+    --warm-gradient: linear-gradient(135deg, var(--autumn-orange) 0%, var(--autumn-gold) 100%);
+    --cozy-gradient: linear-gradient(to bottom, var(--autumn-cream) 0%, var(--autumn-beige) 100%);
 }
 
 body {
-    font-family: 'Inter', sans-serif;
-    background-color: #f8f9fa;
+    font-family: 'Inter', 'Arial Rounded MT Bold', sans-serif;
+    background: var(--cozy-gradient);
+    color: var(--autumn-brown);
+    line-height: 1.6;
+}
+
+.navbar {
+    background: var(--wood-gradient) !important;
+    border-radius: 0 0 1.5rem 1.5rem;
+    box-shadow: 0 4px 15px rgba(139, 69, 19, 0.2);
+    padding: 1rem;
+}
+
+.navbar-brand, .nav-link {
+    color: var(--autumn-cream) !important;
+    font-weight: 600;
+    transition: transform 0.2s;
+}
+
+.navbar-brand:hover, .nav-link:hover {
+    transform: scale(1.05);
+    color: var(--autumn-beige) !important;
 }
 
 .auth-container {
     max-width: 400px;
     margin: 2rem auto;
     padding: 2rem;
-    border-radius: 1rem;
+    border-radius: 2rem;
     background: white;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 32px rgba(139, 69, 19, 0.15);
+    border: 2px solid var(--autumn-beige);
 }
 
 .auth-header {
     text-align: center;
     margin-bottom: 2rem;
+    color: var(--autumn-brown);
 }
 
 .auth-form {
-    background: var(--primary-gradient);
+    background: var(--warm-gradient);
     padding: 2rem;
-    border-radius: 1rem;
+    border-radius: 1.5rem;
     color: white;
 }
 
 .form-control {
-    border-radius: 0.5rem;
-    border: none;
+    border-radius: 1rem;
+    border: 2px solid var(--autumn-beige);
     padding: 0.75rem 1rem;
     margin-bottom: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: var(--autumn-gold);
+    box-shadow: 0 0 0 0.2rem rgba(218, 165, 32, 0.25);
 }
 
 .btn-primary {
-    background: var(--secondary-gradient);
+    background: var(--wood-gradient);
     border: none;
     padding: 0.75rem 1.5rem;
-    border-radius: 0.5rem;
-    color: #333;
+    border-radius: 1rem;
+    color: var(--autumn-cream);
     font-weight: 600;
-    transition: transform 0.2s;
+    transition: all 0.3s ease;
 }
 
 .btn-primary:hover {
     transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(139, 69, 19, 0.3);
 }
 
 .profile-card {
     background: white;
-    border-radius: 1rem;
+    border-radius: 2rem;
     padding: 2rem;
     margin-bottom: 2rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 32px rgba(139, 69, 19, 0.15);
+    border: 2px solid var(--autumn-beige);
+    transition: transform 0.3s ease;
+}
+
+.profile-card:hover {
+    transform: translateY(-5px);
 }
 
 .avatar {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    border-radius: 60px;
     margin-bottom: 1rem;
+    border: 4px solid var(--autumn-gold);
+    box-shadow: 0 4px 15px rgba(139, 69, 19, 0.2);
 }
 
+/* Dark theme adjustments */
 .theme-dark {
-    background-color: #1a1a1a;
-    color: white;
+    background: linear-gradient(135deg, #2C3E50 0%, #3E4E5C 100%);
+    color: var(--autumn-cream);
 }
 
 .theme-dark .profile-card {
     background-color: #2d2d2d;
+    border-color: var(--autumn-gold);
+}
+
+.theme-dark .btn-primary {
+    background: var(--warm-gradient);
 }
 
 .alert {
-    border-radius: 0.5rem;
+    border-radius: 1rem;
     margin-bottom: 1rem;
+    border: none;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Custom Animal Crossing inspired elements */
+.leaf-decoration {
+    position: fixed;
+    width: 30px;
+    height: 30px;
+    animation: falling 10s linear infinite;
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+@keyframes falling {
+    0% {
+        transform: translateY(-100%) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.6;
+    }
+    90% {
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+    }
 }

@@ -14,3 +14,60 @@
 2024-12-03 00:05:11,961 INFO: New user registered successfully: nadiabellamorris (nadiabellamorris@gmail.com) [in /home/runner/CozyAuthHub/auth.py:66]
 2024-12-03 00:05:53,839 INFO: Email verified for user: nadiabellamorris [in /home/runner/CozyAuthHub/auth.py:122]
 2024-12-03 00:06:17,921 INFO: User logged in: nadiabellamorris [in /home/runner/CozyAuthHub/auth.py:101]
+2024-12-03 00:10:53,441 INFO: Auth system startup [in /home/runner/CozyAuthHub/app.py:63]
+2024-12-03 00:11:07,214 INFO: Auth system startup [in /home/runner/CozyAuthHub/app.py:63]
+2024-12-03 00:11:07,806 ERROR: Exception on / [GET] [in /home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/flask/app.py:875]
+Traceback (most recent call last):
+  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/CozyAuthHub/app.py", line 73, in index
+    return redirect(url_for('auth.login'))
+           ^^^^^^^^
+NameError: name 'redirect' is not defined
+2024-12-03 00:11:09,267 ERROR: Exception on / [GET] [in /home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/flask/app.py:875]
+Traceback (most recent call last):
+  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/CozyAuthHub/app.py", line 73, in index
+    return redirect(url_for('auth.login'))
+           ^^^^^^^^
+NameError: name 'redirect' is not defined
+2024-12-03 00:11:09,416 ERROR: Exception on / [GET] [in /home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/flask/app.py:875]
+Traceback (most recent call last):
+  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/CozyAuthHub/app.py", line 73, in index
+    return redirect(url_for('auth.login'))
+           ^^^^^^^^
+NameError: name 'redirect' is not defined
+2024-12-03 00:11:25,014 INFO: Auth system startup [in /home/runner/CozyAuthHub/app.py:63]
