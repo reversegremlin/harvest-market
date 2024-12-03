@@ -12,10 +12,10 @@
                 <p class="text-muted mb-3">Member since {{ current_user.created_at.strftime('%B %Y') }}</p>
             </div>
             
-            <div class="mt-4">
+            <div class="mt-4 account-details">
                 <h5 class="mb-3">Account Details</h5>
-                <p class="mb-2"><strong>Email:</strong> {{ current_user.email }}</p>
-                <p class="mb-3"><strong>Theme:</strong> {{ current_user.theme|title }}</p>
+                <p class="mb-2"><strong>Email:</strong> <span>{{ current_user.email }}</span></p>
+                <p class="mb-3"><strong>Theme:</strong> <span>{{ current_user.theme|title }}</span></p>
             </div>
             
             <div class="mt-3">

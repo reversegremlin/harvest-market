@@ -332,6 +332,24 @@ body {
 }
 
 /* Custom Animal Crossing inspired elements */
+/* Profile Card Text Overflow Fixes */
+.profile-card {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.profile-card p {
+    max-width: 100%;
+    overflow-wrap: break-word;
+    margin-bottom: 0.5rem;
+}
+
+.profile-card .account-details p {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+}
 
 /* Responsive Design */
 @media (max-width: 768px) {
