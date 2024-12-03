@@ -270,3 +270,25 @@ def test_email():
         error_msg = str(e)
         current_app.logger.error(f'Error sending test email: {error_msg}')
         return f'Error sending test email: {error_msg}'
+
+
+@auth_bp.route('/check-username', methods=['POST'])
+def check_username():
+    username = request.form.get('username')
+    
+    if not username:
+        return {'valid': False, 'message': 'Username is required'}, 400
+        
+    # Check username format
+    if not username.isalnum() and '_' not in username:
+        return {'valid': False, 'message': 'Username can only contain letters, numbers, and underscores'}, 400
+        
+    if len(username) < 3 or len(username) > 20:
+        return {'valid': False, 'message': 'Username must be between 3 and 20 characters'}, 400
+    
+    # Check if username exists
+    user = User.query.filter_by(username=username).first()
+    if user:
+        return {'valid': False, 'message': 'Username already taken'}, 400
+        
+    return {'valid': True, 'message': 'Username available'}, 200

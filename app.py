@@ -1,4 +1,7 @@
 import os
+from auth import auth_bp
+from admin import admin_bp
+from profile import profile_bp
 import logging
 from logging.handlers import RotatingFileHandler
 from flask import Flask, redirect, url_for, render_template
@@ -30,11 +33,6 @@ from auth import auth_bp
 from profile import profile_bp
 from admin import admin_bp
 
-# Register blueprints
-app.register_blueprint(auth_bp)
-app.register_blueprint(profile_bp)
-app.register_blueprint(admin_bp)
-
 # Set up logging
 if not os.path.exists('logs'):
     os.mkdir('logs')
@@ -62,6 +60,11 @@ else:
     if not app.config['MAILGUN_DOMAIN']:
         missing_configs.append('MAILGUN_DOMAIN')
     app.logger.warning(f'Mailgun configuration incomplete. Missing: {", ".join(missing_configs)}. Email features will be disabled.')
+# Register blueprints
+app.register_blueprint(auth_bp)
+app.register_blueprint(admin_bp)
+app.register_blueprint(profile_bp)
+
 # Add template context processors and filters
 @app.context_processor
 def inject_site_settings():

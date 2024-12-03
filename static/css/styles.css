@@ -607,3 +607,21 @@ body {
         margin-bottom: 0;
     }
 }
+
+/* Username availability feedback styles */
+.username-feedback {
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+.username-feedback.text-success {
+    color: #198754;
+}
+
+.username-feedback.text-danger {
+    color: #dc3545;
+}
+
+.username-feedback.text-warning {
+    color: #ffc107;
+}
