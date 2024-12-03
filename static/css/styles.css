@@ -136,28 +136,3 @@ body {
 }
 
 /* Custom Animal Crossing inspired elements */
-.leaf-decoration {
-    position: fixed;
-    width: 30px;
-    height: 30px;
-    animation: falling 10s linear infinite;
-    opacity: 0.6;
-    pointer-events: none;
-}
-
-@keyframes falling {
-    0% {
-        transform: translateY(-100%) rotate(0deg);
-        opacity: 0;
-    }
-    10% {
-        opacity: 0.6;
-    }
-    90% {
-        opacity: 0.6;
-    }
-    100% {
-        transform: translateY(100vh) rotate(360deg);
-        opacity: 0;
-    }
-}

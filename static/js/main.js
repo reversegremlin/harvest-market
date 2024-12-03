@@ -20,9 +20,6 @@ document.addEventListener('DOMContentLoaded', function() {
             updatePasswordStrengthIndicator(strength);
         });
     }
-
-    // Autumn leaves animation
-    createLeaves();
 });
 
 function calculatePasswordStrength(password) {
@@ -45,34 +42,4 @@ function updatePasswordStrengthIndicator(strength) {
     
     indicator.textContent = `Strength: ${strengthLabels[strength - 1] || ''}`;
     indicator.className = `text-${strengthColors[strength - 1] || 'danger'}`;
-}
-
-// Autumn theme animations
-function createLeaves() {
-    const leafCount = 20;
-    const container = document.body;
-    
-    for (let i = 0; i < leafCount; i++) {
-        setTimeout(() => {
-            const leaf = document.createElement('div');
-            leaf.className = 'leaf-decoration';
-            leaf.style.left = `${Math.random() * 100}vw`;
-            leaf.style.animationDelay = `${Math.random() * 10}s`;
-            
-            // Use the SVG as background
-            leaf.style.backgroundImage = `url('${window.location.origin}/static/img/autumn-leaf.svg')`;
-            leaf.style.backgroundSize = 'contain';
-            leaf.style.backgroundRepeat = 'no-repeat';
-            
-            container.appendChild(leaf);
-            
-            // Remove leaf after animation
-            leaf.addEventListener('animationend', () => {
-                leaf.remove();
-            });
-        }, i * 500);
-    }
-    
-    // Recreate leaves periodically
-    setTimeout(createLeaves, leafCount * 500);
 }
