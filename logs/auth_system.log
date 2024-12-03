@@ -73,3 +73,4 @@ NameError: name 'redirect' is not defined
 2024-12-03 00:11:25,014 INFO: Auth system startup [in /home/runner/CozyAuthHub/app.py:63]
 2024-12-03 00:12:00,757 INFO: User logged in: nadiabellamorris [in /home/runner/CozyAuthHub/auth.py:101]
 2024-12-03 00:13:12,333 INFO: Auth system startup [in /home/runner/CozyAuthHub/app.py:63]
+2024-12-03 00:13:28,839 INFO: User logged in: nadiabellamorris [in /home/runner/CozyAuthHub/auth.py:101]
