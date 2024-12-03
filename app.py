@@ -14,6 +14,8 @@ app.config['APP_NAME'] = APP_NAME
 app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY', 'dev')
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['WTF_CSRF_ENABLED'] = True
+app.config['WTF_CSRF_SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY', 'dev')
 
 # Initialize database first
 from extensions import db, migrate
