@@ -28,7 +28,27 @@ document.addEventListener('DOMContentLoaded', function() {
         formData.append('username', username);
 
         // Get CSRF token
-        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        const csrfMeta = document.querySelector('meta[name="csrf-token"]');
+        if (!csrfMeta) {
+            console.error('CSRF token meta tag not found');
+            if (usernameValidation) {
+                usernameValidation.textContent = 'Error: CSRF protection unavailable';
+                usernameValidation.classList.remove('text-success', 'text-muted');
+                usernameValidation.classList.add('text-danger');
+            }
+            return;
+        }
+        
+        const csrfToken = csrfMeta.getAttribute('content');
+        if (!csrfToken) {
+            console.error('CSRF token is empty');
+            if (usernameValidation) {
+                usernameValidation.textContent = 'Error: CSRF token missing';
+                usernameValidation.classList.remove('text-success', 'text-muted');
+                usernameValidation.classList.add('text-danger');
+            }
+            return;
+        }
 
         // Send request
         fetch('/auth/check-username', {
