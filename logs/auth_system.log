@@ -8,3 +8,6 @@
 2024-12-03 07:30:45,164 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:54]
 2024-12-03 07:31:27,118 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:42]
 2024-12-03 07:31:27,539 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:54]
+2024-12-03 07:32:29,713 INFO: New user registered successfully with email verification: reversegremlin (reversegremlin@gmail.com) [in /home/runner/Market-Harvest/auth.py:112]
+2024-12-03 07:33:15,216 INFO: Email verified for user: reversegremlin [in /home/runner/Market-Harvest/auth.py:179]
+2024-12-03 07:33:30,099 INFO: User logged in: reversegremlin [in /home/runner/Market-Harvest/auth.py:158]
