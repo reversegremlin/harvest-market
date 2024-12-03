@@ -85,3 +85,6 @@ WHERE "user".email = %(email_1)s
 2024-12-03 06:24:10,699 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:70]
 2024-12-03 06:24:40,478 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:70]
 2024-12-03 06:27:14,792 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:70]
+2024-12-03 06:28:45,832 ERROR: Error during registration for reversegremlin@gmail.com: (534, b'5.7.9 Please log in with your web browser and then try again. For more\n5.7.9 information, go to\n5.7.9  https://support.google.com/mail/?p=WebLoginRequired ada2fe7eead31-4af590ac4b0sm2040853137.3 - gsmtp') [in /home/runner/Market-Harvest/auth.py:86]
+2024-12-03 06:31:31,136 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:70]
+2024-12-03 06:32:23,072 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:70]

@@ -10,10 +10,34 @@
             
             <form method="POST" class="needs-validation" novalidate>
                 <div class="mb-3">
+                    <label for="first_name" class="form-label">First Name</label>
+                    <input type="text" class="form-control" id="first_name" name="first_name" 
+                           value="{{ current_user.first_name }}" required>
+                    <div class="invalid-feedback">Please enter your first name.</div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="last_name" class="form-label">Last Name</label>
+                    <input type="text" class="form-control" id="last_name" name="last_name" 
+                           value="{{ current_user.last_name }}" required>
+                    <div class="invalid-feedback">Please enter your last name.</div>
+                </div>
+
+                <div class="mb-3">
                     <label for="username" class="form-label">Username</label>
                     <input type="text" class="form-control" id="username" name="username" 
                            value="{{ current_user.username }}" required>
                     <div class="invalid-feedback">Please choose a username.</div>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="timezone" class="form-label">Timezone</label>
+                    <select class="form-select" id="timezone" name="timezone" required>
+                        {% for tz in timezones %}
+                        <option value="{{ tz }}" {% if tz == current_user.timezone %}selected{% endif %}>{{ tz }}</option>
+                        {% endfor %}
+                    </select>
+                    <div class="invalid-feedback">Please select your timezone.</div>
                 </div>
                 
                 <div class="mb-3">

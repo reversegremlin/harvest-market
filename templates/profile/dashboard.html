@@ -8,13 +8,15 @@
         <div class="profile-card">
             <div class="text-center">
                 <img src="{{ user.avatar_url }}" alt="Avatar" class="avatar mb-3">
-                <h3 class="mb-2">{{ user.username }}</h3>
-                <p class="text-muted mb-3">Member since {{ user.created_at.strftime('%B %Y') }}</p>
+                <h3 class="mb-2">{{ user.first_name }} {{ user.last_name }}</h3>
+                <p class="text-muted">@{{ user.username }}</p>
+                <p class="text-muted mb-3">Member since {{ user.created_at.astimezone(timezone(user.timezone)).strftime('%B %Y') }}</p>
             </div>
             
             <div class="mt-4 account-details">
                 <h5 class="mb-3">Account Details</h5>
                 <p class="mb-2"><strong>Email:</strong> <span>{{ user.email }}</span></p>
+                <p class="mb-2"><strong>Timezone:</strong> <span>{{ user.timezone }}</span></p>
                 <p class="mb-3"><strong>Theme:</strong> <span>{{ user.theme|title }}</span></p>
             </div>
             
