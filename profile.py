@@ -23,13 +23,22 @@ def edit_profile():
                 flash('Username already taken', 'error')
                 return redirect(url_for('profile.edit_profile'))
             current_user.username = username
+            # Update avatar URL when username changes
+            current_user.avatar_url = f"https://api.dicebear.com/6.x/avataaars/svg?seed={username}"
             
         if seasonal_theme in ['autumn', 'winter', 'spring', 'summer']:
             current_user.seasonal_theme = seasonal_theme
-        db.session.commit()
-        flash('Profile updated successfully', 'success')
-        return redirect(url_for('profile.dashboard'))
+        
+        try:
+            db.session.commit()
+            flash('Profile updated successfully', 'success')
+            return redirect(url_for('profile.dashboard'))
+        except Exception as e:
+            db.session.rollback()
+            flash('An error occurred while updating your profile', 'error')
+            return redirect(url_for('profile.edit_profile'))
     
+    return render_template('profile/edit.html', user=current_user)
 
 @profile_bp.route('/profile/preview')
 def preview_dashboard():
@@ -44,4 +53,3 @@ def preview_dashboard():
     })
     
     return render_template('profile/dashboard.html', user=mock_user, preview_mode=True)
-    return render_template('profile/edit.html', user=current_user)
