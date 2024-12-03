@@ -7,29 +7,31 @@
     <div class="col-12 col-md-6 mb-4">
         <div class="profile-card">
             <div class="text-center">
-                <img src="{{ current_user.avatar_url }}" alt="Avatar" class="avatar mb-3">
-                <h3 class="mb-2">{{ current_user.username }}</h3>
-                <p class="text-muted mb-3">Member since {{ current_user.created_at.strftime('%B %Y') }}</p>
+                <img src="{{ user.avatar_url }}" alt="Avatar" class="avatar mb-3">
+                <h3 class="mb-2">{{ user.username }}</h3>
+                <p class="text-muted mb-3">Member since {{ user.created_at.strftime('%B %Y') }}</p>
             </div>
             
             <div class="mt-4 account-details">
                 <h5 class="mb-3">Account Details</h5>
-                <p class="mb-2"><strong>Email:</strong> <span>{{ current_user.email }}</span></p>
-                <p class="mb-3"><strong>Theme:</strong> <span>{{ current_user.theme|title }}</span></p>
+                <p class="mb-2"><strong>Email:</strong> <span>{{ user.email }}</span></p>
+                <p class="mb-3"><strong>Theme:</strong> <span>{{ user.theme|title }}</span></p>
             </div>
             
             <div class="mt-3">
+                {% if not preview_mode %}
                 <a href="{{ url_for('profile.edit_profile') }}" class="btn btn-primary w-100">
                     Edit Profile
                 </a>
+                {% endif %}
             </div>
         </div>
     </div>
     
     <div class="col-12 col-md-6">
         <div class="profile-card">
-            <h4 class="mb-3">Welcome, {{ current_user.username }}!</h4>
-            <p class="mb-4">Your account is fully verified and secure. You can start using all the features of our platform.</p>
+            <h4 class="mb-3">Welcome, {{ user.username }}!</h4>
+            <p class="mb-4">{% if preview_mode %}This is a preview of how your profile dashboard will look.{% else %}Your account is fully verified and secure. You can start using all the features of our platform.{% endif %}</p>
             
             <div class="mt-4">
                 <h5 class="mb-3">Quick Actions</h5>

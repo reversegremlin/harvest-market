@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, redirect, url_for, request, flash
 from flask_login import login_required, current_user
 from app import db
 from models import User
+from datetime import datetime
 
 profile_bp = Blueprint('profile', __name__)
 
@@ -29,4 +30,18 @@ def edit_profile():
         flash('Profile updated successfully', 'success')
         return redirect(url_for('profile.dashboard'))
     
+
+@profile_bp.route('/profile/preview')
+def preview_dashboard():
+    # Create a mock user with sample data
+    mock_user = type('MockUser', (), {
+        'username': 'preview_user',
+        'email': 'preview@example.com',
+        'created_at': datetime.utcnow(),
+        'theme': 'autumn',  # Using autumn as the current season
+        'avatar_url': '/static/img/default-avatar.svg',
+        'seasonal_theme': 'autumn'
+    })
+    
+    return render_template('profile/dashboard.html', user=mock_user, preview_mode=True)
     return render_template('profile/edit.html', user=current_user)
