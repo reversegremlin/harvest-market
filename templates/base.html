@@ -41,6 +41,18 @@
         }
 
         window.addEventListener('load', function(){
+            // Check for existing consent
+            const existingConsent = localStorage.getItem('cookieConsent');
+            const cookiePreference = localStorage.getItem('cookiePreference');
+            
+            if (existingConsent && cookiePreference) {
+                if (cookiePreference === 'true') {
+                    enableCookies();
+                } else {
+                    disableCookies();
+                }
+            }
+
             window.cookieconsent.initialise({
                 "palette": {
                     "popup": { "background": "#2C3E50", "text": "#ffffff" },
@@ -60,15 +72,15 @@
                 onInitialise: function(status) {
                     var type = this.options.type;
                     var didConsent = this.hasConsented();
-                    // Enable cookies only if consent given
                     if (didConsent) {
                         enableCookies();
+                        localStorage.setItem('cookiePreference', 'true');
                     }
                 },
                 onStatusChange: function(status, chosenBefore) {
                     var type = this.options.type;
                     var didConsent = this.hasConsented();
-                    // Log consent
+                    
                     fetch('/log-consent', {
                         method: 'POST',
                         headers: {
@@ -80,11 +92,13 @@
                             timestamp: new Date().toISOString()
                         })
                     });
-                    // Enable/disable cookies based on consent
+
                     if (didConsent) {
                         enableCookies();
+                        localStorage.setItem('cookiePreference', 'true');
                     } else {
                         disableCookies();
+                        localStorage.setItem('cookiePreference', 'false');
                     }
                 }
             })
