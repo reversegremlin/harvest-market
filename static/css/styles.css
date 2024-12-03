@@ -492,7 +492,11 @@ body {
 
 /* Landing Page Styles */
 .landing-container {
-/* Welcome Message Styles */
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 1rem;
+}
+
 .welcome-message {
     background: rgba(255, 255, 255, 0.9);
     padding: 2rem;
@@ -501,6 +505,8 @@ body {
     max-width: 800px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     border: 2px solid var(--autumn-beige);
+    font-size: 1.2rem;
+    line-height: 1.6;
 }
 
 .theme-winter .welcome-message {
@@ -520,11 +526,8 @@ body {
     .welcome-message {
         margin: 1rem auto;
         padding: 1.5rem;
+        font-size: 1.1rem;
     }
-}
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 3rem 1rem;
 }
 
 .landing-header {
