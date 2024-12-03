@@ -91,3 +91,5 @@ FROM site_settings ORDER BY site_settings.id DESC]
 (Background on this error at: https://sqlalche.me/e/20/e3q8)
 2024-12-03 23:12:23,411 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:48]
 2024-12-03 23:12:23,411 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:57]
+2024-12-03 23:13:42,574 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:48]
+2024-12-03 23:13:42,575 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:57]

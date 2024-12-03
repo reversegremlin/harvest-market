@@ -90,9 +90,14 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@v3.0.0/dist/cookieconsent.umd.js"></script>
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     <script>
-        window.addEventListener('load', function () {
+        // Wait for script to load
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof initCookieConsent === 'undefined') {
+                console.error('Cookie consent library not loaded');
+                return;
+            }
+            
             var cc = initCookieConsent();
             cc.run({
                 current_lang: 'en',
@@ -171,5 +176,6 @@
             });
         });
     </script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>
