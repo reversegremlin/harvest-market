@@ -13,3 +13,4 @@ Traceback (most recent call last):
     raise TypeError(
 TypeError: The view function for 'profile.edit_profile' did not return a valid response. The function either returned None or ended without a return statement.
 2024-12-03 05:02:03,800 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:70]
+2024-12-03 05:02:29,042 INFO: User logged in: nadiabellamorris [in /home/runner/Market-Harvest/auth.py:101]
