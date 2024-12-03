@@ -11,3 +11,6 @@
 2024-12-03 00:02:58,995 ERROR: Invalid email format in MAIL_USERNAME [in /home/runner/CozyAuthHub/auth.py:123]
 2024-12-03 00:02:59,299 ERROR: Invalid email format in MAIL_USERNAME [in /home/runner/CozyAuthHub/auth.py:123]
 2024-12-03 00:04:07,841 INFO: Auth system startup [in /home/runner/CozyAuthHub/app.py:63]
+2024-12-03 00:05:11,961 INFO: New user registered successfully: nadiabellamorris (nadiabellamorris@gmail.com) [in /home/runner/CozyAuthHub/auth.py:66]
+2024-12-03 00:05:53,839 INFO: Email verified for user: nadiabellamorris [in /home/runner/CozyAuthHub/auth.py:122]
+2024-12-03 00:06:17,921 INFO: User logged in: nadiabellamorris [in /home/runner/CozyAuthHub/auth.py:101]
