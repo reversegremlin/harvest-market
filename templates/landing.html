@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome to {{ config.APP_NAME }}{% endblock %}
+
+{% block content %}
+<div class="landing-container">
+    <div class="landing-header text-center">
+        <img src="{{ url_for('static', filename='img/cornucopia.svg') }}" alt="Cornucopia" class="landing-logo mb-4">
+        <h1 class="display-4 mb-3">Welcome to {{ config.APP_NAME }}</h1>
+        <p class="lead mb-5">Join our community and discover a bountiful harvest of opportunities.</p>
+        
+        <div class="cta-buttons">
+            {% if current_user.is_authenticated %}
+                <a href="{{ url_for('profile.dashboard') }}" class="btn btn-primary btn-lg me-3">
+                    Go to Dashboard
+                </a>
+            {% else %}
+                <a href="{{ url_for('auth.register') }}" class="btn btn-primary btn-lg me-3">
+                    Get Started
+                </a>
+                <a href="{{ url_for('auth.login') }}" class="btn btn-outline-primary btn-lg">
+                    Sign In
+                </a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="features-section mt-5">
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon">🌟</div>
+                    <h3>Seasonal Themes</h3>
+                    <p>Experience the beauty of all seasons with our dynamic theme system.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>Secure Access</h3>
+                    <p>Your security is our priority with email verification and safe authentication.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="feature-icon">👤</div>
+                    <h3>Profile Management</h3>
+                    <p>Customize your experience with personalized profile settings.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

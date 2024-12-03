@@ -489,3 +489,83 @@ body {
         padding: 0 0.75rem;
     }
 }
+
+/* Landing Page Styles */
+.landing-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 3rem 1rem;
+}
+
+.landing-header {
+    margin-bottom: 4rem;
+}
+
+.landing-logo {
+    max-width: 200px;
+    height: auto;
+    margin-bottom: 2rem;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+    transition: transform 0.3s ease;
+}
+
+.landing-logo:hover {
+    transform: scale(1.05);
+}
+
+.cta-buttons {
+    margin-top: 2rem;
+}
+
+.feature-card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 1.5rem;
+    padding: 2rem;
+    text-align: center;
+    transition: transform 0.3s ease;
+    height: 100%;
+    border: 2px solid var(--autumn-beige);
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Theme-specific landing page adjustments */
+.theme-winter .feature-card {
+    border-color: var(--season-secondary);
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.theme-spring .feature-card {
+    border-color: var(--season-secondary);
+}
+
+.theme-summer .feature-card {
+    border-color: var(--season-secondary);
+}
+
+@media (max-width: 768px) {
+    .landing-container {
+        padding: 2rem 1rem;
+    }
+    
+    .landing-header {
+        margin-bottom: 2rem;
+    }
+    
+    .cta-buttons .btn {
+        display: block;
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+    
+    .cta-buttons .btn:last-child {
+        margin-bottom: 0;
+    }
+}

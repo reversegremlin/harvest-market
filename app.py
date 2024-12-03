@@ -74,12 +74,12 @@ def create_app():
         
         return app
 
-from flask import redirect, url_for
+from flask import redirect, url_for, render_template
 
 app = create_app()
 @app.route('/')
 def index():
-    return redirect(url_for('auth.login'))
+    return render_template('landing.html')
 
 
 @login_manager.user_loader

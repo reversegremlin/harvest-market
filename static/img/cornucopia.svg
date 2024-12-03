@@ -1,0 +1,18 @@
+<svg width="200" height="150" viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg">
+    <!-- Horn shape -->
+    <path d="M30 100 C50 110, 100 120, 180 90 C160 80, 120 70, 40 80 C35 85, 30 95, 30 100" 
+          fill="#DAA520" stroke="#8B4513" stroke-width="2"/>
+    
+    <!-- Fruits and vegetables spilling out -->
+    <circle cx="160" cy="90" r="12" fill="#E67E22"/>  <!-- Orange -->
+    <circle cx="140" cy="85" r="10" fill="#E74C3C"/>  <!-- Apple -->
+    <circle cx="155" cy="75" r="8" fill="#8E44AD"/>   <!-- Grape -->
+    <circle cx="170" cy="80" r="9" fill="#F1C40F"/>   <!-- Lemon -->
+    <circle cx="145" cy="95" r="7" fill="#8E44AD"/>   <!-- Grape -->
+    <circle cx="165" cy="100" r="11" fill="#E67E22"/> <!-- Pumpkin -->
+    
+    <!-- Leaves -->
+    <path d="M150 70 Q155 65, 160 70 Q165 75, 160 80" fill="#27AE60"/>
+    <path d="M130 85 Q135 80, 140 85 Q145 90, 140 95" fill="#27AE60"/>
+    <path d="M170 85 Q175 80, 180 85 Q185 90, 180 95" fill="#27AE60"/>
+</svg>
