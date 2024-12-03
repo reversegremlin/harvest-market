@@ -2,6 +2,7 @@ import os
 import logging
 from logging.handlers import RotatingFileHandler
 from flask import Flask, redirect, url_for, render_template
+from flask import request, jsonify
 from base64 import b64encode
 
 # Application configuration
@@ -84,6 +85,20 @@ def index():
 @app.route('/privacy')
 def privacy():
     return render_template('privacy.html')
+@app.route('/log-consent', methods=['POST'])
+def log_consent():
+    try:
+        data = request.get_json()
+        consent = data.get('consent', False)
+        timestamp = data.get('timestamp')
+        
+        app.logger.info(f'Cookie consent logged - Status: {consent}, Timestamp: {timestamp}')
+        return {'status': 'success'}, 200
+        
+    except Exception as e:
+        app.logger.error(f'Error logging cookie consent: {str(e)}')
+        return {'status': 'error', 'message': 'Failed to log consent'}, 500
+
 
 
 if __name__ == "__main__":

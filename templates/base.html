@@ -19,25 +19,73 @@
     {% endif %}
     
     <script>
+        function enableCookies() {
+            // Enable non-essential cookies
+            localStorage.setItem('cookieConsent', 'true');
+            console.log('Cookies enabled');
+        }
+
+        function disableCookies() {
+            // Disable non-essential cookies
+            localStorage.setItem('cookieConsent', 'false');
+            console.log('Cookies disabled');
+            
+            // Clear any existing cookies except essential ones
+            const cookies = document.cookie.split(';');
+            for (let cookie of cookies) {
+                const [name] = cookie.split('=');
+                if (!['session', 'csrf_token'].includes(name.trim())) {
+                    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/`;
+                }
+            }
+        }
+
         window.addEventListener('load', function(){
             window.cookieconsent.initialise({
                 "palette": {
-                    "popup": {
-                        "background": "#2C3E50",
-                        "text": "#ffffff"
-                    },
-                    "button": {
-                        "background": "#E67E22",
-                        "text": "#ffffff"
-                    }
+                    "popup": { "background": "#2C3E50", "text": "#ffffff" },
+                    "button": { "background": "#E67E22", "text": "#ffffff" }
                 },
                 "theme": "classic",
                 "position": "bottom-right",
+                "type": "opt-in",
                 "content": {
                     "message": "We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic.",
                     "dismiss": "Accept",
+                    "deny": "Decline",
                     "link": "Learn more",
-                    "href": "/privacy"
+                    "href": "/privacy",
+                    "policy": "Cookie Policy"
+                },
+                onInitialise: function(status) {
+                    var type = this.options.type;
+                    var didConsent = this.hasConsented();
+                    // Enable cookies only if consent given
+                    if (didConsent) {
+                        enableCookies();
+                    }
+                },
+                onStatusChange: function(status, chosenBefore) {
+                    var type = this.options.type;
+                    var didConsent = this.hasConsented();
+                    // Log consent
+                    fetch('/log-consent', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': document.querySelector('meta[name="csrf-token"]').content
+                        },
+                        body: JSON.stringify({
+                            consent: didConsent,
+                            timestamp: new Date().toISOString()
+                        })
+                    });
+                    // Enable/disable cookies based on consent
+                    if (didConsent) {
+                        enableCookies();
+                    } else {
+                        disableCookies();
+                    }
                 }
             })
         });
