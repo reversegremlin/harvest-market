@@ -334,10 +334,10 @@ body {
 /* Custom Animal Crossing inspired elements */
 /* Profile Card Base Styles */
 .profile-card {
+    width: 100%;
+    max-width: none;
+    padding: 2rem;
     font-size: 16px; /* Base font size */
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    word-break: break-word;
 }
 
 .profile-card p {
@@ -346,17 +346,34 @@ body {
     margin-bottom: 0.5rem;
 }
 
+.account-details {
+    width: 100%;
+}
+
 .account-details p {
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.25rem;
-    margin-bottom: 0.5rem;
+    flex-wrap: nowrap;
     align-items: baseline;
+    gap: 0.5rem;
+    width: 100%;
+    margin-bottom: 0.5rem;
+}
+
+.account-details p span {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    word-break: break-all;
 }
 
 .account-details p strong {
     white-space: nowrap;
     margin-right: 0.5rem;
+}
+
+@media (min-width: 768px) {
+    .profile-card {
+        padding: 2.5rem;
+    }
 }
 
 /* Update username and email font sizes */

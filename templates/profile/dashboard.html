@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="row g-3">
-    <div class="col-12 col-md-4">
+    <div class="col-12 col-md-5 mb-4">
         <div class="profile-card">
             <div class="text-center">
                 <img src="{{ current_user.avatar_url }}" alt="Avatar" class="avatar mb-3">
@@ -26,7 +26,7 @@
         </div>
     </div>
     
-    <div class="col-12 col-md-8">
+    <div class="col-12 col-md-7">
         <div class="profile-card">
             <h4 class="mb-3">Welcome, {{ current_user.username }}!</h4>
             <p class="mb-4">Your account is fully verified and secure. You can start using all the features of our platform.</p>
