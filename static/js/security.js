@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Get form elements with null checks
-    const form = document.querySelector('form');
+    const form = document.querySelector('form.needs-validation');
+    const currentPasswordInput = document.getElementById('current_password');
     const newPasswordInput = document.getElementById('new_password');
     const confirmPasswordInput = document.getElementById('confirm_password');
     const requirementsList = document.getElementById('password-requirements-list');
@@ -23,6 +24,8 @@ document.addEventListener('DOMContentLoaded', function() {
         if (element) {
             element.classList.toggle('text-success', isValid);
             element.classList.toggle('text-muted', !isValid);
+            // Add check/x mark
+            element.innerHTML = `${isValid ? '✓' : '×'} ${element.textContent.replace(/[✓×]\s*/, '')}`;
         }
     }
 
@@ -61,23 +64,38 @@ document.addEventListener('DOMContentLoaded', function() {
         const isMatch = newPasswordInput.value === confirmPasswordInput.value;
         const confirmValue = confirmPasswordInput.value;
 
-        confirmPasswordInput.classList.toggle('is-valid', isMatch && confirmValue.length > 0);
-        confirmPasswordInput.classList.toggle('is-invalid', !isMatch && confirmValue.length > 0);
+        // Only show validation if there is a value
+        if (confirmValue.length > 0) {
+            confirmPasswordInput.classList.toggle('is-valid', isMatch);
+            confirmPasswordInput.classList.toggle('is-invalid', !isMatch);
+        } else {
+            confirmPasswordInput.classList.remove('is-valid', 'is-invalid');
+        }
     }
 
     // Event Listeners
-    newPasswordInput.addEventListener('input', updatePasswordValidation);
-    confirmPasswordInput.addEventListener('input', validatePasswordMatch);
+    if (newPasswordInput) {
+        newPasswordInput.addEventListener('input', updatePasswordValidation);
+    }
 
-    form.addEventListener('submit', function(e) {
-        const password = newPasswordInput.value;
-        const isValid = validatePassword(password);
-        const isMatch = password === confirmPasswordInput.value;
+    if (confirmPasswordInput) {
+        confirmPasswordInput.addEventListener('input', validatePasswordMatch);
+    }
 
-        if (!form.checkValidity() || !isValid || !isMatch) {
-            e.preventDefault();
-            e.stopPropagation();
-        }
-        form.classList.add('was-validated');
-    });
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            if (!newPasswordInput || !confirmPasswordInput) return;
+
+            const password = newPasswordInput.value;
+            const isValid = validatePassword(password);
+            const isMatch = password === confirmPasswordInput.value;
+
+            if (!form.checkValidity() || !isValid || !isMatch) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+
+            form.classList.add('was-validated');
+        });
+    }
 });
