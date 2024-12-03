@@ -1,4 +1,17 @@
 <svg width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
-    <path d="M15 2C8 2 2 8 15 28C28 8 22 2 15 2Z" fill="#E67E22"/>
-    <path d="M15 2C12 2 6 4 15 28" stroke="#8B4513" stroke-width="0.5" fill="none"/>
+    <!-- Main maple leaf shape with 5 main points -->
+    <path d="M15 2
+            C12 6, 8 8, 4 8
+            C6 12, 5 16, 2 20
+            C8 18, 12 20, 15 28
+            C18 20, 22 18, 28 20
+            C25 16, 24 12, 26 8
+            C22 8, 18 6, 15 2Z" 
+          fill="#E67E22"/>
+    
+    <!-- Veins -->
+    <path d="M15 2 L15 28 M15 8 L6 8 M15 8 L24 8 M15 16 L4 18 M15 16 L26 18" 
+          stroke="#8B4513" 
+          stroke-width="0.5" 
+          fill="none"/>
 </svg>
