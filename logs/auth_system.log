@@ -48,3 +48,6 @@ jinja2.exceptions.TemplateNotFound: emails/reset_password.html
 2024-12-03 16:08:18,446 INFO: User logged in: nadiabellamorris [in /home/runner/Market-Harvest/auth.py:158]
 2024-12-03 16:12:01,983 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:48]
 2024-12-03 16:12:01,984 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:57]
+2024-12-03 16:13:35,768 INFO: Site settings updated by admin nadiabellamorris [in /home/runner/Market-Harvest/admin.py:149]
+2024-12-03 16:15:18,143 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:48]
+2024-12-03 16:15:18,144 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:57]

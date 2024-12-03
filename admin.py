@@ -144,7 +144,9 @@ def site_settings():
             settings.custom_css = request.form.get('custom_css')
             settings.welcome_message = request.form.get('welcome_message')
             settings.footer_text = request.form.get('footer_text')
+            settings.updated_at = datetime.utcnow()
             
+            current_app.logger.info(f'Updating site settings - default theme: {settings.default_theme}')
             db.session.commit()
             current_app.logger.info(f'Site settings updated by admin {current_user.username}')
             flash('Site settings updated successfully.', 'success')
