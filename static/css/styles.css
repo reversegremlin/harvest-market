@@ -137,15 +137,75 @@ body {
 
 /* Seasonal Theme Styles */
 .theme-winter {
-    --season-primary: #A5D6D9;
-    --season-secondary: #2980B9;
-    --season-accent: #ECF0F1;
-    --season-dark: #34495E;
-    --season-light: #F5F7F8;
-    --season-gradient: linear-gradient(135deg, var(--season-dark) 0%, var(--season-secondary) 100%);
-    --season-cozy-gradient: linear-gradient(to bottom, var(--season-light) 0%, var(--season-primary) 100%);
+    --season-primary: #E8F4F5;   /* icy blue */
+    --season-secondary: #B8E2E5; /* soft mint */
+    --season-accent: #FFFFFF;    /* snow white */
+    --season-dark: #94C7CC;     /* winter blue */
+    --season-light: #F0F8FF;    /* sky blue */
+    --season-gradient: linear-gradient(135deg, var(--season-light) 0%, var(--season-secondary) 100%);
+    --season-cozy-gradient: linear-gradient(to bottom, var(--season-light), var(--season-primary));
     background: var(--season-cozy-gradient);
     color: var(--season-dark);
+}
+
+/* Winter theme specific styles */
+.theme-winter .btn-primary {
+    background: linear-gradient(135deg, var(--season-accent), var(--season-primary));
+    border: 2px solid var(--season-primary);
+    color: var(--season-dark);
+}
+
+.theme-winter .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(148, 199, 204, 0.3);
+}
+
+.theme-winter .auth-form {
+    background: linear-gradient(135deg, var(--season-light), var(--season-secondary));
+    border: 1px solid var(--season-accent);
+    box-shadow: 0 4px 15px rgba(148, 199, 204, 0.2);
+}
+
+.theme-winter .profile-card {
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid var(--season-accent);
+    box-shadow: 0 8px 32px rgba(148, 199, 204, 0.15);
+    position: relative;
+    overflow: hidden;
+}
+
+.theme-winter .profile-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--season-accent), transparent);
+}
+
+.theme-winter .navbar {
+    background: linear-gradient(to bottom, var(--season-light), var(--season-primary)) !important;
+    border-bottom: 1px solid var(--season-accent);
+}
+
+.theme-winter .form-control {
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid var(--season-secondary);
+    color: var(--season-dark);
+}
+
+.theme-winter .form-control:focus {
+    border-color: var(--season-primary);
+    box-shadow: 0 0 0 0.2rem rgba(184, 226, 229, 0.25);
+}
+
+.theme-winter .nav-link {
+    color: var(--season-dark) !important;
+}
+
+.theme-winter .nav-link:hover {
+    color: var(--season-secondary) !important;
 }
 
 .theme-spring {
