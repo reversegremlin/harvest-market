@@ -6,8 +6,15 @@
 <div class="landing-container">
     <div class="landing-header text-center">
         <img src="{{ url_for('static', filename='img/cornucopia.svg') }}" alt="Cornucopia" class="landing-logo mb-4">
-        <h1 class="display-4 mb-3">Welcome to {{ config.APP_NAME }}</h1>
-        <p class="lead mb-5">Join our community and discover a bountiful harvest of opportunities.</p>
+        <h1 class="display-4 mb-3">Welcome to {{ site_settings().site_title }}</h1>
+        
+        {% if site_settings().welcome_message %}
+            <div class="welcome-message mb-4">
+                {{ site_settings().welcome_message|safe }}
+            </div>
+        {% else %}
+            <p class="lead mb-4">Join our community and discover a bountiful harvest of opportunities.</p>
+        {% endif %}
         
         <div class="cta-buttons">
             {% if current_user.is_authenticated %}

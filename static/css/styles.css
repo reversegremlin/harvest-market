@@ -492,6 +492,36 @@ body {
 
 /* Landing Page Styles */
 .landing-container {
+/* Welcome Message Styles */
+.welcome-message {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 2rem;
+    border-radius: 1.5rem;
+    margin: 2rem auto;
+    max-width: 800px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border: 2px solid var(--autumn-beige);
+}
+
+.theme-winter .welcome-message {
+    border-color: var(--season-secondary);
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.theme-spring .welcome-message {
+    border-color: var(--season-secondary);
+}
+
+.theme-summer .welcome-message {
+    border-color: var(--season-secondary);
+}
+
+@media (max-width: 768px) {
+    .welcome-message {
+        margin: 1rem auto;
+        padding: 1.5rem;
+    }
+}
     max-width: 1200px;
     margin: 0 auto;
     padding: 3rem 1rem;
