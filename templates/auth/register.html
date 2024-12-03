@@ -88,6 +88,14 @@
                 <div class="form-text">Select your local timezone</div>
                 <div class="invalid-feedback">Please select a timezone.</div>
             </div>
+
+            <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="privacy_agree" name="privacy_agree" required>
+                <label class="form-check-label" for="privacy_agree">
+                    I have read and agree to the <a href="{{ url_for('privacy') }}" target="_blank" class="text-white">Privacy Policy</a>
+                </label>
+                <div class="invalid-feedback">You must agree to the Privacy Policy to register.</div>
+            </div>
             
             <button type="submit" class="btn btn-primary w-100">Register</button>
         </form>

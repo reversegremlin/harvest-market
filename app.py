@@ -81,6 +81,10 @@ def b64encode_filter(s):
 @app.route('/')
 def index():
     return render_template('landing.html')
+@app.route('/privacy')
+def privacy():
+    return render_template('privacy.html')
+
 
 if __name__ == "__main__":
     # Run the application on port 5000 and bind to all network interfaces
