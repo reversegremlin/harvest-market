@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Security Settings{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="profile-card">
+            <h3 class="mb-4">Security Settings</h3>
+            
+            <form method="POST" class="needs-validation" novalidate>
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                
+                <div class="mb-3">
+                    <label for="current_password" class="form-label">Current Password</label>
+                    <input type="password" class="form-control" id="current_password" name="current_password" 
+                           required>
+                    <div class="invalid-feedback">Please enter your current password.</div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="new_password" class="form-label">New Password</label>
+                    <input type="password" class="form-control" id="new_password" name="new_password" 
+                           pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
+                           title="Password must be at least 8 characters long and include at least one letter, one number, and one special character"
+                           required>
+                    <div class="password-requirements form-text">
+                        <small>Password must contain:</small>
+                        <ul class="mb-0">
+                            <li>At least 8 characters</li>
+                            <li>At least one letter</li>
+                            <li>At least one number</li>
+                            <li>At least one special character (@$!%*#?&)</li>
+                        </ul>
+                    </div>
+                    <div class="invalid-feedback">Please enter a strong password that meets all requirements.</div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="confirm_password" class="form-label">Confirm New Password</label>
+                    <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
+                    <div class="invalid-feedback">Passwords must match.</div>
+                </div>
+
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary">Update Password</button>
+                    <a href="{{ url_for('profile.dashboard') }}" class="btn btn-outline-secondary">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
