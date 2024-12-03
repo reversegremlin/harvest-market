@@ -1,44 +1,8 @@
-2024-12-03 06:33:43,617 ERROR: Exception on /dashboard [GET] [in /home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py:875]
-Traceback (most recent call last):
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
-    response = self.full_dispatch_request()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
-    rv = self.dispatch_request()
-         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask_login/utils.py", line 290, in decorated_view
-    return current_app.ensure_sync(func)(*args, **kwargs)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/profile.py", line 14, in dashboard
-    return render_template('profile/dashboard.html', user=current_user)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/templating.py", line 150, in render_template
-    return _render(app, template, context)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/templating.py", line 131, in _render
-    rv = template.render(context)
-         ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/jinja2/environment.py", line 1304, in render
-    self.environment.handle_exception()
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/jinja2/environment.py", line 939, in handle_exception
-    raise rewrite_traceback_stack(source=source)
-  File "/home/runner/Market-Harvest/templates/profile/dashboard.html", line 1, in top-level template code
-    {% extends "base.html" %}
-  File "/home/runner/Market-Harvest/templates/base.html", line 64, in top-level template code
-    {% block content %}{% endblock %}
-    ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/templates/profile/dashboard.html", line 13, in block 'content'
-    <p class="text-muted mb-3">Member since {{ user.created_at.astimezone(timezone(user.timezone)).strftime('%B %Y') }}</p>
-    ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/jinja2/utils.py", line 83, in from_obj
-    if hasattr(obj, "jinja_pass_arg"):
-       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-jinja2.exceptions.UndefinedError: 'timezone' is undefined
-2024-12-03 06:34:23,322 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:70]
-2024-12-03 06:38:08,628 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:70]
+2024-12-03 07:07:49,122 ERROR: Mailgun API error: {"message":"Domain sandboxa6dc6d2cd4bf42beb71ff909603d2313.mailgun.org is not allowed to send: Free accounts are for test purposes only. Please upgrade or add the address to authorized recipients in Account Settings."}
+ [in /home/runner/Market-Harvest/auth.py:32]
+2024-12-03 07:07:49,123 ERROR: Error sending test email: Failed to send email: {"message":"Domain sandboxa6dc6d2cd4bf42beb71ff909603d2313.mailgun.org is not allowed to send: Free accounts are for test purposes only. Please upgrade or add the address to authorized recipients in Account Settings."}
+ [in /home/runner/Market-Harvest/auth.py:204]
+2024-12-03 07:07:49,341 ERROR: Mailgun API error: {"message":"Domain sandboxa6dc6d2cd4bf42beb71ff909603d2313.mailgun.org is not allowed to send: Free accounts are for test purposes only. Please upgrade or add the address to authorized recipients in Account Settings."}
+ [in /home/runner/Market-Harvest/auth.py:32]
+2024-12-03 07:07:49,341 ERROR: Error sending test email: Failed to send email: {"message":"Domain sandboxa6dc6d2cd4bf42beb71ff909603d2313.mailgun.org is not allowed to send: Free accounts are for test purposes only. Please upgrade or add the address to authorized recipients in Account Settings."}
+ [in /home/runner/Market-Harvest/auth.py:204]

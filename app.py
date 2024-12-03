@@ -25,17 +25,14 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     
-    # Mail configuration
-    app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-    app.config['MAIL_PORT'] = 587
-    app.config['MAIL_USE_TLS'] = True
-    app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
-    app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
-    app.config['MAIL_DEFAULT_SENDER'] = os.environ.get('MAIL_USERNAME')
+    # Mailgun configuration
+    app.config['MAILGUN_API_KEY'] = os.environ.get('MAILGUN_API_KEY')
+    app.config['MAILGUN_DOMAIN'] = os.environ.get('MAILGUN_DOMAIN')
+    app.config['MAIL_DEFAULT_SENDER'] = f"Market Harvest <noreply@{os.environ.get('MAILGUN_DOMAIN')}>"
     
-    # Verify mail configuration
-    if not all([app.config['MAIL_USERNAME'], app.config['MAIL_PASSWORD']]):
-        app.logger.warning('Email configuration incomplete. Some features may not work properly.')
+    # Verify Mailgun configuration
+    if not all([app.config['MAILGUN_API_KEY'], app.config['MAILGUN_DOMAIN']]):
+        app.logger.warning('Mailgun configuration incomplete. Some features may not work properly.')
     
     # Initialize extensions with app
     db.init_app(app)

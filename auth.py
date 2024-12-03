@@ -1,13 +1,42 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash, current_app as app
 from flask_login import login_user, logout_user, login_required, current_user
-from flask_mail import Message
 import secrets
 import pytz
-from app import db, mail
+import requests
+from app import db
 from models import User
 
 auth_bp = Blueprint('auth', __name__)
 
+def send_email(to_email, subject, html_content):
+    """
+    Send email using Mailgun API
+    """
+    try:
+        mailgun_api_key = app.config['MAILGUN_API_KEY']
+        mailgun_domain = app.config['MAILGUN_DOMAIN']
+        sender = app.config['MAIL_DEFAULT_SENDER']
+
+        response = requests.post(
+            f"https://api.mailgun.net/v3/{mailgun_domain}/messages",
+            auth=("api", mailgun_api_key),
+            data={
+                "from": sender,
+                "to": [to_email],
+                "subject": subject,
+                "html": html_content
+            }
+        )
+        
+        if response.status_code != 200:
+            app.logger.error(f'Mailgun API error: {response.text}')
+            raise Exception(f"Failed to send email: {response.text}")
+            
+        return True
+        
+    except requests.RequestException as e:
+        app.logger.error(f'Mailgun API request error: {str(e)}')
+        raise Exception(f"Email service error: {str(e)}")
 @auth_bp.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -60,15 +89,13 @@ def register():
             if not app.config['MAIL_USERNAME'] or not app.config['MAIL_PASSWORD']:
                 raise ValueError('Email configuration is incomplete')
                 
-            # Prepare verification email
-            msg = Message('Welcome to Market Harvest - Verify your email',
-                         sender=app.config['MAIL_USERNAME'],
-                         recipients=[email])
-            msg.html = render_template('emails/verify.html', 
-                                     token=user.verification_token)
+            # Prepare and send verification email
+            subject = 'Welcome to Market Harvest - Verify your email'
+            html_content = render_template('emails/verify.html', 
+                                         token=user.verification_token)
             
-            # Send email and commit transaction
-            mail.send(msg)
+            # Send email using Mailgun and commit transaction
+            send_email(email, subject, html_content)
             db.session.commit()
             
             app.logger.info(f'New user registered successfully: {username} ({email})')
@@ -143,11 +170,9 @@ def reset_password():
             user.reset_token = token
             db.session.commit()
             
-            msg = Message('Reset your password',
-                         sender=app.config['MAIL_USERNAME'],
-                         recipients=[email])
-            msg.html = render_template('emails/reset_password.html', token=token)
-            mail.send(msg)
+            subject = 'Reset your password'
+            html_content = render_template('emails/reset_password.html', token=token)
+            send_email(email, subject, html_content)
             
             flash('Password reset instructions sent to your email.', 'success')
             return redirect(url_for('auth.login'))
@@ -155,23 +180,21 @@ def reset_password():
 
 @auth_bp.route('/test-email')
 def test_email():
-    if not app.config['MAIL_USERNAME'] or not app.config['MAIL_PASSWORD']:
-        app.logger.error('Email configuration missing')
-        return 'Email configuration missing. Please check MAIL_USERNAME and MAIL_PASSWORD environment variables.'
+    if not app.config['MAILGUN_API_KEY'] or not app.config['MAILGUN_DOMAIN']:
+        app.logger.error('Mailgun configuration missing')
+        return 'Mailgun configuration missing. Please check MAILGUN_API_KEY and MAILGUN_DOMAIN environment variables.'
     
     try:
-        recipient = app.config['MAIL_USERNAME']
-        if '@' not in recipient:
-            app.logger.error('Invalid email format in MAIL_USERNAME')
-            return 'Invalid email format in MAIL_USERNAME. Please provide a complete email address.'
+        test_recipient = request.args.get('email', 'test@example.com')
+        if '@' not in test_recipient:
+            app.logger.error('Invalid email format provided')
+            return 'Invalid email format. Please provide a valid email address.'
             
-        msg = Message('Test Email',
-                     recipients=[recipient])
-        msg.body = 'This is a test email from the authentication system.'
-        msg.html = '<h1>Test Email</h1><p>This is a test email from the authentication system.</p>'
+        subject = 'Test Email from Market Harvest'
+        html_content = '<h1>Test Email</h1><p>This is a test email from the Market Harvest authentication system.</p>'
         
-        app.logger.info(f'Attempting to send test email to {recipient}')
-        mail.send(msg)
+        app.logger.info(f'Attempting to send test email to {test_recipient}')
+        send_email(test_recipient, subject, html_content)
         
         app.logger.info('Test email sent successfully')
         return 'Test email sent successfully! Check your inbox.'
@@ -179,9 +202,4 @@ def test_email():
     except Exception as e:
         error_msg = str(e)
         app.logger.error(f'Error sending test email: {error_msg}')
-        
-        if 'Username and Password not accepted' in error_msg:
-            return ('Email authentication failed. Please ensure you are using an App Password '
-                   'for Gmail or have enabled Less Secure App Access.')
-        
         return f'Error sending test email: {error_msg}'

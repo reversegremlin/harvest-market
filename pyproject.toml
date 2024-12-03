@@ -14,4 +14,5 @@ dependencies = [
     "flask-jwt-extended>=4.7.1",
     "flask-migrate>=4.0.7",
     "pytz>=2024.2",
+    "requests>=2.32.3",
 ]
