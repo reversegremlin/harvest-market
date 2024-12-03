@@ -14,39 +14,72 @@ def register():
         username = request.form.get('username')
         password = request.form.get('password')
         
+        # Input validation
+        if not all([email, username, password]):
+            flash('All fields are required', 'error')
+            return redirect(url_for('auth.register'))
+            
+        # Username format validation
+        if not username.isalnum() and '_' not in username:
+            flash('Username can only contain letters, numbers, and underscores', 'error')
+            return redirect(url_for('auth.register'))
+            
+        if len(username) < 3 or len(username) > 20:
+            flash('Username must be between 3 and 20 characters', 'error')
+            return redirect(url_for('auth.register'))
+
+        # Check existing users
         if User.query.filter_by(email=email).first():
+            app.logger.warning(f'Registration attempted with existing email: {email}')
             flash('Email already registered', 'error')
             return redirect(url_for('auth.register'))
             
         if User.query.filter_by(username=username).first():
+            app.logger.warning(f'Registration attempted with existing username: {username}')
             flash('Username already taken', 'error')
             return redirect(url_for('auth.register'))
 
         try:
+            # Start database transaction
             user = User(email=email, username=username)
             user.set_password(password)
             user.verification_token = secrets.token_urlsafe(32)
             user.avatar_url = f"https://api.dicebear.com/6.x/avataaars/svg?seed={username}"
             
             db.session.add(user)
-            db.session.commit()
             
-            # Send verification email
-            msg = Message('Verify your email',
+            # Verify email configuration
+            if not app.config['MAIL_USERNAME'] or not app.config['MAIL_PASSWORD']:
+                raise ValueError('Email configuration is incomplete')
+                
+            # Prepare verification email
+            msg = Message('Welcome to SecureAuth - Verify your email',
                          sender=app.config['MAIL_USERNAME'],
                          recipients=[email])
             msg.html = render_template('emails/verify.html', 
                                      token=user.verification_token)
-            mail.send(msg)
             
-            app.logger.info(f'New user registered: {username} ({email})')
-            flash('Registration successful. Please check your email to verify your account.', 'success')
+            # Send email and commit transaction
+            mail.send(msg)
+            db.session.commit()
+            
+            app.logger.info(f'New user registered successfully: {username} ({email})')
+            flash('Registration successful! Please check your email to verify your account.', 'success')
             return redirect(url_for('auth.login'))
+            
+        except ValueError as e:
+            db.session.rollback()
+            app.logger.error(f'Configuration error during registration: {str(e)}')
+            flash('System configuration error. Please contact support.', 'error')
+            return redirect(url_for('auth.register'))
             
         except Exception as e:
             db.session.rollback()
-            app.logger.error(f'Error during registration: {str(e)}')
-            flash('An error occurred during registration. Please try again.', 'error')
+            app.logger.error(f'Error during registration for {email}: {str(e)}')
+            if 'smtp' in str(e).lower():
+                flash('Unable to send verification email. Please try again later.', 'error')
+            else:
+                flash('An error occurred during registration. Please try again.', 'error')
             return redirect(url_for('auth.register'))
             
     return render_template('auth/register.html')
@@ -119,6 +152,10 @@ def test_email():
     
     try:
         recipient = app.config['MAIL_USERNAME']
+        if '@' not in recipient:
+            app.logger.error('Invalid email format in MAIL_USERNAME')
+            return 'Invalid email format in MAIL_USERNAME. Please provide a complete email address.'
+            
         msg = Message('Test Email',
                      recipients=[recipient])
         msg.body = 'This is a test email from the authentication system.'
