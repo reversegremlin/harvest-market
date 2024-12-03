@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, redirect, url_for, request, flash,
 from flask_login import login_user, logout_user, login_required, current_user
 from flask_mail import Message
 import secrets
+import pytz
 from app import db, mail
 from models import User
 
@@ -13,10 +14,17 @@ def register():
         email = request.form.get('email')
         username = request.form.get('username')
         password = request.form.get('password')
+        first_name = request.form.get('first_name')
+        last_name = request.form.get('last_name')
+        timezone = request.form.get('timezone')
         
         # Input validation
-        if not all([email, username, password]):
+        if not all([email, username, password, first_name, last_name, timezone]):
             flash('All fields are required', 'error')
+            return redirect(url_for('auth.register'))
+            
+        if not timezone in pytz.common_timezones:
+            flash('Please select a valid timezone', 'error')
             return redirect(url_for('auth.register'))
             
         # Username format validation
@@ -41,7 +49,7 @@ def register():
 
         try:
             # Start database transaction
-            user = User(email=email, username=username)
+            user = User(email=email, username=username, first_name=first_name, last_name=last_name, timezone=timezone)
             user.set_password(password)
             user.verification_token = secrets.token_urlsafe(32)
             user.avatar_url = f"https://api.dicebear.com/6.x/avataaars/svg?seed={username}"
@@ -82,7 +90,8 @@ def register():
                 flash('An error occurred during registration. Please try again.', 'error')
             return redirect(url_for('auth.register'))
             
-    return render_template('auth/register.html')
+    timezones = pytz.common_timezones
+    return render_template('auth/register.html', timezones=timezones)
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
