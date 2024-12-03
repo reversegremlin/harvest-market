@@ -1,63 +1,80 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Get form elements with null checks
     const form = document.querySelector('form');
     const newPasswordInput = document.getElementById('new_password');
     const confirmPasswordInput = document.getElementById('confirm_password');
-    const passwordRequirements = {
-        length: false,
-        letter: false,
-        number: false,
-        special: false
+    const requirementsList = document.getElementById('password-requirements-list');
+
+    // Early return if required elements are not found
+    if (!form || !newPasswordInput || !confirmPasswordInput || !requirementsList) {
+        console.error('Required form elements not found');
+        return;
+    }
+
+    const requirements = {
+        length: { id: 'req-length', test: (password) => password.length >= 8 },
+        letter: { id: 'req-letter', test: (password) => /[A-Za-z]/.test(password) },
+        number: { id: 'req-number', test: (password) => /\d/.test(password) },
+        special: { id: 'req-special', test: (password) => /[@$!%*#?&]/.test(password) }
     };
 
-    function updatePasswordStrength(password) {
-        passwordRequirements.length = password.length >= 8;
-        passwordRequirements.letter = /[A-Za-z]/.test(password);
-        passwordRequirements.number = /\d/.test(password);
-        passwordRequirements.special = /[@$!%*#?&]/.test(password);
+    function updateRequirementUI(elementId, isValid) {
+        const element = document.getElementById(elementId);
+        if (element) {
+            element.classList.toggle('text-success', isValid);
+            element.classList.toggle('text-muted', !isValid);
+        }
+    }
 
-        // Update UI feedback
-        document.querySelectorAll('.password-requirements li').forEach(li => {
-            const text = li.textContent.toLowerCase();
-            if (text.includes('8 characters') && passwordRequirements.length) {
-                li.classList.add('text-success');
-                li.classList.remove('text-muted');
-            } else if (text.includes('letter') && passwordRequirements.letter) {
-                li.classList.add('text-success');
-                li.classList.remove('text-muted');
-            } else if (text.includes('number') && passwordRequirements.number) {
-                li.classList.add('text-success');
-                li.classList.remove('text-muted');
-            } else if (text.includes('special') && passwordRequirements.special) {
-                li.classList.add('text-success');
-                li.classList.remove('text-muted');
-            } else {
-                li.classList.remove('text-success');
-                li.classList.add('text-muted');
-            }
-        });
+    function validatePassword(password) {
+        let isValid = true;
+        
+        // Check each requirement
+        for (const [key, requirement] of Object.entries(requirements)) {
+            const requirementMet = requirement.test(password);
+            updateRequirementUI(requirement.id, requirementMet);
+            isValid = isValid && requirementMet;
+        }
 
-        const isValid = Object.values(passwordRequirements).every(Boolean);
-        newPasswordInput.classList.toggle('is-valid', isValid);
+        return isValid;
+    }
+
+    function updatePasswordValidation() {
+        if (!newPasswordInput) return;
+
+        const password = newPasswordInput.value;
+        const isValid = validatePassword(password);
+
+        // Update input validation classes
+        newPasswordInput.classList.toggle('is-valid', isValid && password.length > 0);
         newPasswordInput.classList.toggle('is-invalid', !isValid && password.length > 0);
+
+        // If confirm password has a value, validate it as well
+        if (confirmPasswordInput && confirmPasswordInput.value) {
+            validatePasswordMatch();
+        }
     }
 
     function validatePasswordMatch() {
+        if (!newPasswordInput || !confirmPasswordInput) return;
+
         const isMatch = newPasswordInput.value === confirmPasswordInput.value;
-        confirmPasswordInput.classList.toggle('is-valid', isMatch && confirmPasswordInput.value.length > 0);
-        confirmPasswordInput.classList.toggle('is-invalid', !isMatch && confirmPasswordInput.value.length > 0);
+        const confirmValue = confirmPasswordInput.value;
+
+        confirmPasswordInput.classList.toggle('is-valid', isMatch && confirmValue.length > 0);
+        confirmPasswordInput.classList.toggle('is-invalid', !isMatch && confirmValue.length > 0);
     }
 
-    newPasswordInput.addEventListener('input', function() {
-        updatePasswordStrength(this.value);
-        validatePasswordMatch();
-    });
-
+    // Event Listeners
+    newPasswordInput.addEventListener('input', updatePasswordValidation);
     confirmPasswordInput.addEventListener('input', validatePasswordMatch);
 
     form.addEventListener('submit', function(e) {
-        if (!form.checkValidity() || 
-            !Object.values(passwordRequirements).every(Boolean) || 
-            newPasswordInput.value !== confirmPasswordInput.value) {
+        const password = newPasswordInput.value;
+        const isValid = validatePassword(password);
+        const isMatch = password === confirmPasswordInput.value;
+
+        if (!form.checkValidity() || !isValid || !isMatch) {
             e.preventDefault();
             e.stopPropagation();
         }

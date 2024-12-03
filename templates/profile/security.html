@@ -2,6 +2,10 @@
 
 {% block title %}Security Settings{% endblock %}
 
+{% block head %}
+<script src="{{ url_for('static', filename='js/security.js') }}" defer></script>
+{% endblock %}
+
 {% block content %}
 <div class="row justify-content-center">
     <div class="col-md-8">
@@ -37,11 +41,11 @@
                            required>
                     <div class="password-requirements form-text mt-2">
                         <small>Your new password must include:</small>
-                        <ul class="mb-0 mt-1">
-                            <li class="text-muted">At least 8 characters</li>
-                            <li class="text-muted">At least one letter</li>
-                            <li class="text-muted">At least one number</li>
-                            <li class="text-muted">At least one special character (@$!%*#?&)</li>
+                        <ul class="mb-0 mt-1" id="password-requirements-list">
+                            <li id="req-length" class="text-muted">At least 8 characters</li>
+                            <li id="req-letter" class="text-muted">At least one letter</li>
+                            <li id="req-number" class="text-muted">At least one number</li>
+                            <li id="req-special" class="text-muted">At least one special character (@$!%*#?&)</li>
                         </ul>
                     </div>
                     <div class="invalid-feedback">Please ensure your password meets all the requirements listed above.</div>
@@ -63,6 +67,4 @@
 </div>
 {% endblock %}
 
-{% block scripts %}
-<script src="{{ url_for('static', filename='js/security.js') }}"></script>
-{% endblock %}
+

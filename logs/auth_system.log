@@ -91,3 +91,5 @@ jinja2.exceptions.TemplateNotFound: emails/reset_password.html
 2024-12-03 22:34:18,445 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:57]
 2024-12-03 22:39:14,338 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:48]
 2024-12-03 22:39:14,338 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:57]
+2024-12-03 22:42:22,860 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:48]
+2024-12-03 22:42:22,860 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:57]
