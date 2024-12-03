@@ -1,22 +1,16 @@
-2024-12-02 23:54:46,923 INFO: Auth system startup [in /home/runner/CozyAuthHub/app.py:58]
-2024-12-02 23:55:48,471 ERROR: Error sending test email: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials ada2fe7eead31-4af590e725esm1927761137.10 - gsmtp') [in /home/runner/CozyAuthHub/auth.py:125]
-2024-12-02 23:55:48,478 ERROR: Error sending test email: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials ada2fe7eead31-4af590b1d97sm1943314137.5 - gsmtp') [in /home/runner/CozyAuthHub/auth.py:125]
-2024-12-02 23:56:56,999 ERROR: Error sending test email: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials ada2fe7eead31-4af590ac4b0sm1959016137.3 - gsmtp') [in /home/runner/CozyAuthHub/auth.py:125]
-2024-12-03 00:01:32,108 INFO: Auth system startup [in /home/runner/CozyAuthHub/app.py:63]
-2024-12-03 00:02:35,509 INFO: Attempting to send test email to marketharvestgame [in /home/runner/CozyAuthHub/auth.py:127]
-2024-12-03 00:02:35,515 INFO: Attempting to send test email to marketharvestgame [in /home/runner/CozyAuthHub/auth.py:127]
-2024-12-03 00:02:35,664 ERROR: Error sending test email: {'marketharvestgame': (553, b'5.1.3 The recipient address <marketharvestgame> is not a valid RFC 5321\n5.1.3 address. For more information, go to\n5.1.3  https://support.google.com/a/answer/3221692 and review RFC 5321\n5.1.3 specifications. 71dfb90a1353d-5156cbe04aesm1265231e0c.6 - gsmtp')} [in /home/runner/CozyAuthHub/auth.py:135]
-2024-12-03 00:02:35,667 ERROR: Error sending test email: {'marketharvestgame': (553, b'5.1.3 The recipient address <marketharvestgame> is not a valid RFC 5321\n5.1.3 address. For more information, go to\n5.1.3  https://support.google.com/a/answer/3221692 and review RFC 5321\n5.1.3 specifications. 71dfb90a1353d-5156cbe04d1sm1247055e0c.11 - gsmtp')} [in /home/runner/CozyAuthHub/auth.py:135]
-2024-12-03 00:02:52,410 INFO: Auth system startup [in /home/runner/CozyAuthHub/app.py:63]
-2024-12-03 00:02:58,995 ERROR: Invalid email format in MAIL_USERNAME [in /home/runner/CozyAuthHub/auth.py:123]
-2024-12-03 00:02:59,299 ERROR: Invalid email format in MAIL_USERNAME [in /home/runner/CozyAuthHub/auth.py:123]
-2024-12-03 00:04:07,841 INFO: Auth system startup [in /home/runner/CozyAuthHub/app.py:63]
-2024-12-03 00:05:11,961 INFO: New user registered successfully: nadiabellamorris (nadiabellamorris@gmail.com) [in /home/runner/CozyAuthHub/auth.py:66]
-2024-12-03 00:05:53,839 INFO: Email verified for user: nadiabellamorris [in /home/runner/CozyAuthHub/auth.py:122]
-2024-12-03 00:06:17,921 INFO: User logged in: nadiabellamorris [in /home/runner/CozyAuthHub/auth.py:101]
-2024-12-03 00:10:53,441 INFO: Auth system startup [in /home/runner/CozyAuthHub/app.py:63]
-2024-12-03 00:11:07,214 INFO: Auth system startup [in /home/runner/CozyAuthHub/app.py:63]
-2024-12-03 00:11:07,806 ERROR: Exception on / [GET] [in /home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/flask/app.py:875]
+2024-12-03 00:16:32,073 ERROR: Exception on /login [GET] [in /home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/flask/app.py:875]
+Traceback (most recent call last):
+  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 941, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column user.seasonal_theme does not exist
+LINE 1: ... AS user_reset_token, "user".theme AS user_theme, "user".sea...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
 Traceback (most recent call last):
   File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
     response = self.full_dispatch_request()
@@ -30,49 +24,108 @@ Traceback (most recent call last):
   File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/CozyAuthHub/app.py", line 73, in index
-    return redirect(url_for('auth.login'))
-           ^^^^^^^^
-NameError: name 'redirect' is not defined
-2024-12-03 00:11:09,267 ERROR: Exception on / [GET] [in /home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/flask/app.py:875]
-Traceback (most recent call last):
-  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
-    response = self.full_dispatch_request()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
-    rv = self.dispatch_request()
-         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/CozyAuthHub/app.py", line 73, in index
-    return redirect(url_for('auth.login'))
-           ^^^^^^^^
-NameError: name 'redirect' is not defined
-2024-12-03 00:11:09,416 ERROR: Exception on / [GET] [in /home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/flask/app.py:875]
-Traceback (most recent call last):
-  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
-    response = self.full_dispatch_request()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
-    rv = self.dispatch_request()
-         ^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/CozyAuthHub/app.py", line 73, in index
-    return redirect(url_for('auth.login'))
-           ^^^^^^^^
-NameError: name 'redirect' is not defined
-2024-12-03 00:11:25,014 INFO: Auth system startup [in /home/runner/CozyAuthHub/app.py:63]
-2024-12-03 00:12:00,757 INFO: User logged in: nadiabellamorris [in /home/runner/CozyAuthHub/auth.py:101]
-2024-12-03 00:13:12,333 INFO: Auth system startup [in /home/runner/CozyAuthHub/app.py:63]
-2024-12-03 00:13:28,839 INFO: User logged in: nadiabellamorris [in /home/runner/CozyAuthHub/auth.py:101]
-2024-12-03 00:16:26,296 INFO: Auth system startup [in /home/runner/CozyAuthHub/app.py:63]
-2024-12-03 00:16:30,060 INFO: Auth system startup [in /home/runner/CozyAuthHub/app.py:63]
+  File "/home/runner/CozyAuthHub/auth.py", line 105, in login
+    return render_template('auth/login.html')
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/flask/templating.py", line 127, in _render
+    app.update_template_context(context)
+  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 530, in update_template_context
+    context.update(self.ensure_sync(func)())
+                   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/flask_login/utils.py", line 405, in _user_context_processor
+    return dict(current_user=_get_user())
+                             ^^^^^^^^^^^
+  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/flask_login/utils.py", line 370, in _get_user
+    current_app.login_manager._load_user()
+  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/flask_login/login_manager.py", line 364, in _load_user
+    user = self._user_callback(user_id)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/CozyAuthHub/app.py", line 81, in load_user
+    return User.query.get(int(user_id))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<string>", line 2, in get
+  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/util/deprecations.py", line 386, in warned
+    return fn(*args, **kwargs)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 1127, in get
+    return self._get_impl(ident, loading.load_on_pk_identity)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 1136, in _get_impl
+    return self.session._get_impl(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 3873, in _get_impl
+    return db_load_fn(
+           ^^^^^^^^^^^
+  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/loading.py", line 694, in load_on_pk_identity
+    session.execute(
+  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2362, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/session.py", line 2247, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/context.py", line 305, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1418, in execute
+    return meth(
+           ^^^^^
+  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/sql/elements.py", line 515, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1640, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1846, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1986, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 2355, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
+    self.dialect.do_execute(
+  File "/home/runner/CozyAuthHub/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 941, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column user.seasonal_theme does not exist
+LINE 1: ... AS user_reset_token, "user".theme AS user_theme, "user".sea...
+                                                             ^
+
+[SQL: SELECT "user".id AS user_id, "user".username AS user_username, "user".email AS user_email, "user".password_hash AS user_password_hash, "user".email_verified AS user_email_verified, "user".verification_token AS user_verification_token, "user".reset_token AS user_reset_token, "user".theme AS user_theme, "user".seasonal_theme AS user_seasonal_theme, "user".avatar_url AS user_avatar_url, "user".created_at AS user_created_at 
+FROM "user" 
+WHERE "user".id = %(pk_1)s]
+[parameters: {'pk_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2024-12-03 00:17:28,698 INFO: Auth system startup [in /home/runner/CozyAuthHub/app.py:66]
+2024-12-03 00:17:29,788 INFO: Auth system startup [in /home/runner/CozyAuthHub/app.py:66]
+2024-12-03 00:17:31,110 INFO: Auth system startup [in /home/runner/CozyAuthHub/app.py:66]
+2024-12-03 00:17:42,078 INFO: Auth system startup [in /home/runner/CozyAuthHub/app.py:66]
+2024-12-03 00:18:03,859 INFO: User logged in: nadiabellamorris [in /home/runner/CozyAuthHub/auth.py:101]
+2024-12-03 00:18:51,535 INFO: User logged in: nadiabellamorris [in /home/runner/CozyAuthHub/auth.py:101]
+2024-12-03 00:22:38,809 INFO: Auth system startup [in /home/runner/CozyAuthHub/app.py:66]
+2024-12-03 00:22:56,956 INFO: User logged in: nadiabellamorris [in /home/runner/CozyAuthHub/auth.py:101]
+2024-12-03 00:25:21,752 INFO: Auth system startup [in /home/runner/CozyAuthHub/app.py:66]
+2024-12-03 00:26:02,195 INFO: User logged in: nadiabellamorris [in /home/runner/CozyAuthHub/auth.py:101]
+2024-12-03 00:27:34,824 INFO: Auth system startup [in /home/runner/CozyAuthHub/app.py:70]
+2024-12-03 00:28:05,904 INFO: User logged in: nadiabellamorris [in /home/runner/CozyAuthHub/auth.py:101]
+2024-12-03 00:28:46,432 INFO: Auth system startup [in /home/runner/CozyAuthHub/app.py:70]
+2024-12-03 00:29:10,178 INFO: User logged in: nadiabellamorris [in /home/runner/CozyAuthHub/auth.py:101]
+2024-12-03 00:29:18,758 INFO: Auth system startup [in /home/runner/CozyAuthHub/app.py:70]
+2024-12-03 00:29:44,611 INFO: User logged in: nadiabellamorris [in /home/runner/CozyAuthHub/auth.py:101]
+2024-12-03 00:31:16,193 INFO: Auth system startup [in /home/runner/CozyAuthHub/app.py:70]
+2024-12-03 00:34:41,026 INFO: Auth system startup [in /home/runner/CozyAuthHub/app.py:70]
+2024-12-03 00:35:03,664 INFO: User logged in: nadiabellamorris [in /home/runner/CozyAuthHub/auth.py:101]
+2024-12-03 00:38:50,652 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:70]
+2024-12-03 00:39:08,037 INFO: User logged in: nadiabellamorris [in /home/runner/Market-Harvest/auth.py:101]
+2024-12-03 00:42:18,848 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:70]
+2024-12-03 00:44:28,929 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:70]
+2024-12-03 00:45:57,772 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:70]
+2024-12-03 00:47:18,687 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:70]
+2024-12-03 00:48:56,446 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:70]
+2024-12-03 00:50:28,870 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:70]
+2024-12-03 00:52:11,363 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:70]
+2024-12-03 04:59:42,490 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:70]
+2024-12-03 05:00:06,175 INFO: User logged in: nadiabellamorris [in /home/runner/Market-Harvest/auth.py:101]

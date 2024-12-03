@@ -90,5 +90,3 @@ Traceback (most recent call last):
     if hasattr(obj, "jinja_pass_arg"):
        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 jinja2.exceptions.UndefinedError: 'csrf_token' is undefined
-2024-12-03 15:51:55,077 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:47]
-2024-12-03 15:51:55,077 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:56]

@@ -1,4 +1,16 @@
-2024-12-03 06:55:49,636 ERROR: Exception on / [GET] [in /home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py:875]
+2024-12-03 07:07:49,122 ERROR: Mailgun API error: {"message":"Domain sandboxa6dc6d2cd4bf42beb71ff909603d2313.mailgun.org is not allowed to send: Free accounts are for test purposes only. Please upgrade or add the address to authorized recipients in Account Settings."}
+ [in /home/runner/Market-Harvest/auth.py:32]
+2024-12-03 07:07:49,123 ERROR: Error sending test email: Failed to send email: {"message":"Domain sandboxa6dc6d2cd4bf42beb71ff909603d2313.mailgun.org is not allowed to send: Free accounts are for test purposes only. Please upgrade or add the address to authorized recipients in Account Settings."}
+ [in /home/runner/Market-Harvest/auth.py:204]
+2024-12-03 07:07:49,341 ERROR: Mailgun API error: {"message":"Domain sandboxa6dc6d2cd4bf42beb71ff909603d2313.mailgun.org is not allowed to send: Free accounts are for test purposes only. Please upgrade or add the address to authorized recipients in Account Settings."}
+ [in /home/runner/Market-Harvest/auth.py:32]
+2024-12-03 07:07:49,341 ERROR: Error sending test email: Failed to send email: {"message":"Domain sandboxa6dc6d2cd4bf42beb71ff909603d2313.mailgun.org is not allowed to send: Free accounts are for test purposes only. Please upgrade or add the address to authorized recipients in Account Settings."}
+ [in /home/runner/Market-Harvest/auth.py:204]
+2024-12-03 07:08:25,887 INFO: Attempting to send test email to reversegremlin@gmail.com [in /home/runner/Market-Harvest/auth.py:196]
+2024-12-03 07:08:26,215 INFO: Test email sent successfully [in /home/runner/Market-Harvest/auth.py:199]
+2024-12-03 07:09:38,256 INFO: Attempting to send test email to reversegremlin@gmail.com [in /home/runner/Market-Harvest/auth.py:196]
+2024-12-03 07:09:40,214 INFO: Test email sent successfully [in /home/runner/Market-Harvest/auth.py:199]
+2024-12-03 07:10:15,259 ERROR: Exception on /logout [GET] [in /home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py:875]
 Traceback (most recent call last):
   File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
     self.dialect.do_execute(
@@ -22,26 +34,24 @@ Traceback (most recent call last):
   File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/app.py", line 82, in index
-    return render_template('landing.html')
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/templating.py", line 150, in render_template
-    return _render(app, template, context)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/templating.py", line 127, in _render
-    app.update_template_context(context)
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 530, in update_template_context
-    context.update(self.ensure_sync(func)())
-                   ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask_login/utils.py", line 405, in _user_context_processor
-    return dict(current_user=_get_user())
-                             ^^^^^^^^^^^
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask_login/utils.py", line 284, in decorated_view
+    elif not current_user.is_authenticated:
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/werkzeug/local.py", line 318, in __get__
+    obj = instance._get_current_object()
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/werkzeug/local.py", line 526, in _get_current_object
+    return get_name(local())
+                    ^^^^^^^
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask_login/utils.py", line 25, in <lambda>
+    current_user = LocalProxy(lambda: _get_user())
+                                      ^^^^^^^^^^^
   File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask_login/utils.py", line 370, in _get_user
     current_app.login_manager._load_user()
   File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask_login/login_manager.py", line 364, in _load_user
     user = self._user_callback(user_id)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/app.py", line 88, in load_user
+  File "/home/runner/Market-Harvest/app.py", line 85, in load_user
     return User.query.get(int(user_id))
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "<string>", line 2, in get
@@ -95,24 +105,16 @@ FROM "user"
 WHERE "user".id = %(pk_1)s]
 [parameters: {'pk_1': 1}]
 (Background on this error at: https://sqlalche.me/e/20/e3q8)
-2024-12-03 06:57:48,425 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:70]
-2024-12-03 06:59:42,401 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:70]
-2024-12-03 07:00:38,066 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:67]
-2024-12-03 07:00:39,903 INFO: Attempting to send test email to test@example.com [in /home/runner/Market-Harvest/auth.py:196]
-2024-12-03 07:00:40,169 ERROR: Mailgun API error: {"message":"Domain sandboxa6dc6d2cd4bf42beb71ff909603d2313.mailgun.org is not allowed to send: Please activate your Mailgun account. Check your inbox or log in to your control panel to resend the activation email."}
- [in /home/runner/Market-Harvest/auth.py:32]
-2024-12-03 07:00:40,170 ERROR: Error sending test email: Failed to send email: {"message":"Domain sandboxa6dc6d2cd4bf42beb71ff909603d2313.mailgun.org is not allowed to send: Please activate your Mailgun account. Check your inbox or log in to your control panel to resend the activation email."}
- [in /home/runner/Market-Harvest/auth.py:204]
-2024-12-03 07:00:40,569 INFO: Attempting to send test email to test@example.com [in /home/runner/Market-Harvest/auth.py:196]
-2024-12-03 07:00:40,985 ERROR: Mailgun API error: {"message":"Domain sandboxa6dc6d2cd4bf42beb71ff909603d2313.mailgun.org is not allowed to send: Please activate your Mailgun account. Check your inbox or log in to your control panel to resend the activation email."}
- [in /home/runner/Market-Harvest/auth.py:32]
-2024-12-03 07:00:40,985 ERROR: Error sending test email: Failed to send email: {"message":"Domain sandboxa6dc6d2cd4bf42beb71ff909603d2313.mailgun.org is not allowed to send: Please activate your Mailgun account. Check your inbox or log in to your control panel to resend the activation email."}
- [in /home/runner/Market-Harvest/auth.py:204]
-2024-12-03 07:00:53,172 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:67]
-2024-12-03 07:00:55,245 INFO: Attempting to send test email to test@example.com [in /home/runner/Market-Harvest/auth.py:196]
-2024-12-03 07:00:55,488 ERROR: Mailgun API error: {"message":"Domain sandboxa6dc6d2cd4bf42beb71ff909603d2313.mailgun.org is not allowed to send: Please activate your Mailgun account. Check your inbox or log in to your control panel to resend the activation email."}
- [in /home/runner/Market-Harvest/auth.py:32]
-2024-12-03 07:00:55,488 ERROR: Error sending test email: Failed to send email: {"message":"Domain sandboxa6dc6d2cd4bf42beb71ff909603d2313.mailgun.org is not allowed to send: Please activate your Mailgun account. Check your inbox or log in to your control panel to resend the activation email."}
- [in /home/runner/Market-Harvest/auth.py:204]
-2024-12-03 07:07:48,836 INFO: Attempting to send test email to test@example.com [in /home/runner/Market-Harvest/auth.py:196]
-2024-12-03 07:07:49,041 INFO: Attempting to send test email to test@example.com [in /home/runner/Market-Harvest/auth.py:196]
+2024-12-03 07:10:47,482 INFO: User logged in: nadiabellamorris [in /home/runner/Market-Harvest/auth.py:137]
+2024-12-03 07:11:30,528 ERROR: Error during registration for reversegremlin@gmail.com: 'MAIL_USERNAME' [in /home/runner/Market-Harvest/auth.py:113]
+2024-12-03 07:12:26,106 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:67]
+2024-12-03 07:12:26,878 INFO: Attempting to send test email to reversegremlin@gmail.com [in /home/runner/Market-Harvest/auth.py:196]
+2024-12-03 07:12:27,163 INFO: Test email sent successfully [in /home/runner/Market-Harvest/auth.py:199]
+2024-12-03 07:13:26,237 INFO: User logged in: nadiabellamorris [in /home/runner/Market-Harvest/auth.py:137]
+2024-12-03 07:15:02,879 ERROR: Error during registration for reversegremlin@gmail.com: 'MAIL_USERNAME' [in /home/runner/Market-Harvest/auth.py:113]
+2024-12-03 07:18:23,598 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:51]
+2024-12-03 07:18:33,425 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:51]
+2024-12-03 07:18:47,700 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:51]
+2024-12-03 07:18:49,131 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:51]
+2024-12-03 07:19:37,932 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:51]
+2024-12-03 07:20:46,715 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:51]
