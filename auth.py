@@ -53,7 +53,7 @@ def register():
                 raise ValueError('Email configuration is incomplete')
                 
             # Prepare verification email
-            msg = Message('Welcome to SecureAuth - Verify your email',
+            msg = Message('Welcome to Market Harvest - Verify your email',
                          sender=app.config['MAIL_USERNAME'],
                          recipients=[email])
             msg.html = render_template('emails/verify.html', 
