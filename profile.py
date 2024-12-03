@@ -3,15 +3,15 @@ from flask_login import login_required, current_user
 from app import db
 from models import User
 from datetime import datetime
-from pytz import timezone
 import pytz
+from pytz import timezone as pytz_timezone
 
 profile_bp = Blueprint('profile', __name__)
 
 @profile_bp.route('/dashboard')
 @login_required
 def dashboard():
-    return render_template('profile/dashboard.html', user=current_user, timezone=timezone)
+    return render_template('profile/dashboard.html', user=current_user, timezone=pytz_timezone)
 
 @profile_bp.route('/profile/edit', methods=['GET', 'POST'])
 @login_required
