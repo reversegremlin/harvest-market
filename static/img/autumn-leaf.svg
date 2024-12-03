@@ -1,6 +1,4 @@
 <svg width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
-    <path d="M15 2C8 2 2 8 15 28C28 8 22 2 15 2Z" fill="#E67E22">
-        <animate attributeName="fill" values="#E67E22;#DAA520;#CD853F;#E67E22" dur="4s" repeatCount="indefinite"/>
-    </path>
+    <path d="M15 2C8 2 2 8 15 28C28 8 22 2 15 2Z" fill="#E67E22"/>
     <path d="M15 2C12 2 6 4 15 28" stroke="#8B4513" stroke-width="0.5" fill="none"/>
 </svg>
