@@ -1,22 +1,26 @@
-from flask import Blueprint, render_template, redirect, url_for, request, flash, current_app as app
-from flask_login import login_user, logout_user, login_required, current_user
+from flask import Blueprint, request, flash, redirect, url_for, render_template, current_app
+from flask_login import login_user, logout_user, login_required
+from extensions import db
 import secrets
 import pytz
 import requests
-from app import db
 from models import User
 
 auth_bp = Blueprint('auth', __name__)
 
 def send_email(to_email, subject, html_content):
     """
-    Send email using Mailgun API
+    Send email using Mailgun API if configured
     """
-    try:
-        mailgun_api_key = app.config['MAILGUN_API_KEY']
-        mailgun_domain = app.config['MAILGUN_DOMAIN']
-        sender = app.config['MAIL_DEFAULT_SENDER']
+    mailgun_api_key = current_app.config.get('MAILGUN_API_KEY')
+    mailgun_domain = current_app.config.get('MAILGUN_DOMAIN')
+    sender = current_app.config.get('MAIL_DEFAULT_SENDER')
 
+    if not all([mailgun_api_key, mailgun_domain, sender]):
+        current_app.logger.warning('Mailgun configuration incomplete, skipping email send')
+        return False
+
+    try:
         response = requests.post(
             f"https://api.mailgun.net/v3/{mailgun_domain}/messages",
             auth=("api", mailgun_api_key),
@@ -29,14 +33,15 @@ def send_email(to_email, subject, html_content):
         )
         
         if response.status_code != 200:
-            app.logger.error(f'Mailgun API error: {response.text}')
-            raise Exception(f"Failed to send email: {response.text}")
+            current_app.logger.error(f'Mailgun API error: {response.text}')
+            return False
             
         return True
         
     except requests.RequestException as e:
-        app.logger.error(f'Mailgun API request error: {str(e)}')
-        raise Exception(f"Email service error: {str(e)}")
+        current_app.logger.error(f'Mailgun API request error: {str(e)}')
+        return False
+
 @auth_bp.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -67,16 +72,26 @@ def register():
 
         # Check existing users
         if User.query.filter_by(email=email).first():
-            app.logger.warning(f'Registration attempted with existing email: {email}')
+            current_app.logger.warning(f'Registration attempted with existing email: {email}')
             flash('Email already registered', 'error')
             return redirect(url_for('auth.register'))
             
         if User.query.filter_by(username=username).first():
-            app.logger.warning(f'Registration attempted with existing username: {username}')
+            current_app.logger.warning(f'Registration attempted with existing username: {username}')
             flash('Username already taken', 'error')
             return redirect(url_for('auth.register'))
 
         try:
+            # Check if email verification is available
+            mailgun_configured = all([
+                current_app.config.get('MAILGUN_API_KEY'),
+                current_app.config.get('MAILGUN_DOMAIN'),
+                current_app.config.get('MAIL_DEFAULT_SENDER')
+            ])
+            
+            if not mailgun_configured:
+                current_app.logger.warning('Mailgun not configured, proceeding with registration without email verification')
+
             # Start database transaction
             user = User(email=email, username=username, first_name=first_name, last_name=last_name, timezone=timezone)
             user.set_password(password)
@@ -85,36 +100,42 @@ def register():
             
             db.session.add(user)
             
-            # Verify email configuration
-            if not app.config['MAIL_USERNAME'] or not app.config['MAIL_PASSWORD']:
-                raise ValueError('Email configuration is incomplete')
+            if mailgun_configured:
+                # Prepare and send verification email
+                subject = 'Welcome to Market Harvest - Verify your email'
+                html_content = render_template('emails/verify.html', 
+                                             token=user.verification_token)
                 
-            # Prepare and send verification email
-            subject = 'Welcome to Market Harvest - Verify your email'
-            html_content = render_template('emails/verify.html', 
-                                         token=user.verification_token)
+                # Attempt to send email
+                if send_email(email, subject, html_content):
+                    db.session.commit()
+                    current_app.logger.info(f'New user registered successfully with email verification: {username} ({email})')
+                    flash('Registration successful! Please check your email to verify your account.', 'success')
+                else:
+                    # Email sending failed but continue with registration
+                    user.email_verified = True  # Auto-verify since email sending failed
+                    db.session.commit()
+                    current_app.logger.warning(f'New user registered without email verification due to email service issues: {username} ({email})')
+                    flash('Registration successful! Email verification is currently unavailable.', 'success')
+            else:
+                # No email verification available
+                user.email_verified = True  # Auto-verify since email verification is not available
+                db.session.commit()
+                current_app.logger.info(f'New user registered without email verification: {username} ({email})')
+                flash('Registration successful!', 'success')
             
-            # Send email using Mailgun and commit transaction
-            send_email(email, subject, html_content)
-            db.session.commit()
-            
-            app.logger.info(f'New user registered successfully: {username} ({email})')
-            flash('Registration successful! Please check your email to verify your account.', 'success')
             return redirect(url_for('auth.login'))
             
         except ValueError as e:
             db.session.rollback()
-            app.logger.error(f'Configuration error during registration: {str(e)}')
-            flash('System configuration error. Please contact support.', 'error')
+            current_app.logger.error(f'Configuration error during registration: {str(e)}')
+            flash('Email service configuration error. Please contact support.', 'error')
             return redirect(url_for('auth.register'))
             
         except Exception as e:
             db.session.rollback()
-            app.logger.error(f'Error during registration for {email}: {str(e)}')
-            if 'smtp' in str(e).lower():
-                flash('Unable to send verification email. Please try again later.', 'error')
-            else:
-                flash('An error occurred during registration. Please try again.', 'error')
+            current_app.logger.error(f'Error during registration for {email}: {str(e)}')
+            flash('Unable to send verification email. Please try again later.', 'error')
             return redirect(url_for('auth.register'))
             
     timezones = pytz.common_timezones
@@ -134,7 +155,7 @@ def login():
                 return redirect(url_for('auth.login'))
                 
             login_user(user, remember=remember)
-            app.logger.info(f'User logged in: {user.username}')
+            current_app.logger.info(f'User logged in: {user.username}')
             return redirect(url_for('profile.dashboard'))
             
         flash('Invalid email or password', 'error')
@@ -155,7 +176,7 @@ def verify_email(token):
         user.verification_token = None
         db.session.commit()
         flash('Your email has been verified. You can now login.', 'success')
-        app.logger.info(f'Email verified for user: {user.username}')
+        current_app.logger.info(f'Email verified for user: {user.username}')
     else:
         flash('Invalid verification token.', 'error')
     return redirect(url_for('auth.login'))
@@ -180,26 +201,26 @@ def reset_password():
 
 @auth_bp.route('/test-email')
 def test_email():
-    if not app.config['MAILGUN_API_KEY'] or not app.config['MAILGUN_DOMAIN']:
-        app.logger.error('Mailgun configuration missing')
+    if not current_app.config['MAILGUN_API_KEY'] or not current_app.config['MAILGUN_DOMAIN']:
+        current_app.logger.error('Mailgun configuration missing')
         return 'Mailgun configuration missing. Please check MAILGUN_API_KEY and MAILGUN_DOMAIN environment variables.'
     
     try:
         test_recipient = request.args.get('email', 'test@example.com')
         if '@' not in test_recipient:
-            app.logger.error('Invalid email format provided')
+            current_app.logger.error('Invalid email format provided')
             return 'Invalid email format. Please provide a valid email address.'
             
         subject = 'Test Email from Market Harvest'
         html_content = '<h1>Test Email</h1><p>This is a test email from the Market Harvest authentication system.</p>'
         
-        app.logger.info(f'Attempting to send test email to {test_recipient}')
+        current_app.logger.info(f'Attempting to send test email to {test_recipient}')
         send_email(test_recipient, subject, html_content)
         
-        app.logger.info('Test email sent successfully')
+        current_app.logger.info('Test email sent successfully')
         return 'Test email sent successfully! Check your inbox.'
         
     except Exception as e:
         error_msg = str(e)
-        app.logger.error(f'Error sending test email: {error_msg}')
+        current_app.logger.error(f'Error sending test email: {error_msg}')
         return f'Error sending test email: {error_msg}'

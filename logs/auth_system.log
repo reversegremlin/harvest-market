@@ -1,10 +1,10 @@
-2024-12-03 07:07:49,122 ERROR: Mailgun API error: {"message":"Domain sandboxa6dc6d2cd4bf42beb71ff909603d2313.mailgun.org is not allowed to send: Free accounts are for test purposes only. Please upgrade or add the address to authorized recipients in Account Settings."}
- [in /home/runner/Market-Harvest/auth.py:32]
-2024-12-03 07:07:49,123 ERROR: Error sending test email: Failed to send email: {"message":"Domain sandboxa6dc6d2cd4bf42beb71ff909603d2313.mailgun.org is not allowed to send: Free accounts are for test purposes only. Please upgrade or add the address to authorized recipients in Account Settings."}
- [in /home/runner/Market-Harvest/auth.py:204]
-2024-12-03 07:07:49,341 ERROR: Mailgun API error: {"message":"Domain sandboxa6dc6d2cd4bf42beb71ff909603d2313.mailgun.org is not allowed to send: Free accounts are for test purposes only. Please upgrade or add the address to authorized recipients in Account Settings."}
- [in /home/runner/Market-Harvest/auth.py:32]
-2024-12-03 07:07:49,341 ERROR: Error sending test email: Failed to send email: {"message":"Domain sandboxa6dc6d2cd4bf42beb71ff909603d2313.mailgun.org is not allowed to send: Free accounts are for test purposes only. Please upgrade or add the address to authorized recipients in Account Settings."}
- [in /home/runner/Market-Harvest/auth.py:204]
-2024-12-03 07:08:25,887 INFO: Attempting to send test email to reversegremlin@gmail.com [in /home/runner/Market-Harvest/auth.py:196]
-2024-12-03 07:08:26,215 INFO: Test email sent successfully [in /home/runner/Market-Harvest/auth.py:199]
+2024-12-03 07:21:37,810 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:51]
+2024-12-03 07:24:12,213 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:51]
+2024-12-03 07:25:24,577 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:51]
+2024-12-03 07:27:39,811 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:51]
+2024-12-03 07:30:03,156 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:42]
+2024-12-03 07:30:03,581 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:54]
+2024-12-03 07:30:44,725 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:42]
+2024-12-03 07:30:45,164 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:54]
+2024-12-03 07:31:27,118 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:42]
+2024-12-03 07:31:27,539 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:54]

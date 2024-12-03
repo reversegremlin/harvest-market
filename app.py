@@ -5,16 +5,7 @@ APP_NAME = "Market Harvest"
 import logging
 from logging.handlers import RotatingFileHandler
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager
-from flask_mail import Mail
-from flask_migrate import Migrate
-
-# Initialize extensions
-db = SQLAlchemy()
-login_manager = LoginManager()
-mail = Mail()
-migrate = Migrate()
+from extensions import init_extensions, db
 
 def create_app():
     app = Flask(__name__)
@@ -25,24 +16,8 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     
-    # Mailgun configuration
-    app.config['MAILGUN_API_KEY'] = os.environ.get('MAILGUN_API_KEY')
-    app.config['MAILGUN_DOMAIN'] = os.environ.get('MAILGUN_DOMAIN')
-    app.config['MAIL_DEFAULT_SENDER'] = f"Market Harvest <noreply@{os.environ.get('MAILGUN_DOMAIN')}>"
-    
-    # Verify Mailgun configuration
-    if not all([app.config['MAILGUN_API_KEY'], app.config['MAILGUN_DOMAIN']]):
-        app.logger.warning('Mailgun configuration incomplete. Some features may not work properly.')
-    
     # Initialize extensions with app
-    db.init_app(app)
-    login_manager.init_app(app)
-    mail.init_app(app)
-    migrate.init_app(app, db)
-    
-    # Set up login view
-    login_manager.login_view = 'auth.login'
-    login_manager.login_message_category = 'info'
+    init_extensions(app)
     
     with app.app_context():
         # Import models and blueprints
@@ -69,6 +44,22 @@ def create_app():
         # Create database tables
         db.create_all()
         
+        # Configure Mailgun after database setup
+        app.config['MAILGUN_API_KEY'] = os.environ.get('MAILGUN_API_KEY')
+        app.config['MAILGUN_DOMAIN'] = os.environ.get('MAILGUN_DOMAIN')
+        
+        # Verify Mailgun configuration and set up email sender
+        if app.config['MAILGUN_API_KEY'] and app.config['MAILGUN_DOMAIN']:
+            app.config['MAIL_DEFAULT_SENDER'] = f"Market Harvest <noreply@{app.config['MAILGUN_DOMAIN']}>"
+            app.logger.info('Mailgun configuration loaded successfully')
+        else:
+            missing_configs = []
+            if not app.config['MAILGUN_API_KEY']:
+                missing_configs.append('MAILGUN_API_KEY')
+            if not app.config['MAILGUN_DOMAIN']:
+                missing_configs.append('MAILGUN_DOMAIN')
+            app.logger.warning(f'Mailgun configuration incomplete. Missing: {", ".join(missing_configs)}. Email features will be disabled.')
+        
         return app
 
 from flask import redirect, url_for, render_template
@@ -79,7 +70,6 @@ def index():
     return render_template('landing.html')
 
 
-@login_manager.user_loader
-def load_user(user_id):
-    from models import User
-    return User.query.get(int(user_id))
+if __name__ == "__main__":
+    # Run the application on port 5000 and bind to all network interfaces
+    app.run(host="0.0.0.0", port=5000)
