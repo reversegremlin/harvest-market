@@ -11,7 +11,8 @@ class User(UserMixin, db.Model):
     email_verified = db.Column(db.Boolean, default=False)
     verification_token = db.Column(db.String(100), unique=True)
     reset_token = db.Column(db.String(100), unique=True)
-    theme = db.Column(db.String(20), default='light')
+    theme = db.Column(db.String(20), default='autumn')  # Changed default to autumn
+    seasonal_theme = db.Column(db.String(20), default='autumn')  # Added seasonal theme
     avatar_url = db.Column(db.String(200))
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     

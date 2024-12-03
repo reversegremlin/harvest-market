@@ -15,7 +15,7 @@ def dashboard():
 def edit_profile():
     if request.method == 'POST':
         username = request.form.get('username')
-        theme = request.form.get('theme')
+        seasonal_theme = request.form.get('seasonal_theme')
         
         if username != current_user.username:
             if User.query.filter_by(username=username).first():
@@ -23,7 +23,8 @@ def edit_profile():
                 return redirect(url_for('profile.edit_profile'))
             current_user.username = username
             
-        current_user.theme = theme
+        if seasonal_theme in ['autumn', 'winter', 'spring', 'summer']:
+            current_user.seasonal_theme = seasonal_theme
         db.session.commit()
         flash('Profile updated successfully', 'success')
         return redirect(url_for('profile.dashboard'))

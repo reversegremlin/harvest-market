@@ -18,9 +18,11 @@
                 
                 <div class="mb-3">
                     <label for="theme" class="form-label">Theme Preference</label>
-                    <select class="form-select" id="theme" name="theme">
-                        <option value="light" {% if current_user.theme == 'light' %}selected{% endif %}>Light</option>
-                        <option value="dark" {% if current_user.theme == 'dark' %}selected{% endif %}>Dark</option>
+                    <select class="form-select" id="seasonal_theme" name="seasonal_theme">
+                        <option value="autumn" {% if current_user.seasonal_theme == 'autumn' %}selected{% endif %}>Autumn 🍁</option>
+                        <option value="winter" {% if current_user.seasonal_theme == 'winter' %}selected{% endif %}>Winter ❄️</option>
+                        <option value="spring" {% if current_user.seasonal_theme == 'spring' %}selected{% endif %}>Spring 🌸</option>
+                        <option value="summer" {% if current_user.seasonal_theme == 'summer' %}selected{% endif %}>Summer ☀️</option>
                     </select>
                 </div>
                 

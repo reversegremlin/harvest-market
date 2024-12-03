@@ -135,4 +135,59 @@ body {
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
+/* Seasonal Theme Styles */
+.theme-winter {
+    --season-primary: #A5D6D9;
+    --season-secondary: #2980B9;
+    --season-accent: #ECF0F1;
+    --season-dark: #34495E;
+    --season-light: #F5F7F8;
+    --season-gradient: linear-gradient(135deg, var(--season-dark) 0%, var(--season-secondary) 100%);
+    --season-cozy-gradient: linear-gradient(to bottom, var(--season-light) 0%, var(--season-primary) 100%);
+    background: var(--season-cozy-gradient);
+    color: var(--season-dark);
+}
+
+.theme-spring {
+    --season-primary: #FFB7C5;
+    --season-secondary: #98FB98;
+    --season-accent: #FFC0CB;
+    --season-dark: #4A7023;
+    --season-light: #FFF5EE;
+    --season-gradient: linear-gradient(135deg, var(--season-primary) 0%, var(--season-secondary) 100%);
+    --season-cozy-gradient: linear-gradient(to bottom, var(--season-light) 0%, var(--season-accent) 100%);
+    background: var(--season-cozy-gradient);
+    color: var(--season-dark);
+}
+
+.theme-summer {
+    --season-primary: #87CEEB;
+    --season-secondary: #FFD700;
+    --season-accent: #98FF98;
+    --season-dark: #4169E1;
+    --season-light: #F0F8FF;
+    --season-gradient: linear-gradient(135deg, var(--season-primary) 0%, var(--season-secondary) 100%);
+    --season-cozy-gradient: linear-gradient(to bottom, var(--season-light) 0%, var(--season-accent) 100%);
+    background: var(--season-cozy-gradient);
+    color: var(--season-dark);
+}
+
+.theme-autumn {
+    background: var(--cozy-gradient);
+    color: var(--autumn-brown);
+}
+
+/* Seasonal navbar styles */
+.theme-winter .navbar {
+    background: var(--season-gradient) !important;
+}
+
+.theme-spring .navbar {
+    background: var(--season-gradient) !important;
+}
+
+.theme-summer .navbar {
+    background: var(--season-gradient) !important;
+}
+
 /* Custom Animal Crossing inspired elements */
