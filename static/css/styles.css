@@ -266,4 +266,21 @@ body {
     background: var(--season-gradient) !important;
 }
 
+/* Theme-specific fonts for navbar brand */
+.theme-winter .navbar-brand {
+    font-family: 'Quicksand', sans-serif;
+}
+
+.theme-spring .navbar-brand {
+    font-family: 'Baloo 2', cursive;
+}
+
+.theme-summer .navbar-brand {
+    font-family: 'Comfortaa', cursive;
+}
+
+.theme-autumn .navbar-brand {
+    font-family: 'Josefin Sans', sans-serif;
+}
+
 /* Custom Animal Crossing inspired elements */

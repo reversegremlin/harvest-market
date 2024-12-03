@@ -1,4 +1,7 @@
 import os
+# Application configuration
+APP_NAME = "Market Harvest"
+
 import logging
 from logging.handlers import RotatingFileHandler
 from flask import Flask
@@ -17,6 +20,7 @@ def create_app():
     app = Flask(__name__)
     
     # Configuration
+    app.config['APP_NAME'] = APP_NAME
     app.config['SECRET_KEY'] = os.environ.get('FLASK_SECRET_KEY', 'dev')
     app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
