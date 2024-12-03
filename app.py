@@ -31,7 +31,7 @@ from profile import profile_bp
 from admin import admin_bp
 
 # Register blueprints
-app.register_blueprint(auth_bp)
+app.register_blueprint(auth_bp, url_prefix='/auth')
 app.register_blueprint(profile_bp)
 app.register_blueprint(admin_bp)
 
