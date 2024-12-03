@@ -332,8 +332,9 @@ body {
 }
 
 /* Custom Animal Crossing inspired elements */
-/* Profile Card Text Overflow Fixes */
+/* Profile Card Base Styles */
 .profile-card {
+    font-size: 16px; /* Base font size */
     word-wrap: break-word;
     overflow-wrap: break-word;
     word-break: break-word;
@@ -345,10 +346,54 @@ body {
     margin-bottom: 0.5rem;
 }
 
-.profile-card .account-details p {
+.account-details p {
     display: flex;
     flex-wrap: wrap;
     gap: 0.25rem;
+    margin-bottom: 0.5rem;
+    align-items: baseline;
+}
+
+.account-details p strong {
+    white-space: nowrap;
+    margin-right: 0.5rem;
+}
+
+/* Large screens */
+@media (min-width: 1200px) {
+    .profile-card h3 { font-size: 1.75rem; }
+    .profile-card p { font-size: 1rem; }
+    .account-details h5 { font-size: 1.25rem; }
+}
+
+/* Medium screens */
+@media (max-width: 991px) {
+    .profile-card h3 { font-size: 1.5rem; }
+    .profile-card p { font-size: 0.95rem; }
+    .account-details h5 { font-size: 1.1rem; }
+}
+
+/* Small screens */
+@media (max-width: 767px) {
+    .profile-card {
+        font-size: 14px; /* Smaller base size for mobile */
+    }
+    .profile-card h3 { font-size: 1.3rem; }
+    .profile-card p { font-size: 0.9rem; }
+    .account-details h5 { font-size: 1rem; }
+    .account-details p {
+        font-size: 0.85rem;
+        line-height: 1.4;
+    }
+}
+
+/* Extra small screens */
+@media (max-width: 575px) {
+    .profile-card {
+        font-size: 13px;
+    }
+    .profile-card h3 { font-size: 1.2rem; }
+    .account-details h5 { font-size: 0.95rem; }
 }
 
 /* Responsive Design */
