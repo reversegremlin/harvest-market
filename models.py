@@ -39,11 +39,26 @@ class SiteSettings(db.Model):
     @classmethod
     def get_settings(cls):
         """Get the current site settings or create default ones if they don't exist."""
-        # Use with_for_update() to ensure we get a fresh copy and lock the row
-        settings = cls.query.with_for_update().first()
-        if not settings:
+        # Get all settings ordered by id descending
+        all_settings = cls.query.order_by(cls.id.desc()).all()
+        
+        if len(all_settings) > 1:
+            # Keep the latest record (highest ID)
+            latest_settings = all_settings[0]
+            
+            # Delete all other records
+            for old_settings in all_settings[1:]:
+                db.session.delete(old_settings)
+            
+            db.session.commit()
+            return latest_settings
+        
+        # If no settings exist, create default ones
+        if not all_settings:
             settings = cls()
             db.session.add(settings)
             db.session.commit()
-            db.session.refresh(settings)
-        return settings
+            return settings
+            
+        # Return the only existing record
+        return all_settings[0]
