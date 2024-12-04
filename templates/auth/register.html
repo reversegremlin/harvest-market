@@ -89,6 +89,14 @@
                 <div class="invalid-feedback">Please select a timezone.</div>
             </div>
 
+            <div class="mb-3">
+                <label for="birth_date" class="form-label">Date of Birth</label>
+                <input type="date" class="form-control" id="birth_date" name="birth_date" required
+                       max="{{ today }}" onchange="validateAge(this)">
+                <div class="form-text">You must be at least 16 years old to register</div>
+                <div class="invalid-feedback">You must be at least 16 years old to register.</div>
+            </div>
+
             <div class="mb-3 form-check">
                 <input type="checkbox" class="form-check-input" id="privacy_agree" name="privacy_agree" required>
                 <label class="form-check-label" for="privacy_agree">

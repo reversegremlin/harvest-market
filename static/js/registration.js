@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const usernameInput = document.getElementById('username');
     const usernameValidation = document.getElementById('username-validation');
+    const birthDateInput = document.getElementById('birth_date');
     let debounceTimer;
 
     function validateUsername() {
@@ -85,10 +86,47 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    function validateAge(input) {
+        if (!input.value) {
+            input.setCustomValidity('Please enter your date of birth');
+            return false;
+        }
+
+        const birthDate = new Date(input.value);
+        const today = new Date();
+        const minAgeDate = new Date();
+        minAgeDate.setFullYear(today.getFullYear() - 16);
+
+        if (birthDate > minAgeDate) {
+            input.setCustomValidity('You must be at least 16 years old to register');
+            input.classList.add('is-invalid');
+            input.classList.remove('is-valid');
+            return false;
+        } else {
+            input.setCustomValidity('');
+            input.classList.add('is-valid');
+            input.classList.remove('is-invalid');
+            return true;
+        }
+    }
+
     if (usernameInput) {
         usernameInput.addEventListener('input', function() {
             clearTimeout(debounceTimer);
             debounceTimer = setTimeout(validateUsername, 500); // Debounce for 500ms
         });
+    }
+
+    if (birthDateInput) {
+        birthDateInput.addEventListener('change', function() {
+            validateAge(this);
+        });
+
+        // Set max date to today
+        const today = new Date();
+        const dd = String(today.getDate()).padStart(2, '0');
+        const mm = String(today.getMonth() + 1).padStart(2, '0');
+        const yyyy = today.getFullYear();
+        birthDateInput.max = `${yyyy}-${mm}-${dd}`;
     }
 });

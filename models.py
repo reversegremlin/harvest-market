@@ -20,6 +20,8 @@ class User(UserMixin, db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     is_admin = db.Column(db.Boolean, default=False)
     terms_accepted = db.Column(db.DateTime, nullable=True)
+    birth_date = db.Column(db.Date, nullable=True)
+    age_verified = db.Column(db.Boolean, default=False)
     
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
