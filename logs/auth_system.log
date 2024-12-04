@@ -11,3 +11,8 @@
 2024-12-04 17:56:52,419 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:58]
 2024-12-04 17:57:01,928 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:49]
 2024-12-04 17:57:01,928 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:58]
+2024-12-04 19:55:00,764 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:49]
+2024-12-04 19:55:00,764 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:58]
+2024-12-04 19:55:12,676 INFO: Cookie consent logged - Status: False, Timestamp: 2024-12-04T19:55:12.795Z [in /home/runner/Market-Harvest/app.py:108]
+2024-12-04 19:58:23,105 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:49]
+2024-12-04 19:58:23,105 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:58]
