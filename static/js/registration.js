@@ -1,3 +1,28 @@
+// Define validateAge function in global scope
+function validateAge(input) {
+    if (!input.value) {
+        input.setCustomValidity('Please enter your date of birth');
+        return false;
+    }
+
+    const birthDate = new Date(input.value);
+    const today = new Date();
+    const minAgeDate = new Date();
+    minAgeDate.setFullYear(today.getFullYear() - 16);
+
+    if (birthDate > minAgeDate) {
+        input.setCustomValidity('You must be at least 16 years old to register');
+        input.classList.add('is-invalid');
+        input.classList.remove('is-valid');
+        return false;
+    } else {
+        input.setCustomValidity('');
+        input.classList.add('is-valid');
+        input.classList.remove('is-invalid');
+        return true;
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     const usernameInput = document.getElementById('username');
     const usernameValidation = document.getElementById('username-validation');
@@ -84,30 +109,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 usernameValidation.classList.add('text-danger');
             }
         });
-    }
-
-    function validateAge(input) {
-        if (!input.value) {
-            input.setCustomValidity('Please enter your date of birth');
-            return false;
-        }
-
-        const birthDate = new Date(input.value);
-        const today = new Date();
-        const minAgeDate = new Date();
-        minAgeDate.setFullYear(today.getFullYear() - 16);
-
-        if (birthDate > minAgeDate) {
-            input.setCustomValidity('You must be at least 16 years old to register');
-            input.classList.add('is-invalid');
-            input.classList.remove('is-valid');
-            return false;
-        } else {
-            input.setCustomValidity('');
-            input.classList.add('is-valid');
-            input.classList.remove('is-invalid');
-            return true;
-        }
     }
 
     if (usernameInput) {
