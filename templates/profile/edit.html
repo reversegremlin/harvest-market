@@ -52,6 +52,23 @@
                         <option value="summer" {% if current_user.theme == 'summer' %}selected{% endif %}>Summer Theme ☀️</option>
                     </select>
                 </div>
+
+                <div class="mb-4 mt-4">
+                    <h4>Theme Preview</h4>
+                    <div id="theme-preview" class="profile-card">
+                        <div class="text-center">
+                            <img src="{{ current_user.avatar_url }}" alt="Avatar" class="avatar mb-3">
+                            <h3 class="mb-2">{{ current_user.first_name }} {{ current_user.last_name }}</h3>
+                            <p class="text-muted">@{{ current_user.username }}</p>
+                        </div>
+                        
+                        <div class="mt-4 account-details">
+                            <h5 class="mb-3">Account Details</h5>
+                            <p class="mb-2"><strong>Email:</strong> <span>{{ current_user.email }}</span></p>
+                            <p class="mb-2"><strong>Timezone:</strong> <span>{{ current_user.timezone }}</span></p>
+                        </div>
+                    </div>
+                </div>
                 
                 <div class="mb-3">
                     <label class="form-label">Avatar</label>
@@ -70,4 +87,44 @@
         </div>
     </div>
 </div>
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const themeSelect = document.getElementById('theme');
+    const preview = document.getElementById('theme-preview');
+    
+    // Function to update theme preview
+    function updateThemePreview() {
+        const selectedTheme = themeSelect.value;
+        // Remove all existing theme classes
+        preview.classList.remove('theme-light', 'theme-dark', 'theme-autumn', 'theme-winter', 'theme-spring', 'theme-summer');
+        // Add the selected theme class
+        preview.classList.add('theme-' + selectedTheme);
+        
+        // Update preview card styles
+        preview.style.transition = 'all 0.3s ease';
+        
+        // Handle dark/light specific changes
+        if (selectedTheme === 'dark') {
+            preview.style.color = '#ffffff';
+            preview.style.backgroundColor = '#0a0a0a';
+        } else if (selectedTheme === 'light') {
+            preview.style.color = '#000000';
+            preview.style.backgroundColor = '#ffffff';
+        } else {
+            preview.style.color = ''; // Reset to theme default
+            preview.style.backgroundColor = ''; // Reset to theme default
+        }
+    }
+    
+    // Update preview when theme changes
+    themeSelect.addEventListener('change', updateThemePreview);
+    
+    // Initial preview update
+    updateThemePreview();
+});
+</script>
+{% endblock %}
+
 {% endblock %}
