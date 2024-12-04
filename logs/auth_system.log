@@ -59,3 +59,8 @@ Traceback (most recent call last):
 NameError: name 'app' is not defined
 2024-12-04 22:41:04,274 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:53]
 2024-12-04 22:41:04,275 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:62]
+2024-12-04 22:41:15,621 INFO: Cookie consent logged - Status: False, Timestamp: 2024-12-04T22:41:15.178Z [in /home/runner/Market-Harvest/app.py:112]
+2024-12-04 22:41:23,499 INFO: Theme updated for user nadiabellamorris to: dark [in /home/runner/Market-Harvest/profile.py:63]
+2024-12-04 22:41:32,397 INFO: Theme updated for user nadiabellamorris to: light [in /home/runner/Market-Harvest/profile.py:63]
+2024-12-04 22:42:14,351 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:53]
+2024-12-04 22:42:14,351 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:62]

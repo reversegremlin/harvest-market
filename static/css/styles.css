@@ -140,8 +140,10 @@ body {
     --theme-input-bg: #ffffff;
     --theme-hover: #f8f9fa;
     --theme-shadow: rgba(0, 0, 0, 0.1);
+    --theme-button-text: #ffffff;
+    --theme-navbar-bg: #ffffff;
     
-    background-color: var(--theme-bg);
+    background: var(--theme-bg);
     color: var(--theme-text);
 }
 
@@ -211,11 +213,12 @@ body {
 .theme-light .btn-primary {
     background-color: var(--theme-primary);
     border-color: var(--theme-primary);
+    color: var(--theme-button-text);
 }
 
 .theme-dark .navbar,
 .theme-light .navbar {
-    background-color: var(--theme-card-bg) !important;
+    background-color: var(--theme-navbar-bg) !important;
     border-bottom: 1px solid var(--theme-border);
 }
 
@@ -232,6 +235,22 @@ body {
 .theme-dark .text-muted,
 .theme-light .text-muted {
     color: var(--theme-secondary) !important;
+}
+
+/* Light theme specific overrides */
+.theme-light .btn-primary:hover {
+    background-color: #333333;
+    border-color: #333333;
+}
+
+.theme-light .navbar-brand,
+.theme-light .nav-link {
+    color: var(--theme-text) !important;
+}
+
+.theme-light .profile-card {
+    border: 1px solid var(--theme-border);
+    box-shadow: 0 2px 8px var(--theme-shadow);
 }
 
 .alert {
