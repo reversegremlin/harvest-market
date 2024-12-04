@@ -28,12 +28,16 @@ init_extensions(app)
 # Import blueprints after extensions are initialized
 from models import User
 from auth import auth_bp
+from flask_wtf.csrf import CSRFProtect
 from profile import profile_bp
 from admin import admin_bp
 
+# Initialize CSRF protection
+csrf = CSRFProtect(app)
+
 # Register blueprints
 app.register_blueprint(auth_bp, url_prefix='/auth')
-app.register_blueprint(profile_bp)
+app.register_blueprint(profile_bp, url_prefix='/profile')
 app.register_blueprint(admin_bp)
 
 # Set up logging

@@ -16,7 +16,7 @@ from flask import jsonify
 def dashboard():
     return render_template('profile/dashboard.html', user=current_user, timezone=pytz_timezone)
 
-@profile_bp.route('/profile/edit', methods=['GET', 'POST'])
+@profile_bp.route('/edit', methods=['GET', 'POST'])
 @login_required
 def edit_profile():
     if request.method == 'POST':
@@ -74,7 +74,7 @@ def preview_dashboard():
     
     return render_template('profile/dashboard.html', user=mock_user, preview_mode=True)
 
-@profile_bp.route('/profile/security', methods=['GET', 'POST'])
+@profile_bp.route('/security', methods=['GET', 'POST'])
 @login_required
 def security_settings():
     if request.method == 'POST':
