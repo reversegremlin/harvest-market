@@ -14,7 +14,18 @@ from flask import jsonify
 @profile_bp.route('/dashboard')
 @login_required
 def dashboard():
-    return render_template('profile/dashboard.html', user=current_user, timezone=pytz_timezone)
+    # Ensure user has a balance object
+    from models import UserBalance
+    if not hasattr(current_user, 'balance'):
+        balance = UserBalance.query.filter_by(user_id=current_user.id).first()
+        if not balance:
+            balance = UserBalance(user_id=current_user.id)
+            db.session.add(balance)
+            db.session.commit()
+    
+    return render_template('profile/dashboard.html', 
+                         user=current_user, 
+                         timezone=pytz_timezone)
 
 @profile_bp.route('/edit', methods=['GET', 'POST'])
 @login_required
