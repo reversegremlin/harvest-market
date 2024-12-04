@@ -41,22 +41,13 @@
                 </div>
                 
                 <div class="mb-3">
-                    <label for="seasonal_theme" class="form-label">Seasonal Theme</label>
+                    <label for="theme" class="form-label">Theme Preference</label>
                     <select class="form-select" id="seasonal_theme" name="seasonal_theme">
                         <option value="autumn" {% if current_user.seasonal_theme == 'autumn' %}selected{% endif %}>Autumn 🍁</option>
                         <option value="winter" {% if current_user.seasonal_theme == 'winter' %}selected{% endif %}>Winter ❄️</option>
                         <option value="spring" {% if current_user.seasonal_theme == 'spring' %}selected{% endif %}>Spring 🌸</option>
                         <option value="summer" {% if current_user.seasonal_theme == 'summer' %}selected{% endif %}>Summer ☀️</option>
                     </select>
-                </div>
-                
-                <div class="mb-3">
-                    <label for="theme_mode" class="form-label">Display Mode</label>
-                    <select class="form-select" id="theme_mode" name="theme_mode" aria-label="Select display mode">
-                        <option value="light" {% if current_user.theme_mode == 'light' %}selected{% endif %}>Light Mode ☀️</option>
-                        <option value="dark" {% if current_user.theme_mode == 'dark' %}selected{% endif %}>Dark Mode 🌙</option>
-                    </select>
-                    <div class="form-text">Choose between light and dark mode for better visibility.</div>
                 </div>
                 
                 <div class="mb-3">
