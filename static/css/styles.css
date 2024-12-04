@@ -133,15 +133,15 @@ body {
 .theme-light {
     --theme-bg: #ffffff;
     --theme-text: #000000;
-    --theme-primary: #000000;
-    --theme-secondary: #333333;
-    --theme-border: #000000;
+    --theme-primary: #808080;
+    --theme-secondary: #a0a0a0;
+    --theme-border: #d3d3d3;
     --theme-card-bg: #ffffff;
     --theme-input-bg: #ffffff;
     --theme-hover: #f8f9fa;
     --theme-shadow: rgba(0, 0, 0, 0.1);
     --theme-button-text: #ffffff;
-    --theme-navbar-bg: #ffffff;
+    --theme-navbar-bg: #f8f9fa;
     
     background: var(--theme-bg);
     color: var(--theme-text);
@@ -239,8 +239,8 @@ body {
 
 /* Light theme specific overrides */
 .theme-light .btn-primary:hover {
-    background-color: #333333;
-    border-color: #333333;
+    background-color: #666666;
+    border-color: #666666;
 }
 
 .theme-light .navbar-brand,
