@@ -6,9 +6,9 @@ from extensions import db
 
 # Conversion rates (base currency is Dabbers)
 CONVERSION_RATES = {
-    'dabber_to_groot': Decimal('10'),     # 10 Dabbers = 1 Groot
-    'groot_to_petalin': Decimal('5'),     # 5 Groots = 1 Petalin
-    'petalin_to_floren': Decimal('2'),    # 2 Petalins = 1 Floren
+    'dabber_to_groot': Decimal('1000'),    # 1000 Dabbers = 1 Groot
+    'groot_to_petalin': Decimal('100'),    # 100 Groots = 1 Petalin
+    'petalin_to_floren': Decimal('10'),    # 10 Petalins = 1 Floren
 }
 
 def get_conversion_rate(from_currency: str, to_currency: str) -> Decimal:
