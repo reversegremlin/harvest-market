@@ -88,6 +88,10 @@ def privacy():
 @app.route('/terms')
 def terms():
     return render_template('terms.html')
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
 
 @app.route('/log-consent', methods=['POST'])
 def log_consent():
