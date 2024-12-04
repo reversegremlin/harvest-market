@@ -80,6 +80,71 @@ def convert_currency(user: User, from_currency: str, to_currency: str, amount: i
         db.session.rollback()
         return False, f"Error during conversion: {str(e)}"
 
+def optimize_currency_holdings(user: User) -> Tuple[bool, str]:
+    """Automatically optimize currency holdings by converting lower denominations to higher when possible."""
+    if not user.balance:
+        return False, "No balance record found"
+        
+    try:
+        # Check and convert Dabbers to Groots (10 Dabbers = 1 Groot)
+        if user.balance.dabbers >= 10:
+            groots_to_add = user.balance.dabbers // 10
+            remaining_dabbers = user.balance.dabbers % 10
+            if groots_to_add > 0:
+                user.balance.groots += groots_to_add
+                user.balance.dabbers = remaining_dabbers
+                # Record transaction
+                transaction = TransactionHistory(
+                    user_id=user.id,
+                    currency_type='dabber_to_groot',
+                    amount=groots_to_add * 10,
+                    transaction_type=TransactionType.CONVERSION,
+                    description=f'Automatic conversion: {groots_to_add * 10} Dabbers to {groots_to_add} Groots'
+                )
+                db.session.add(transaction)
+        
+        # Check and convert Groots to Petalins (5 Groots = 1 Petalin)
+        if user.balance.groots >= 5:
+            petalins_to_add = user.balance.groots // 5
+            remaining_groots = user.balance.groots % 5
+            if petalins_to_add > 0:
+                user.balance.petalins += petalins_to_add
+                user.balance.groots = remaining_groots
+                # Record transaction
+                transaction = TransactionHistory(
+                    user_id=user.id,
+                    currency_type='groot_to_petalin',
+                    amount=petalins_to_add * 5,
+                    transaction_type=TransactionType.CONVERSION,
+                    description=f'Automatic conversion: {petalins_to_add * 5} Groots to {petalins_to_add} Petalins'
+                )
+                db.session.add(transaction)
+        
+        # Check and convert Petalins to Florens (2 Petalins = 1 Floren)
+        if user.balance.petalins >= 2:
+            florens_to_add = user.balance.petalins // 2
+            remaining_petalins = user.balance.petalins % 2
+            if florens_to_add > 0:
+                user.balance.florens += florens_to_add
+                user.balance.petalins = remaining_petalins
+                # Record transaction
+                transaction = TransactionHistory(
+                    user_id=user.id,
+                    currency_type='petalin_to_floren',
+                    amount=florens_to_add * 2,
+                    transaction_type=TransactionType.CONVERSION,
+                    description=f'Automatic conversion: {florens_to_add * 2} Petalins to {florens_to_add} Florens'
+                )
+                db.session.add(transaction)
+        
+        user.balance.last_updated = datetime.utcnow()
+        db.session.commit()
+        return True, "Currency holdings optimized successfully"
+        
+    except Exception as e:
+        db.session.rollback()
+        return False, f"Error optimizing currency holdings: {str(e)}"
+
 def get_user_balance(user: User) -> dict:
     """Get formatted user balance."""
     if not user.balance:
@@ -89,6 +154,9 @@ def get_user_balance(user: User) -> dict:
             'petalins': 0,
             'florens': 0
         }
+    
+    # Optimize currency holdings before returning balance
+    optimize_currency_holdings(user)
     
     return {
         'dabbers': user.balance.dabbers,
