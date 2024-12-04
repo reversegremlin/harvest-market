@@ -35,6 +35,70 @@
             <p class="mb-4">{% if preview_mode %}This is a preview of how your profile dashboard will look.{% else %}Your account is fully verified and secure. You can start using all the features of our platform.{% endif %}</p>
             
             <div class="mt-4">
+                <h5 class="mb-3">Currency Balance</h5>
+                <div class="currency-balance mb-4">
+                    <div class="row g-3">
+                        <div class="col-6 col-sm-3">
+                            <div class="p-3 border rounded text-center">
+                                <h6 class="mb-2">Dabbers</h6>
+                                <p class="mb-0 fw-bold">{{ user.balance.dabbers }}</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-3">
+                            <div class="p-3 border rounded text-center">
+                                <h6 class="mb-2">Groots</h6>
+                                <p class="mb-0 fw-bold">{{ user.balance.groots }}</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-3">
+                            <div class="p-3 border rounded text-center">
+                                <h6 class="mb-2">Petalins</h6>
+                                <p class="mb-0 fw-bold">{{ user.balance.petalins }}</p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-3">
+                            <div class="p-3 border rounded text-center">
+                                <h6 class="mb-2">Florens</h6>
+                                <p class="mb-0 fw-bold">{{ user.balance.florens }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="currency-converter mb-4">
+                    <h5 class="mb-3">Currency Converter</h5>
+                    <form id="currencyConverter" class="needs-validation" novalidate>
+                        <div class="row g-3">
+                            <div class="col-md-3">
+                                <label for="amount" class="form-label">Amount</label>
+                                <input type="number" class="form-control" id="amount" required min="1">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="fromCurrency" class="form-label">From</label>
+                                <select class="form-select" id="fromCurrency" required>
+                                    <option value="dabber">Dabbers</option>
+                                    <option value="groot">Groots</option>
+                                    <option value="petalin">Petalins</option>
+                                    <option value="floren">Florens</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="toCurrency" class="form-label">To</label>
+                                <select class="form-select" id="toCurrency" required>
+                                    <option value="groot">Groots</option>
+                                    <option value="dabber">Dabbers</option>
+                                    <option value="petalin">Petalins</option>
+                                    <option value="floren">Florens</option>
+                                </select>
+                            </div>
+                            <div class="col-md-1 d-flex align-items-end">
+                                <button type="submit" class="btn btn-primary">→</button>
+                            </div>
+                        </div>
+                        <div id="conversionResult" class="mt-3"></div>
+                    </form>
+                </div>
+
                 <h5 class="mb-3">Quick Actions</h5>
                 <div class="row g-3 quick-actions">
                     <div class="col-12 col-sm-6">

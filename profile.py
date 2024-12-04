@@ -8,6 +8,8 @@ from pytz import timezone as pytz_timezone
 from werkzeug.security import check_password_hash
 
 profile_bp = Blueprint('profile', __name__)
+from currency_utils import convert_currency, get_user_balance
+from flask import jsonify
 
 @profile_bp.route('/dashboard')
 @login_required
@@ -130,4 +132,35 @@ def security_settings():
             flash('An error occurred while updating your password', 'error')
             return redirect(url_for('profile.security_settings'))
     
+
+@profile_bp.route('/api/convert-currency', methods=['POST'])
+@login_required
+def convert_currency_endpoint():
+    data = request.get_json()
+    
+    if not data or not all(k in data for k in ['fromCurrency', 'toCurrency', 'amount']):
+        return jsonify({'success': False, 'message': 'Missing required fields'}), 400
+        
+    try:
+        amount = int(data['amount'])
+        from_currency = data['fromCurrency'].rstrip('s')  # Remove 's' from currency name
+        to_currency = data['toCurrency'].rstrip('s')
+        
+        success, message = convert_currency(current_user, from_currency, to_currency, amount)
+        
+        if success:
+            # Get updated balance
+            balance = get_user_balance(current_user)
+            return jsonify({
+                'success': True,
+                'message': message,
+                'balance': balance
+            })
+        else:
+            return jsonify({'success': False, 'message': message}), 400
+            
+    except ValueError:
+        return jsonify({'success': False, 'message': 'Invalid amount'}), 400
+    except Exception as e:
+        return jsonify({'success': False, 'message': str(e)}), 500
     return render_template('profile/security.html')

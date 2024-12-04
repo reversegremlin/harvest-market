@@ -1,0 +1,54 @@
+﻿Currency Hierarchy
+1. Base Currency: Dabbers
+* Purpose: Everyday transactions, small purchases like crops, seeds, and basic items.
+* Description:
+   * Dabbers are named after the act of "dabbing," symbolizing quick, frequent exchanges.
+   * They are small wooden tokens, carved with simple designs of crops or tools, used by farmers and traders.
+   * Lore: Dabbers originated in the early days of the region’s markets, when farmers exchanged tokens carved from tree bark to tally their trades.
+* Gameplay Usage:
+   * Used for buying and selling common goods.
+   * Earned through crop sales, completing tasks, or mini-events.
+________________
+
+
+2. Mid-Tier Currency: Groots
+* Purpose: Larger transactions, such as high-quality goods, tools, or market upgrades.
+* Description:
+   * Groots are rustic coins made from bronze, with a raised design of intertwining roots to represent growth and connectivity.
+   * Lore: Groots were introduced when trade expanded between neighboring towns, requiring a more durable and portable currency. They are forged from metals found near ancient root systems said to enhance soil fertility.
+* Gameplay Usage:
+   * Required to buy rare seeds, market stall upgrades, or fertilizers.
+   * Earned by completing significant tasks or trading large quantities of goods.
+________________
+
+
+3. Prestige Currency: Petalins
+* Purpose: Rare, high-value currency for luxury items, powerful tools, and special privileges.
+* Description:
+   * Petalins are delicate, semi-transparent discs made from pressed petals encased in resin. Each features a unique floral design, symbolizing the beauty and rarity of nature.
+   * Lore: Petalins are a revered currency introduced by traveling botanists who brought exotic flowers to the region. They are considered tokens of trust and beauty, only exchanged in the most important deals.
+* Gameplay Usage:
+   * Used for premium upgrades, unlocking new regions, or accessing exclusive markets.
+   * Earned through major milestones, rare events, or as rewards for extraordinary tasks.
+________________
+
+
+4. Legendary Currency: Florens
+* Purpose: Mythical or end-game currency for unique experiences, lore-based unlocks, or ultimate upgrades.
+* Description:
+   * Florens are shimmering coins made of a mysterious golden alloy, engraved with a radiant sun and surrounded by blossoming vines.
+   * Lore: Florens are said to have been minted by an ancient guild of master traders and harvesters who controlled the region’s wealth long ago. These coins are now rarely found, passed down as heirlooms or unearthed in ancient treasure hoards.
+* Gameplay Usage:
+   * Used for once-in-a-lifetime purchases, unlocking legendary items, or gaining favor with special NPCs.
+   * Earned sparingly through legendary quests, special events, or treasure discoveries.
+________________
+
+
+Currency Progression and Gameplay Integration
+Conversion System
+Players can exchange lower-tier currency for higher-tier currency at a marketplace or bank.
+* Example:
+   * 10 Dabbers = 1 Groot
+   * 10 Groots = 1 Petalin
+   * 5 Petalins = 1 Floren
+This system encourages players to build up their wealth gradually while making strategic decisions about when to save or spend.

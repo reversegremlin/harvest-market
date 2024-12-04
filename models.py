@@ -2,6 +2,18 @@ from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 from extensions import db
+from enum import Enum
+
+class CurrencyType(str, Enum):
+    DABBER = 'dabber'
+    GROOT = 'groot'
+    PETALIN = 'petalin'
+    FLOREN = 'floren'
+
+class TransactionType(str, Enum):
+    CREDIT = 'credit'
+    DEBIT = 'debit'
+    CONVERSION = 'conversion'
 
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -28,6 +40,28 @@ class User(UserMixin, db.Model):
     
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+    
+    # Add relationship to UserBalance
+    balance = db.relationship('UserBalance', backref='user', uselist=False)
+    transactions = db.relationship('TransactionHistory', backref='user', lazy='dynamic')
+
+class UserBalance(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False, unique=True)
+    dabbers = db.Column(db.Integer, nullable=False, default=500)
+    groots = db.Column(db.Integer, nullable=False, default=0)
+    petalins = db.Column(db.Integer, nullable=False, default=0)
+    florens = db.Column(db.Integer, nullable=False, default=0)
+    last_updated = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+
+class TransactionHistory(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    currency_type = db.Column(db.String(10), nullable=False)
+    amount = db.Column(db.Integer, nullable=False)
+    transaction_type = db.Column(db.String(10), nullable=False)
+    timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    description = db.Column(db.Text, nullable=True)
 
 class SiteSettings(db.Model):
     id = db.Column(db.Integer, primary_key=True)

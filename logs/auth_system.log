@@ -68,3 +68,9 @@ WHERE "user".email = %(email_1)s
  LIMIT %(param_1)s]
 [parameters: {'email_1': 'reversegremlin@gmail.com', 'param_1': 1}]
 (Background on this error at: https://sqlalche.me/e/20/e3q8)
+2024-12-04 16:47:35,837 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:49]
+2024-12-04 16:47:35,840 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:58]
+2024-12-04 16:47:44,222 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:49]
+2024-12-04 16:47:44,222 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:58]
+2024-12-04 16:51:39,394 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:49]
+2024-12-04 16:51:39,397 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:58]

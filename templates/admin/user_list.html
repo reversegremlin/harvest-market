@@ -34,6 +34,7 @@
                     <th>Name</th>
                     <th>Status</th>
                     <th>Admin</th>
+                    <th>Currency Balance</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -53,6 +54,18 @@
                     <td>
                         {% if user.is_admin %}
                         <span class="badge bg-primary">Admin</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if user.balance %}
+                        <div class="small">
+                            <div>🌟 {{ user.balance.dabbers }} Dabbers</div>
+                            <div>🌳 {{ user.balance.groots }} Groots</div>
+                            <div>🌸 {{ user.balance.petalins }} Petalins</div>
+                            <div>💎 {{ user.balance.florens }} Florens</div>
+                        </div>
+                        {% else %}
+                        <span class="text-muted">No balance</span>
                         {% endif %}
                     </td>
                     <td>
