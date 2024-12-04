@@ -57,9 +57,10 @@ def edit_profile():
         current_user.last_name = last_name
         current_user.timezone = timezone
         
-        theme = request.form.get('theme')
+        theme = request.form.get('theme', 'autumn')
         if theme in ['light', 'dark', 'autumn', 'winter', 'spring', 'summer']:
             current_user.theme = theme
+            app.logger.info(f'Theme updated for user {current_user.username} to: {theme}')
         
         try:
             db.session.commit()
