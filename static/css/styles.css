@@ -149,12 +149,12 @@ body {
 .theme-dark {
     --theme-bg: #000000;
     --theme-text: #ffffff;
-    --theme-primary: #333333;
-    --theme-secondary: #666666;
-    --theme-border: #444444;
-    --theme-card-bg: #0a0a0a;
-    --theme-input-bg: #1a1a1a;
-    --theme-hover: #1a1a1a;
+    --theme-primary: #404040;
+    --theme-secondary: #808080;
+    --theme-border: #2a2a2a;
+    --theme-card-bg: #1a1a1a;
+    --theme-input-bg: #2d2d2d;
+    --theme-hover: #333333;
     --theme-shadow: rgba(0, 0, 0, 0.5);
     --theme-button-text: #ffffff;
     --theme-navbar-bg: #000000;
@@ -180,6 +180,7 @@ body {
     background: var(--theme-primary);
     color: var(--theme-button-text);
     border: 1px solid var(--theme-border);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .theme-dark .btn-primary:hover {
