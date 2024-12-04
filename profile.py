@@ -131,10 +131,9 @@ def security_settings():
             current_app.logger.error(f'Error changing password for user {current_user.username}: {str(e)}')
             flash('An error occurred while updating your password', 'error')
             return redirect(url_for('profile.security_settings'))
-            
+    
     # GET request - render the security settings page
     return render_template('profile/security.html')
-    
 
 @profile_bp.route('/api/convert-currency', methods=['POST'])
 @login_required
@@ -166,4 +165,3 @@ def convert_currency_endpoint():
         return jsonify({'success': False, 'message': 'Invalid amount'}), 400
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)}), 500
-    return render_template('profile/security.html')
