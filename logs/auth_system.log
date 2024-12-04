@@ -36,3 +36,26 @@
 2024-12-04 22:39:16,192 INFO: Cookie consent logged - Status: False, Timestamp: 2024-12-04T22:39:15.747Z [in /home/runner/Market-Harvest/app.py:112]
 2024-12-04 22:40:14,556 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:53]
 2024-12-04 22:40:14,556 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:62]
+2024-12-04 22:40:32,950 ERROR: Exception on /profile/edit [POST] [in /home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py:875]
+Traceback (most recent call last):
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask_login/utils.py", line 290, in decorated_view
+    return current_app.ensure_sync(func)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/Market-Harvest/profile.py", line 63, in edit_profile
+    app.logger.info(f'Theme updated for user {current_user.username} to: {theme}')
+    ^^^
+NameError: name 'app' is not defined
+2024-12-04 22:41:04,274 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:53]
+2024-12-04 22:41:04,275 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:62]

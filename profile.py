@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, request, flash
+from flask import Blueprint, render_template, redirect, url_for, request, flash, current_app
 from flask_login import login_required, current_user
 from extensions import db
 from models import User
@@ -60,7 +60,7 @@ def edit_profile():
         theme = request.form.get('theme', 'autumn')
         if theme in ['light', 'dark', 'autumn', 'winter', 'spring', 'summer']:
             current_user.theme = theme
-            app.logger.info(f'Theme updated for user {current_user.username} to: {theme}')
+            current_app.logger.info(f'Theme updated for user {current_user.username} to: {theme}')
         
         try:
             db.session.commit()
