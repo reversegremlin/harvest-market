@@ -148,19 +148,24 @@ body {
 /* Dark theme */
 .theme-dark {
     --theme-bg: #000000;
-    --theme-text: #ffffff;
-    --theme-primary: #404040;
-    --theme-secondary: #808080;
-    --theme-border: #2a2a2a;
-    --theme-card-bg: #1a1a1a;
-    --theme-input-bg: #2d2d2d;
-    --theme-hover: #333333;
-    --theme-shadow: rgba(0, 0, 0, 0.5);
-    --theme-button-text: #ffffff;
+    --theme-text: #000000;
+    --theme-primary: #e0e0e0;
+    --theme-secondary: #c0c0c0;
+    --theme-border: #808080;
+    --theme-card-bg: #f5f5f5;
+    --theme-input-bg: #ffffff;
+    --theme-hover: #e8e8e8;
+    --theme-shadow: rgba(0, 0, 0, 0.2);
+    --theme-button-text: #000000;
     --theme-navbar-bg: #000000;
     
     background: var(--theme-bg);
     color: var(--theme-text);
+}
+
+/* Override for the welcome message in dark theme */
+.theme-dark .landing-header h1 {
+    color: #ffffff;
 }
 
 /* Theme-specific styles */
