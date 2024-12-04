@@ -74,3 +74,49 @@ WHERE "user".email = %(email_1)s
 2024-12-04 16:47:44,222 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:58]
 2024-12-04 16:51:39,394 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:49]
 2024-12-04 16:51:39,397 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:58]
+2024-12-04 16:52:06,884 INFO: User logged in: nadiabellamorris [in /home/runner/Market-Harvest/auth.py:185]
+2024-12-04 16:52:44,575 ERROR: Exception on /profile/security [GET] [in /home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py:875]
+Traceback (most recent call last):
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 920, in full_dispatch_request
+    return self.finalize_request(rv)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 939, in finalize_request
+    response = self.make_response(rv)
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1212, in make_response
+    raise TypeError(
+TypeError: The view function for 'profile.security_settings' did not return a valid response. The function either returned None or ended without a return statement.
+2024-12-04 16:52:52,468 INFO: Cookie consent logged - Status: False, Timestamp: 2024-12-04T16:52:52.621Z [in /home/runner/Market-Harvest/app.py:108]
+2024-12-04 16:52:54,407 ERROR: Exception on /profile/security [GET] [in /home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py:875]
+Traceback (most recent call last):
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 920, in full_dispatch_request
+    return self.finalize_request(rv)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 939, in finalize_request
+    response = self.make_response(rv)
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1212, in make_response
+    raise TypeError(
+TypeError: The view function for 'profile.security_settings' did not return a valid response. The function either returned None or ended without a return statement.
+2024-12-04 16:53:21,805 ERROR: Exception on /profile/security [GET] [in /home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py:875]
+Traceback (most recent call last):
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 920, in full_dispatch_request
+    return self.finalize_request(rv)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 939, in finalize_request
+    response = self.make_response(rv)
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1212, in make_response
+    raise TypeError(
+TypeError: The view function for 'profile.security_settings' did not return a valid response. The function either returned None or ended without a return statement.
+2024-12-04 16:55:20,118 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:49]
+2024-12-04 16:55:20,124 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:58]

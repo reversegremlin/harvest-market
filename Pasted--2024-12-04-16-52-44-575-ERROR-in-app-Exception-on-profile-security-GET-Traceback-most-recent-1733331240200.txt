@@ -1,0 +1,54 @@
+[2024-12-04 16:52:44,575] ERROR in app: Exception on /profile/security [GET]
+Traceback (most recent call last):
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 920, in full_dispatch_request
+    return self.finalize_request(rv)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 939, in finalize_request
+    response = self.make_response(rv)
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1212, in make_response
+    raise TypeError(
+TypeError: The view function for 'profile.security_settings' did not return a valid response. The function either returned None or ended without a return statement.
+172.31.196.73 - - [04/Dec/2024 16:52:44] "GET /profile/security HTTP/1.1" 500 -
+172.31.196.73 - - [04/Dec/2024 16:52:49] "GET /dashboard HTTP/1.1" 200 -
+172.31.196.73 - - [04/Dec/2024 16:52:49] "GET /static/css/styles.css HTTP/1.1" 304 -
+172.31.196.73 - - [04/Dec/2024 16:52:49] "GET /static/img/winter-snowflake.svg HTTP/1.1" 304 -
+172.31.196.73 - - [04/Dec/2024 16:52:49] "GET /static/js/main.js HTTP/1.1" 304 -
+[2024-12-04 16:52:52,468] INFO in app: Cookie consent logged - Status: False, Timestamp: 2024-12-04T16:52:52.621Z
+172.31.196.73 - - [04/Dec/2024 16:52:52] "POST /log-consent HTTP/1.1" 200 -
+[2024-12-04 16:52:54,407] ERROR in app: Exception on /profile/security [GET]
+Traceback (most recent call last):
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 920, in full_dispatch_request
+    return self.finalize_request(rv)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 939, in finalize_request
+    response = self.make_response(rv)
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1212, in make_response
+    raise TypeError(
+TypeError: The view function for 'profile.security_settings' did not return a valid response. The function either returned None or ended without a return statement.
+172.31.196.73 - - [04/Dec/2024 16:52:54] "GET /profile/security HTTP/1.1" 500 -
+172.31.196.73 - - [04/Dec/2024 16:52:56] "GET /dashboard HTTP/1.1" 200 -
+172.31.196.73 - - [04/Dec/2024 16:52:56] "GET /static/css/styles.css HTTP/1.1" 304 -
+172.31.196.73 - - [04/Dec/2024 16:52:56] "GET /static/js/main.js HTTP/1.1" 304 -
+172.31.196.73 - - [04/Dec/2024 16:52:56] "GET /static/img/winter-snowflake.svg HTTP/1.1" 304 -
+[2024-12-04 16:53:21,805] ERROR in app: Exception on /profile/security [GET]
+Traceback (most recent call last):
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 920, in full_dispatch_request
+    return self.finalize_request(rv)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 939, in finalize_request
+    response = self.make_response(rv)
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1212, in make_response
+    raise TypeError(
+TypeError: The view function for 'profile.security_settings' did not return a valid response. The function either returned None or ended without a return statement.
