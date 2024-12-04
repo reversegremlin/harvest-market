@@ -66,3 +66,6 @@ NameError: name 'app' is not defined
 2024-12-04 22:42:14,351 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:62]
 2024-12-04 22:43:32,502 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:53]
 2024-12-04 22:43:32,503 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:62]
+2024-12-04 22:43:51,573 INFO: Theme updated for user nadiabellamorris to: light [in /home/runner/Market-Harvest/profile.py:63]
+2024-12-04 22:44:22,947 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:53]
+2024-12-04 22:44:22,947 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:62]
