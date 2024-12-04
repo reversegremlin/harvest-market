@@ -106,7 +106,7 @@
         });
     </script>
 </head>
-<body class="theme-{{ current_user.theme if current_user.is_authenticated else 'light' }}" data-bs-theme="{{ current_user.theme if current_user.is_authenticated else 'light' }}">
+<body class="theme-{{ current_user.seasonal_theme if current_user.is_authenticated else 'autumn' }} mode-{{ current_user.theme_mode if current_user.is_authenticated else 'light' }}" data-bs-theme="{{ current_user.theme_mode if current_user.is_authenticated else 'light' }}">
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="{{ url_for('profile.dashboard') }}">

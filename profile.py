@@ -25,6 +25,7 @@ def edit_profile():
         last_name = request.form.get('last_name')
         timezone = request.form.get('timezone')
         seasonal_theme = request.form.get('seasonal_theme')
+        theme_mode = request.form.get('theme_mode')
         
         if not all([first_name, last_name, timezone]):
             flash('All fields are required', 'error')
@@ -48,6 +49,9 @@ def edit_profile():
         
         if seasonal_theme in ['autumn', 'winter', 'spring', 'summer']:
             current_user.seasonal_theme = seasonal_theme
+            
+        if theme_mode in ['light', 'dark']:
+            current_user.theme_mode = theme_mode
         
         try:
             db.session.commit()

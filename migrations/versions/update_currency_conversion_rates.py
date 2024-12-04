@@ -23,7 +23,9 @@ def upgrade():
     
     # Update all user balances to reflect new conversion rates
     # We'll convert all currency to Dabbers first, then redistribute according to new rates
-    session.execute("""
+    from sqlalchemy import text
+    
+    session.execute(text("""
         WITH user_total_dabbers AS (
             SELECT 
                 user_id,
@@ -38,7 +40,7 @@ def upgrade():
             dabbers = utd.total_dabbers % 1000
         FROM user_total_dabbers utd
         WHERE ub.user_id = utd.user_id;
-    """)
+    """))
     
     session.commit()
 

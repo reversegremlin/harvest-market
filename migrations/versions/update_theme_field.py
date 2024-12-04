@@ -15,19 +15,12 @@ branch_labels = None
 depends_on = None
 
 def upgrade():
-    # First, update existing theme values to 'light' (default theme)
-    op.execute("""
-        UPDATE "user"
-        SET seasonal_theme = 'light'
-        WHERE seasonal_theme IN ('spring', 'summer', 'autumn', 'winter')
-    """)
-    
-    # Rename column and update type constraints
-    op.alter_column('user', 'seasonal_theme',
-                    new_column_name='theme',
-                    existing_type=sa.String(length=10),
-                    existing_nullable=False,
-                    server_default='light')
+    # Add a new column for light/dark theme
+    op.add_column('user',
+        sa.Column('theme_mode', sa.String(length=10), nullable=False, server_default='light')
+    )
+
+    # Keep the existing seasonal_theme column as is
 
 def downgrade():
     # Rename back to seasonal_theme
