@@ -357,8 +357,15 @@ body {
 }
 
 .theme-autumn {
-    background: var(--cozy-gradient);
-    color: var(--autumn-brown);
+    --season-primary: var(--autumn-orange);
+    --season-secondary: var(--autumn-brown);
+    --season-accent: var(--autumn-beige);
+    --season-dark: var(--autumn-brown);
+    --season-light: var(--autumn-cream);
+    --season-gradient: var(--wood-gradient);
+    --season-cozy-gradient: var(--cozy-gradient);
+    background: var(--season-cozy-gradient);
+    color: var(--season-dark);
 }
 
 /* Seasonal navbar styles */
