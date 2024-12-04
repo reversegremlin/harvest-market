@@ -42,18 +42,14 @@
                 </div>
                 
                 <div class="mb-3">
-                    <label for="theme" class="form-label">Display Theme</label>
-                    <select class="form-select mb-3" id="theme" name="theme">
+                    <label for="theme" class="form-label">Theme</label>
+                    <select class="form-select" id="theme" name="theme">
                         <option value="light" {% if current_user.theme == 'light' %}selected{% endif %}>Light Mode ☀️</option>
                         <option value="dark" {% if current_user.theme == 'dark' %}selected{% endif %}>Dark Mode 🌙</option>
-                    </select>
-
-                    <label for="seasonal_theme" class="form-label">Seasonal Theme</label>
-                    <select class="form-select" id="seasonal_theme" name="seasonal_theme">
-                        <option value="autumn" {% if current_user.seasonal_theme == 'autumn' %}selected{% endif %}>Autumn 🍁</option>
-                        <option value="winter" {% if current_user.seasonal_theme == 'winter' %}selected{% endif %}>Winter ❄️</option>
-                        <option value="spring" {% if current_user.seasonal_theme == 'spring' %}selected{% endif %}>Spring 🌸</option>
-                        <option value="summer" {% if current_user.seasonal_theme == 'summer' %}selected{% endif %}>Summer ☀️</option>
+                        <option value="autumn" {% if current_user.theme == 'autumn' %}selected{% endif %}>Autumn Theme 🍁</option>
+                        <option value="winter" {% if current_user.theme == 'winter' %}selected{% endif %}>Winter Theme ❄️</option>
+                        <option value="spring" {% if current_user.theme == 'spring' %}selected{% endif %}>Spring Theme 🌸</option>
+                        <option value="summer" {% if current_user.theme == 'summer' %}selected{% endif %}>Summer Theme ☀️</option>
                     </select>
                 </div>
                 
