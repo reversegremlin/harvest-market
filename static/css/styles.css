@@ -129,19 +129,84 @@ body {
     border: 4px solid var(--season-primary);
 }
 
-/* Dark theme adjustments */
+/* Light theme */
+.theme-light {
+    --theme-bg: #ffffff;
+    --theme-text: #333333;
+    --theme-primary: #007bff;
+    --theme-secondary: #6c757d;
+    --theme-border: #dee2e6;
+    --theme-card-bg: #ffffff;
+    --theme-input-bg: #ffffff;
+    --theme-hover: #f8f9fa;
+    --theme-shadow: rgba(0, 0, 0, 0.1);
+    
+    background-color: var(--theme-bg);
+    color: var(--theme-text);
+}
+
+/* Dark theme */
 .theme-dark {
-    background: linear-gradient(135deg, #2C3E50 0%, #3E4E5C 100%);
-    color: var(--autumn-cream);
+    --theme-bg: #1a1a1a;
+    --theme-text: #e0e0e0;
+    --theme-primary: #3699ff;
+    --theme-secondary: #6c757d;
+    --theme-border: #2d2d2d;
+    --theme-card-bg: #2d2d2d;
+    --theme-input-bg: #333333;
+    --theme-hover: #2c2c2c;
+    --theme-shadow: rgba(0, 0, 0, 0.25);
+    
+    background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+    color: var(--theme-text);
 }
 
-.theme-dark .profile-card {
-    background-color: #2d2d2d;
-    border-color: var(--autumn-gold);
+/* Theme-specific styles */
+.theme-dark .profile-card,
+.theme-light .profile-card {
+    background-color: var(--theme-card-bg);
+    border-color: var(--theme-border);
+    box-shadow: 0 0.5rem 1rem var(--theme-shadow);
 }
 
-.theme-dark .btn-primary {
-    background: var(--warm-gradient);
+.theme-dark .form-control,
+.theme-light .form-control {
+    background-color: var(--theme-input-bg);
+    border-color: var(--theme-border);
+    color: var(--theme-text);
+}
+
+.theme-dark .form-control:focus,
+.theme-light .form-control:focus {
+    border-color: var(--theme-primary);
+    box-shadow: 0 0 0 0.2rem rgba(54, 153, 255, 0.25);
+}
+
+.theme-dark .btn-primary,
+.theme-light .btn-primary {
+    background-color: var(--theme-primary);
+    border-color: var(--theme-primary);
+}
+
+.theme-dark .navbar,
+.theme-light .navbar {
+    background-color: var(--theme-card-bg) !important;
+    border-bottom: 1px solid var(--theme-border);
+}
+
+.theme-dark .nav-link,
+.theme-light .nav-link {
+    color: var(--theme-text) !important;
+}
+
+.theme-dark .nav-link:hover,
+.theme-light .nav-link:hover {
+    color: var(--theme-primary) !important;
+}
+
+.theme-dark .text-muted,
+.theme-light .text-muted {
+    color: var(--theme-secondary) !important;
 }
 
 .alert {
