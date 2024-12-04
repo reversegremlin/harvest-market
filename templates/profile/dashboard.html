@@ -71,9 +71,10 @@
                 <div class="row g-3 quick-actions">
                     <div class="col-12 col-sm-6">
                         <div class="p-3 border rounded h-100">
-                            <h6 class="mb-2">Security Settings</h6>
-                            <p class="small mb-0">Update your password and security preferences</p>
-                            <a href="{{ url_for('profile.security_settings') }}" class="stretched-link"></a>
+                            <a href="{{ url_for('profile.security_settings') }}" class="text-decoration-none">
+                                <h6 class="mb-2">Security Settings</h6>
+                                <p class="small mb-0">Update your password and security preferences</p>
+                            </a>
                         </div>
                     </div>
                     <div class="col-12 col-sm-6">
@@ -87,4 +88,14 @@
         </div>
     </div>
 </div>
+{% endblock %}
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+});
+</script>
 {% endblock %}
