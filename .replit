@@ -31,6 +31,10 @@ args = "Verify Admin User"
 task = "workflow.run"
 args = "Make Admin"
 
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Flask Server"
+
 [[workflows.workflow]]
 name = "Flask Auth Server"
 author = "agent"
@@ -58,7 +62,7 @@ task = "packager.installForAll"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "flask db migrate -m 'remove custom css field'"
+args = "flask db upgrade"
 
 [[workflows.workflow]]
 name = "Create Admin User"
@@ -101,6 +105,21 @@ task = "packager.installForAll"
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "python make_admin.py"
+
+[[workflows.workflow]]
+name = "Flask Server"
+author = "agent"
+
+[workflows.workflow.metadata]
+agentRequireRestartOnSave = false
+
+[[workflows.workflow.tasks]]
+task = "packager.installForAll"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python app.py"
+waitForPort = 5000
 
 [deployment]
 run = ["sh", "-c", "python app.py"]

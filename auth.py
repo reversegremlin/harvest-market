@@ -1,4 +1,5 @@
 from flask import Blueprint, request, flash, redirect, url_for, render_template, current_app
+from datetime import datetime
 from flask_login import login_user, logout_user, login_required
 from extensions import db
 import secrets
@@ -71,8 +72,9 @@ def register():
         timezone = request.form.get('timezone')
         
         # Input validation
-        if not all([email, username, password, first_name, last_name, timezone]):
-            flash('All fields are required', 'error')
+        terms_agree = request.form.get('terms_agree')
+        if not all([email, username, password, first_name, last_name, timezone, terms_agree]):
+            flash('All fields are required, including agreement to Terms of Service', 'error')
             return redirect(url_for('auth.register'))
             
         if not timezone in pytz.common_timezones:
@@ -111,7 +113,14 @@ def register():
                 current_app.logger.warning('Mailgun not configured, proceeding with registration without email verification')
 
             # Start database transaction
-            user = User(email=email, username=username, first_name=first_name, last_name=last_name, timezone=timezone)
+            user = User(
+                email=email, 
+                username=username, 
+                first_name=first_name, 
+                last_name=last_name, 
+                timezone=timezone,
+                terms_accepted=datetime.utcnow()
+            )
             user.set_password(password)
             user.verification_token = secrets.token_urlsafe(32)
             user.avatar_url = f"https://api.dicebear.com/6.x/avataaars/svg?seed={username}"
