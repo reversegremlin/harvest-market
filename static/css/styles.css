@@ -149,15 +149,17 @@ body {
 .theme-dark {
     --theme-bg: #000000;
     --theme-text: #ffffff;
-    --theme-primary: #ffffff;
-    --theme-secondary: #cccccc;
-    --theme-border: #ffffff;
+    --theme-primary: #333333;
+    --theme-secondary: #666666;
+    --theme-border: #444444;
     --theme-card-bg: #0a0a0a;
     --theme-input-bg: #1a1a1a;
     --theme-hover: #1a1a1a;
-    --theme-shadow: rgba(255, 255, 255, 0.1);
+    --theme-shadow: rgba(0, 0, 0, 0.5);
+    --theme-button-text: #ffffff;
+    --theme-navbar-bg: #000000;
     
-    background: #000000;
+    background: var(--theme-bg);
     color: var(--theme-text);
 }
 
@@ -167,6 +169,23 @@ body {
     background-color: var(--theme-card-bg);
     border-color: var(--theme-border);
     box-shadow: 0 0.5rem 1rem var(--theme-shadow);
+}
+
+.theme-dark .navbar {
+    background: var(--theme-navbar-bg) !important;
+    border-bottom: 1px solid var(--theme-border);
+}
+
+.theme-dark .btn-primary {
+    background: var(--theme-primary);
+    color: var(--theme-button-text);
+    border: 1px solid var(--theme-border);
+}
+
+.theme-dark .btn-primary:hover {
+    background: var(--theme-secondary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px var(--theme-shadow);
 }
 
 .theme-dark .form-control,
