@@ -170,6 +170,9 @@
             {% if settings.footer_text %}
                 {{ settings.footer_text|safe }}
             {% endif %}
+            <p class="text-muted mb-2">
+                &copy; {{ now.year }} Market Harvest Game. All rights reserved.
+            </p>
             <div class="mt-2">
                 <a href="{{ url_for('privacy') }}" class="text-muted">Privacy Policy</a> |
                 <a href="{{ url_for('terms') }}" class="text-muted">Terms of Service</a> |
