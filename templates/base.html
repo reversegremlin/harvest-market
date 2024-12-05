@@ -111,20 +111,20 @@
             <a class="navbar-brand d-flex align-items-center" href="{{ url_for('profile.dashboard') }}">
                 {% if current_user.is_authenticated %}
                     {% if current_user.theme == 'dark' %}
-                        <span class="me-2">🌙</span>
+                        <span class="navbar-icon">🌙</span>
                     {% elif current_user.theme == 'light' %}
-                        <span class="me-2">☀️</span>
+                        <span class="navbar-icon">☀️</span>
                     {% elif current_user.theme == 'autumn' %}
-                        <span class="me-2">🍁</span>
+                        <span class="navbar-icon">🍁</span>
                     {% elif current_user.theme == 'winter' %}
-                        <span class="me-2">❄️</span>
+                        <span class="navbar-icon">❄️</span>
                     {% elif current_user.theme == 'spring' %}
-                        <span class="me-2">🌸</span>
+                        <span class="navbar-icon">🌸</span>
                     {% elif current_user.theme == 'summer' %}
-                        <span class="me-2">☀️</span>
+                        <span class="navbar-icon">☀️</span>
                     {% endif %}
                 {% else %}
-                    <span class="me-2">🍁</span>
+                    <span class="navbar-icon">🍁</span>
                 {% endif %}
                 {{ settings.site_title }}
             </a>
