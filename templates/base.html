@@ -109,23 +109,25 @@
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="{{ url_for('profile.dashboard') }}">
-                {% if current_user.is_authenticated %}
-                    {% if current_user.theme == 'dark' %}
-                        <span class="navbar-icon">🌙</span>
-                    {% elif current_user.theme == 'light' %}
-                        <span class="navbar-icon">☀️</span>
-                    {% elif current_user.theme == 'autumn' %}
-                        <span class="navbar-icon">🍁</span>
-                    {% elif current_user.theme == 'winter' %}
-                        <span class="navbar-icon">❄️</span>
-                    {% elif current_user.theme == 'spring' %}
-                        <span class="navbar-icon">🌸</span>
-                    {% elif current_user.theme == 'summer' %}
-                        <span class="navbar-icon">🌞</span>
+                <span class="navbar-icon">
+                    {% if current_user.is_authenticated %}
+                        {% if current_user.theme == 'dark' %}
+                            🌙
+                        {% elif current_user.theme == 'light' %}
+                            ☀️
+                        {% elif current_user.theme == 'autumn' %}
+                            🍁
+                        {% elif current_user.theme == 'winter' %}
+                            ❄️
+                        {% elif current_user.theme == 'spring' %}
+                            🌸
+                        {% elif current_user.theme == 'summer' %}
+                            🌞
+                        {% endif %}
+                    {% else %}
+                        🍁
                     {% endif %}
-                {% else %}
-                    <span class="navbar-icon">🍁</span>
-                {% endif %}
+                </span>
                 {{ settings.site_title }}
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
