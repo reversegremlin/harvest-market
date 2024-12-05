@@ -1,7 +1,4 @@
-2024-12-03 22:54:38,211 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:57]
-2024-12-03 23:02:36,969 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:48]
-2024-12-03 23:02:36,969 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:57]
-2024-12-03 23:11:56,045 ERROR: Exception on / [GET] [in /home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py:875]
+2024-12-04 05:38:02,286 ERROR: Exception on / [GET] [in /home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py:875]
 Traceback (most recent call last):
   File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
     self.dialect.do_execute(
@@ -25,7 +22,7 @@ Traceback (most recent call last):
   File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/app.py", line 83, in index
+  File "/home/runner/Market-Harvest/app.py", line 84, in index
     return render_template('landing.html')
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/templating.py", line 150, in render_template
@@ -43,10 +40,10 @@ Traceback (most recent call last):
   File "/home/runner/Market-Harvest/templates/base.html", line 7, in top-level template code
     {% set settings = site_settings() %}
     ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/app.py", line 70, in get_settings
+  File "/home/runner/Market-Harvest/app.py", line 71, in get_settings
     settings = SiteSettings.get_settings()
                ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/models.py", line 43, in get_settings
+  File "/home/runner/Market-Harvest/models.py", line 46, in get_settings
     all_settings = cls.query.order_by(cls.id.desc()).all()
                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2673, in all
@@ -89,31 +86,10 @@ sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) SSL connection has 
 [SQL: SELECT site_settings.id AS site_settings_id, site_settings.site_title AS site_settings_site_title, site_settings.site_icon AS site_settings_site_icon, site_settings.default_theme AS site_settings_default_theme, site_settings.welcome_message AS site_settings_welcome_message, site_settings.footer_text AS site_settings_footer_text, site_settings.created_at AS site_settings_created_at, site_settings.updated_at AS site_settings_updated_at 
 FROM site_settings ORDER BY site_settings.id DESC]
 (Background on this error at: https://sqlalche.me/e/20/e3q8)
-2024-12-03 23:12:23,411 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:48]
-2024-12-03 23:12:23,411 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:57]
-2024-12-03 23:13:42,574 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:48]
-2024-12-03 23:13:42,575 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:57]
-2024-12-03 23:15:20,446 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:48]
-2024-12-03 23:15:20,446 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:57]
-2024-12-03 23:18:33,421 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:48]
-2024-12-03 23:18:33,422 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:57]
-2024-12-03 23:19:36,477 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:48]
-2024-12-03 23:19:36,477 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:57]
-2024-12-03 23:22:08,408 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:49]
-2024-12-03 23:22:08,409 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:58]
-2024-12-03 23:23:27,681 INFO: Cookie consent logged - Status: False, Timestamp: 2024-12-03T23:23:27.686Z [in /home/runner/Market-Harvest/app.py:95]
-2024-12-03 23:23:33,340 INFO: Cookie consent logged - Status: False, Timestamp: 2024-12-03T23:23:33.355Z [in /home/runner/Market-Harvest/app.py:95]
-2024-12-03 23:24:30,972 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:49]
-2024-12-03 23:24:30,973 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:58]
-2024-12-03 23:24:38,747 INFO: Cookie consent logged - Status: False, Timestamp: 2024-12-03T23:24:38.753Z [in /home/runner/Market-Harvest/app.py:95]
-2024-12-03 23:24:55,214 INFO: Cookie consent logged - Status: True, Timestamp: 2024-12-03T23:24:55.223Z [in /home/runner/Market-Harvest/app.py:95]
-2024-12-03 23:25:26,242 INFO: Cookie consent logged - Status: False, Timestamp: 2024-12-03T23:25:26.240Z [in /home/runner/Market-Harvest/app.py:95]
-2024-12-03 23:26:51,266 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:49]
-2024-12-03 23:26:51,267 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:58]
-2024-12-03 23:27:35,372 INFO: Cookie consent logged - Status: False, Timestamp: 2024-12-03T23:27:35.372Z [in /home/runner/Market-Harvest/app.py:95]
-2024-12-03 23:27:39,491 INFO: Cookie consent logged - Status: False, Timestamp: 2024-12-03T23:27:39.502Z [in /home/runner/Market-Harvest/app.py:95]
-2024-12-03 23:27:45,402 INFO: Cookie consent logged - Status: False, Timestamp: 2024-12-03T23:27:45.408Z [in /home/runner/Market-Harvest/app.py:95]
-2024-12-03 23:28:33,294 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:49]
-2024-12-03 23:28:33,294 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:58]
-2024-12-03 23:28:41,978 INFO: Cookie consent logged - Status: False, Timestamp: 2024-12-03T23:28:41.984Z [in /home/runner/Market-Harvest/app.py:95]
-2024-12-03 23:28:46,652 INFO: Cookie consent logged - Status: False, Timestamp: 2024-12-03T23:28:46.664Z [in /home/runner/Market-Harvest/app.py:95]
+2024-12-04 05:40:31,945 INFO: Cookie consent logged - Status: False, Timestamp: 2024-12-04T05:40:31.306Z [in /home/runner/Market-Harvest/app.py:99]
+2024-12-04 05:42:06,872 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:49]
+2024-12-04 05:42:06,872 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:58]
+2024-12-04 13:50:57,401 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:49]
+2024-12-04 13:50:57,405 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:58]
+2024-12-04 14:10:18,685 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:49]
+2024-12-04 14:10:18,685 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:58]
