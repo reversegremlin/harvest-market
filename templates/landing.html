@@ -6,18 +6,16 @@
 <div class="landing-container">
     <div class="landing-header text-center">
         <img src="{{ url_for('static', filename='img/cornucopia.svg') }}" alt="Cornucopia" class="landing-logo mb-4">
-        <h1 class="display-4 mb-3">Welcome to {{ site_settings().site_title }}</h1>
+        <h1 class="display-4 mb-3">Welcome to {{ site_settings().site_title or 'Market Harvest' }}</h1>
         
-        {% if site_settings().welcome_message %}
-            <div class="welcome-message mb-4">
+        <div class="welcome-message mb-4">
+            {% if site_settings().welcome_message %}
                 {{ site_settings().welcome_message|safe }}
-            </div>
-        {% else %}
-            <div class="welcome-message mb-4">
+            {% else %}
                 <p class="mb-0">Welcome to our vibrant community! Here you'll find a space where creativity meets collaboration, 
                 and every season brings new opportunities. Join us to discover what makes our platform unique.</p>
-            </div>
-        {% endif %}
+            {% endif %}
+        </div>
         
         <div class="cta-buttons">
             {% if current_user.is_authenticated %}

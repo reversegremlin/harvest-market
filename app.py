@@ -72,9 +72,30 @@ else:
 def inject_site_settings():
     from models import SiteSettings
     def get_settings():
-        settings = SiteSettings.get_settings()
-        app.logger.debug(f'Injecting site settings - title: {settings.site_title}, welcome: {settings.welcome_message}')
-        return settings
+        try:
+            settings = SiteSettings.query.first()
+            if not settings:
+                # Create default settings if none exist
+                settings = SiteSettings(
+                    site_title='Market Harvest',
+                    welcome_message='Welcome to our vibrant community!',
+                    footer_text='© 2024 Market Harvest. All rights reserved.',
+                    default_theme='autumn'
+                )
+                db.session.add(settings)
+                db.session.commit()
+            app.logger.debug(f'Injecting site settings - title: {settings.site_title}')
+            return settings
+        except Exception as e:
+            app.logger.error(f'Error loading site settings: {str(e)}')
+            # Return default settings object if database query fails
+            return type('DefaultSettings', (), {
+                'site_title': 'Market Harvest',
+                'welcome_message': 'Welcome to our vibrant community!',
+                'footer_text': '© 2024 Market Harvest. All rights reserved.',
+                'default_theme': 'autumn',
+                'site_icon': None
+            })
     return dict(site_settings=get_settings)
 
 @app.template_filter('b64encode')
@@ -85,7 +106,18 @@ def b64encode_filter(s):
 
 @app.route('/')
 def index():
-    return render_template('landing.html')
+    try:
+        # Get site settings with proper error handling
+        settings = inject_site_settings()['site_settings']()
+        # Handle anonymous users by setting a default theme
+        theme = 'autumn'  # Default theme for anonymous users
+        return render_template('landing.html', theme=theme)
+    except Exception as e:
+        app.logger.error(f'Error loading landing page: {str(e)}')
+        # Return a basic version of the landing page with defaults
+        return render_template('landing.html', 
+                             theme='autumn',
+                             error_message="Welcome to Market Harvest")
 @app.route('/privacy')
 def privacy():
     return render_template('privacy.html')

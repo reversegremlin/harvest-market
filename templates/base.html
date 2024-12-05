@@ -105,7 +105,7 @@
         });
     </script>
 </head>
-<body class="theme-{{ current_user.theme if current_user.is_authenticated and current_user.theme else 'autumn' }}">
+<body class="theme-{{ current_user.theme if current_user.is_authenticated else (theme|default('autumn')) }}">
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="{{ url_for('profile.dashboard') }}">
