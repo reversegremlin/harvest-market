@@ -83,3 +83,4 @@ NameError: name 'app' is not defined
 2024-12-05 14:18:36,159 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:62]
 2024-12-05 14:18:51,577 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:53]
 2024-12-05 14:18:51,577 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:62]
+2024-12-05 14:19:40,270 INFO: Cookie consent logged - Status: False, Timestamp: 2024-12-05T14:19:40.038Z [in /home/runner/Market-Harvest/app.py:144]
