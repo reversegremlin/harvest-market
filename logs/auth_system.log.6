@@ -1,7 +1,4 @@
-2024-12-03 22:54:38,211 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:57]
-2024-12-03 23:02:36,969 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:48]
-2024-12-03 23:02:36,969 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:57]
-2024-12-03 23:11:56,045 ERROR: Exception on / [GET] [in /home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py:875]
+2024-12-04 14:43:39,917 ERROR: Exception on /auth/reset-password [POST] [in /home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py:875]
 Traceback (most recent call last):
   File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
     self.dialect.do_execute(
@@ -25,33 +22,12 @@ Traceback (most recent call last):
   File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 902, in dispatch_request
     return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/app.py", line 83, in index
-    return render_template('landing.html')
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/templating.py", line 150, in render_template
-    return _render(app, template, context)
-           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/templating.py", line 131, in _render
-    rv = template.render(context)
-         ^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/jinja2/environment.py", line 1304, in render
-    self.environment.handle_exception()
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/jinja2/environment.py", line 939, in handle_exception
-    raise rewrite_traceback_stack(source=source)
-  File "/home/runner/Market-Harvest/templates/landing.html", line 1, in top-level template code
-    {% extends "base.html" %}
-  File "/home/runner/Market-Harvest/templates/base.html", line 7, in top-level template code
-    {% set settings = site_settings() %}
-    ^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/app.py", line 70, in get_settings
-    settings = SiteSettings.get_settings()
-               ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/models.py", line 43, in get_settings
-    all_settings = cls.query.order_by(cls.id.desc()).all()
-                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2673, in all
-    return self._iter().all()  # type: ignore
-           ^^^^^^^^^^^^
+  File "/home/runner/Market-Harvest/auth.py", line 215, in reset_password
+    user = User.query.filter_by(email=email).first()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2728, in first
+    return self.limit(1)._iter().first()  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^
   File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2827, in _iter
     result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
                                                   ^^^^^^^^^^^^^^^^^^^^^
@@ -86,34 +62,63 @@ Traceback (most recent call last):
     cursor.execute(statement, parameters)
 sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) SSL connection has been closed unexpectedly
 
-[SQL: SELECT site_settings.id AS site_settings_id, site_settings.site_title AS site_settings_site_title, site_settings.site_icon AS site_settings_site_icon, site_settings.default_theme AS site_settings_default_theme, site_settings.welcome_message AS site_settings_welcome_message, site_settings.footer_text AS site_settings_footer_text, site_settings.created_at AS site_settings_created_at, site_settings.updated_at AS site_settings_updated_at 
-FROM site_settings ORDER BY site_settings.id DESC]
+[SQL: SELECT "user".id AS user_id, "user".username AS user_username, "user".email AS user_email, "user".first_name AS user_first_name, "user".last_name AS user_last_name, "user".timezone AS user_timezone, "user".password_hash AS user_password_hash, "user".email_verified AS user_email_verified, "user".verification_token AS user_verification_token, "user".reset_token AS user_reset_token, "user".theme AS user_theme, "user".seasonal_theme AS user_seasonal_theme, "user".avatar_url AS user_avatar_url, "user".created_at AS user_created_at, "user".is_admin AS user_is_admin, "user".terms_accepted AS user_terms_accepted, "user".birth_date AS user_birth_date, "user".age_verified AS user_age_verified 
+FROM "user" 
+WHERE "user".email = %(email_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'email_1': 'reversegremlin@gmail.com', 'param_1': 1}]
 (Background on this error at: https://sqlalche.me/e/20/e3q8)
-2024-12-03 23:12:23,411 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:48]
-2024-12-03 23:12:23,411 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:57]
-2024-12-03 23:13:42,574 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:48]
-2024-12-03 23:13:42,575 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:57]
-2024-12-03 23:15:20,446 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:48]
-2024-12-03 23:15:20,446 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:57]
-2024-12-03 23:18:33,421 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:48]
-2024-12-03 23:18:33,422 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:57]
-2024-12-03 23:19:36,477 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:48]
-2024-12-03 23:19:36,477 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:57]
-2024-12-03 23:22:08,408 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:49]
-2024-12-03 23:22:08,409 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:58]
-2024-12-03 23:23:27,681 INFO: Cookie consent logged - Status: False, Timestamp: 2024-12-03T23:23:27.686Z [in /home/runner/Market-Harvest/app.py:95]
-2024-12-03 23:23:33,340 INFO: Cookie consent logged - Status: False, Timestamp: 2024-12-03T23:23:33.355Z [in /home/runner/Market-Harvest/app.py:95]
-2024-12-03 23:24:30,972 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:49]
-2024-12-03 23:24:30,973 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:58]
-2024-12-03 23:24:38,747 INFO: Cookie consent logged - Status: False, Timestamp: 2024-12-03T23:24:38.753Z [in /home/runner/Market-Harvest/app.py:95]
-2024-12-03 23:24:55,214 INFO: Cookie consent logged - Status: True, Timestamp: 2024-12-03T23:24:55.223Z [in /home/runner/Market-Harvest/app.py:95]
-2024-12-03 23:25:26,242 INFO: Cookie consent logged - Status: False, Timestamp: 2024-12-03T23:25:26.240Z [in /home/runner/Market-Harvest/app.py:95]
-2024-12-03 23:26:51,266 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:49]
-2024-12-03 23:26:51,267 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:58]
-2024-12-03 23:27:35,372 INFO: Cookie consent logged - Status: False, Timestamp: 2024-12-03T23:27:35.372Z [in /home/runner/Market-Harvest/app.py:95]
-2024-12-03 23:27:39,491 INFO: Cookie consent logged - Status: False, Timestamp: 2024-12-03T23:27:39.502Z [in /home/runner/Market-Harvest/app.py:95]
-2024-12-03 23:27:45,402 INFO: Cookie consent logged - Status: False, Timestamp: 2024-12-03T23:27:45.408Z [in /home/runner/Market-Harvest/app.py:95]
-2024-12-03 23:28:33,294 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:49]
-2024-12-03 23:28:33,294 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:58]
-2024-12-03 23:28:41,978 INFO: Cookie consent logged - Status: False, Timestamp: 2024-12-03T23:28:41.984Z [in /home/runner/Market-Harvest/app.py:95]
-2024-12-03 23:28:46,652 INFO: Cookie consent logged - Status: False, Timestamp: 2024-12-03T23:28:46.664Z [in /home/runner/Market-Harvest/app.py:95]
+2024-12-04 16:47:35,837 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:49]
+2024-12-04 16:47:35,840 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:58]
+2024-12-04 16:47:44,222 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:49]
+2024-12-04 16:47:44,222 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:58]
+2024-12-04 16:51:39,394 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:49]
+2024-12-04 16:51:39,397 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:58]
+2024-12-04 16:52:06,884 INFO: User logged in: nadiabellamorris [in /home/runner/Market-Harvest/auth.py:185]
+2024-12-04 16:52:44,575 ERROR: Exception on /profile/security [GET] [in /home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py:875]
+Traceback (most recent call last):
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 920, in full_dispatch_request
+    return self.finalize_request(rv)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 939, in finalize_request
+    response = self.make_response(rv)
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1212, in make_response
+    raise TypeError(
+TypeError: The view function for 'profile.security_settings' did not return a valid response. The function either returned None or ended without a return statement.
+2024-12-04 16:52:52,468 INFO: Cookie consent logged - Status: False, Timestamp: 2024-12-04T16:52:52.621Z [in /home/runner/Market-Harvest/app.py:108]
+2024-12-04 16:52:54,407 ERROR: Exception on /profile/security [GET] [in /home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py:875]
+Traceback (most recent call last):
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 920, in full_dispatch_request
+    return self.finalize_request(rv)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 939, in finalize_request
+    response = self.make_response(rv)
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1212, in make_response
+    raise TypeError(
+TypeError: The view function for 'profile.security_settings' did not return a valid response. The function either returned None or ended without a return statement.
+2024-12-04 16:53:21,805 ERROR: Exception on /profile/security [GET] [in /home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py:875]
+Traceback (most recent call last):
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 920, in full_dispatch_request
+    return self.finalize_request(rv)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 939, in finalize_request
+    response = self.make_response(rv)
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py", line 1212, in make_response
+    raise TypeError(
+TypeError: The view function for 'profile.security_settings' did not return a valid response. The function either returned None or ended without a return statement.
+2024-12-04 16:55:20,118 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:49]
+2024-12-04 16:55:20,124 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:58]
+2024-12-04 16:57:42,458 INFO: Cookie consent logged - Status: False, Timestamp: 2024-12-04T16:57:42.515Z [in /home/runner/Market-Harvest/app.py:108]
+2024-12-04 16:57:57,376 INFO: Cookie consent logged - Status: False, Timestamp: 2024-12-04T16:57:57.523Z [in /home/runner/Market-Harvest/app.py:108]

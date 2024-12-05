@@ -73,29 +73,39 @@ def inject_site_settings():
     from models import SiteSettings
     def get_settings():
         try:
+            # Attempt to get existing settings
             settings = SiteSettings.query.first()
+            
             if not settings:
-                # Create default settings if none exist
-                settings = SiteSettings(
-                    site_title='Market Harvest',
-                    welcome_message='Welcome to our vibrant community!',
-                    footer_text='© 2024 Market Harvest. All rights reserved.',
-                    default_theme='autumn'
-                )
-                db.session.add(settings)
-                db.session.commit()
-            app.logger.debug(f'Injecting site settings - title: {settings.site_title}')
-            return settings
+                try:
+                    # Create default settings if none exist
+                    settings = SiteSettings(
+                        site_title='Market Harvest',
+                        welcome_message='Welcome to our vibrant community!',
+                        footer_text='© 2024 Market Harvest. All rights reserved.',
+                        default_theme='autumn'
+                    )
+                    db.session.add(settings)
+                    db.session.commit()
+                    app.logger.info('Created default site settings')
+                except Exception as e:
+                    app.logger.error(f'Failed to create default settings: {str(e)}')
+                    db.session.rollback()
+            
+            if settings:
+                app.logger.debug(f'Using database settings - title: {settings.site_title}')
+                return settings
         except Exception as e:
-            app.logger.error(f'Error loading site settings: {str(e)}')
-            # Return default settings object if database query fails
-            return type('DefaultSettings', (), {
-                'site_title': 'Market Harvest',
-                'welcome_message': 'Welcome to our vibrant community!',
-                'footer_text': '© 2024 Market Harvest. All rights reserved.',
-                'default_theme': 'autumn',
-                'site_icon': None
-            })
+            app.logger.error(f'Error accessing site settings: {str(e)}')
+        
+        # Return default settings object if anything fails
+        return type('DefaultSettings', (), {
+            'site_title': 'Market Harvest',
+            'welcome_message': 'Welcome to our vibrant community!',
+            'footer_text': '© 2024 Market Harvest. All rights reserved.',
+            'default_theme': 'autumn',
+            'site_icon': None
+        })
     return dict(site_settings=get_settings)
 
 @app.template_filter('b64encode')
@@ -107,17 +117,24 @@ def b64encode_filter(s):
 @app.route('/')
 def index():
     try:
-        # Get site settings with proper error handling
-        settings = inject_site_settings()['site_settings']()
-        # Handle anonymous users by setting a default theme
-        theme = 'autumn'  # Default theme for anonymous users
+        # Set default theme and settings
+        theme = 'autumn'
+        settings = None
+        
+        try:
+            # Attempt to get site settings
+            settings = inject_site_settings()['site_settings']()
+            if settings and settings.default_theme:
+                theme = settings.default_theme
+        except Exception as e:
+            app.logger.error(f'Error accessing site settings: {str(e)}')
+            # Continue with default theme if settings access fails
+        
         return render_template('landing.html', theme=theme)
     except Exception as e:
         app.logger.error(f'Error loading landing page: {str(e)}')
-        # Return a basic version of the landing page with defaults
-        return render_template('landing.html', 
-                             theme='autumn',
-                             error_message="Welcome to Market Harvest")
+        # Return basic landing page with default theme
+        return render_template('landing.html', theme='autumn')
 @app.route('/privacy')
 def privacy():
     return render_template('privacy.html')
