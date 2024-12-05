@@ -63,6 +63,39 @@ class TransactionHistory(db.Model):
     timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     description = db.Column(db.Text, nullable=True)
 
+class LogEntry(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    level = db.Column(db.String(10), nullable=False)  # INFO, WARNING, ERROR
+    source = db.Column(db.String(100), nullable=False)
+    message = db.Column(db.Text, nullable=False)
+    stack_trace = db.Column(db.Text, nullable=True)
+    
+    @classmethod
+    def create(cls, level, message, source, stack_trace=None):
+        log_entry = cls(
+            level=level,
+            message=message,
+            source=source,
+            stack_trace=stack_trace
+        )
+        db.session.add(log_entry)
+        db.session.commit()
+        return log_entry
+    
+    @classmethod
+    def get_logs(cls, level=None, start_date=None, end_date=None, limit=100):
+        query = cls.query.order_by(cls.timestamp.desc())
+        
+        if level:
+            query = query.filter(cls.level == level)
+        if start_date:
+            query = query.filter(cls.timestamp >= start_date)
+        if end_date:
+            query = query.filter(cls.timestamp <= end_date)
+            
+        return query.limit(limit).all()
+
 class SiteSettings(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     site_title = db.Column(db.String(128), nullable=False, default='Market Harvest')

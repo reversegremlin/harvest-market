@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Log Viewer{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">System Logs</h1>
+    
+    <!-- Filters -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <form id="log-filter-form" class="row g-3">
+                <div class="col-md-3">
+                    <label for="level" class="form-label">Log Level</label>
+                    <select class="form-select" id="level" name="level">
+                        <option value="">All Levels</option>
+                        <option value="INFO">Info</option>
+                        <option value="WARNING">Warning</option>
+                        <option value="ERROR">Error</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <label for="start_date" class="form-label">Start Date</label>
+                    <input type="date" class="form-control" id="start_date" name="start_date">
+                </div>
+                <div class="col-md-3">
+                    <label for="end_date" class="form-label">End Date</label>
+                    <input type="date" class="form-control" id="end_date" name="end_date">
+                </div>
+                <div class="col-md-3 d-flex align-items-end">
+                    <button type="submit" class="btn btn-primary w-100">Apply Filters</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Log Display -->
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Timestamp</th>
+                            <th>Level</th>
+                            <th>Source</th>
+                            <th>Message</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="log-entries">
+                        {% for log in logs %}
+                        <tr class="log-entry log-level-{{ log.level.lower() }}">
+                            <td>{{ log.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                            <td><span class="badge bg-{{ 'info' if log.level == 'INFO' else 'warning' if log.level == 'WARNING' else 'danger' }}">{{ log.level }}</span></td>
+                            <td>{{ log.source }}</td>
+                            <td>{{ log.message }}</td>
+                            <td>
+                                {% if log.stack_trace %}
+                                <button class="btn btn-sm btn-outline-secondary" onclick="toggleStackTrace({{ log.id }})">Show Details</button>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% if log.stack_trace %}
+                        <tr id="stack-trace-{{ log.id }}" class="stack-trace" style="display: none;">
+                            <td colspan="5">
+                                <pre class="bg-light p-3"><code>{{ log.stack_trace }}</code></pre>
+                            </td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function toggleStackTrace(logId) {
+    const stackTrace = document.getElementById(`stack-trace-${logId}`);
+    if (stackTrace) {
+        stackTrace.style.display = stackTrace.style.display === 'none' ? 'table-row' : 'none';
+    }
+}
+
+// Set up SSE for real-time updates
+const evtSource = new EventSource("{{ url_for('admin.log_stream') }}");
+evtSource.onmessage = function(event) {
+    const log = JSON.parse(event.data);
+    const tbody = document.getElementById('log-entries');
+    const newRow = document.createElement('tr');
+    newRow.className = `log-entry log-level-${log.level.toLowerCase()}`;
+    newRow.innerHTML = `
+        <td>${new Date(log.timestamp).toLocaleString()}</td>
+        <td><span class="badge bg-${log.level === 'INFO' ? 'info' : log.level === 'WARNING' ? 'warning' : 'danger'}">${log.level}</span></td>
+        <td>${log.source}</td>
+        <td>${log.message}</td>
+        <td>
+            ${log.stack_trace ? `<button class="btn btn-sm btn-outline-secondary" onclick="toggleStackTrace(${log.id})">Show Details</button>` : ''}
+        </td>
+    `;
+    tbody.insertBefore(newRow, tbody.firstChild);
+    
+    if (log.stack_trace) {
+        const stackTraceRow = document.createElement('tr');
+        stackTraceRow.id = `stack-trace-${log.id}`;
+        stackTraceRow.className = 'stack-trace';
+        stackTraceRow.style.display = 'none';
+        stackTraceRow.innerHTML = `
+            <td colspan="5">
+                <pre class="bg-light p-3"><code>${log.stack_trace}</code></pre>
+            </td>
+        `;
+        tbody.insertBefore(stackTraceRow, newRow.nextSibling);
+    }
+};
+
+document.getElementById('log-filter-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    const params = new URLSearchParams();
+    for (const [key, value] of formData.entries()) {
+        if (value) params.append(key, value);
+    }
+    
+    try {
+        const response = await fetch(`{{ url_for('admin.logs') }}?${params.toString()}`);
+        const html = await response.text();
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        document.getElementById('log-entries').innerHTML = doc.getElementById('log-entries').innerHTML;
+    } catch (error) {
+        console.error('Error updating logs:', error);
+    }
+});
+</script>
+
+<style>
+.log-level-info { background-color: rgba(13, 202, 240, 0.05); }
+.log-level-warning { background-color: rgba(255, 193, 7, 0.05); }
+.log-level-error { background-color: rgba(220, 53, 69, 0.05); }
+.stack-trace pre { margin: 0; white-space: pre-wrap; }
+</style>
+{% endblock %}

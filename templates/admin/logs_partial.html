@@ -1,0 +1,20 @@
+{% for log in logs %}
+<tr class="log-entry log-level-{{ log.level.lower() }}">
+    <td>{{ log.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+    <td><span class="badge bg-{{ 'info' if log.level == 'INFO' else 'warning' if log.level == 'WARNING' else 'danger' }}">{{ log.level }}</span></td>
+    <td>{{ log.source }}</td>
+    <td>{{ log.message }}</td>
+    <td>
+        {% if log.stack_trace %}
+        <button class="btn btn-sm btn-outline-secondary" onclick="toggleStackTrace({{ log.id }})">Show Details</button>
+        {% endif %}
+    </td>
+</tr>
+{% if log.stack_trace %}
+<tr id="stack-trace-{{ log.id }}" class="stack-trace" style="display: none;">
+    <td colspan="5">
+        <pre class="bg-light p-3"><code>{{ log.stack_trace }}</code></pre>
+    </td>
+</tr>
+{% endif %}
+{% endfor %}

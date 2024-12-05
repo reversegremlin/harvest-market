@@ -1,8 +1,10 @@
 from functools import wraps
-from flask import Blueprint, render_template, redirect, url_for, flash, request, current_app
+from flask import Blueprint, render_template, redirect, url_for, flash, request, current_app, Response
 from flask_login import current_user, login_required
 from extensions import db, csrf
-from models import User, SiteSettings
+from models import User, SiteSettings, LogEntry
+import json
+from datetime import datetime, timedelta
 import logging
 from datetime import datetime
 import secrets
@@ -171,3 +173,48 @@ def site_settings():
             flash('Error updating site settings.', 'error')
             
     return render_template('admin/site_settings.html', settings=settings)
+
+@admin_bp.route('/logs')
+@admin_required
+def logs():
+    level = request.args.get('level')
+    start_date = request.args.get('start_date')
+    end_date = request.args.get('end_date')
+    
+    if start_date:
+        start_date = datetime.strptime(start_date, '%Y-%m-%d')
+    if end_date:
+        end_date = datetime.strptime(end_date, '%Y-%m-%d') + timedelta(days=1)
+    
+    logs = LogEntry.get_logs(level=level, start_date=start_date, end_date=end_date)
+    
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        return render_template('admin/logs_partial.html', logs=logs)
+    return render_template('admin/logs.html', logs=logs)
+
+def generate_log_events():
+    """Generate SSE events for real-time log updates."""
+    last_id = 0
+    while True:
+        new_logs = LogEntry.query.filter(LogEntry.id > last_id).order_by(LogEntry.id.asc()).all()
+        for log in new_logs:
+            if log.id > last_id:
+                last_id = log.id
+                data = {
+                    'id': log.id,
+                    'timestamp': log.timestamp.strftime('%Y-%m-%d %H:%M:%S'),
+                    'level': log.level,
+                    'source': log.source,
+                    'message': log.message,
+                    'stack_trace': log.stack_trace
+                }
+                yield f"data: {json.dumps(data)}\n\n"
+        db.session.commit()  # Commit to prevent connection timeout
+        db.session.remove()  # Remove session to prevent memory leaks
+        from time import sleep
+        sleep(1)  # Wait for new logs
+
+@admin_bp.route('/log-stream')
+@admin_required
+def log_stream():
+    return Response(generate_log_events(), mimetype='text/event-stream')
