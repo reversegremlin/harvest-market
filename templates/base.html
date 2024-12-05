@@ -109,7 +109,15 @@
     <nav class="navbar navbar-expand-lg">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="{{ url_for('profile.dashboard') }}">
-                <span class="navbar-icon">{% if current_user.is_authenticated %}{% if current_user.theme == 'dark' %}🌙{% elif current_user.theme == 'light' %}☀️{% elif current_user.theme == 'autumn' %}🍁{% elif current_user.theme == 'winter' %}❄️{% elif current_user.theme == 'spring' %}🌸{% elif current_user.theme == 'summer' %}🌞{% endif %}{% else %}🍁{% endif %}</span>
+                {% set theme_icons = {
+                    'autumn': ('img/autumn-leaf.svg', 'Leaf'),
+                    'winter': ('img/winter-snowflake.svg', 'Snowflake'),
+                    'spring': ('img/spring-flower.svg', 'Flower'),
+                    'summer': ('img/summer-sun.svg', 'Sun')
+                } %}
+                {% set current_theme = current_user.seasonal_theme if current_user.is_authenticated else 'autumn' %}
+                {% set icon_info = theme_icons[current_theme] %}
+                <img src="{{ url_for('static', filename=icon_info[0]) }}" alt="{{ icon_info[1] }}" class="me-2" style="width: 24px; height: 24px;">
                 {{ settings.site_title }}
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">

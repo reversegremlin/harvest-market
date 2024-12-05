@@ -30,12 +30,6 @@ body {
     font-weight: 600;
     transition: transform 0.2s;
 }
-.navbar-icon {
-    font-size: 1.5rem;
-    margin-right: 0.5rem;
-    display: inline-flex;
-    align-items: center;
-}
 
 .navbar-brand:hover, .nav-link:hover {
     transform: scale(1.05);

@@ -1,10 +1,12 @@
-2024-12-04 05:38:02,286 ERROR: Exception on / [GET] [in /home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py:875]
+2024-12-04 05:25:35,284 ERROR: Exception on / [GET] [in /home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/flask/app.py:875]
 Traceback (most recent call last):
   File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/engine/base.py", line 1967, in _exec_single_context
     self.dialect.do_execute(
   File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 941, in do_execute
     cursor.execute(statement, parameters)
-psycopg2.OperationalError: SSL connection has been closed unexpectedly
+psycopg2.errors.UndefinedTable: relation "site_settings" does not exist
+LINE 2: FROM site_settings ORDER BY site_settings.id DESC
+             ^
 
 
 The above exception was the direct cause of the following exception:
@@ -43,8 +45,8 @@ Traceback (most recent call last):
   File "/home/runner/Market-Harvest/app.py", line 71, in get_settings
     settings = SiteSettings.get_settings()
                ^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/runner/Market-Harvest/models.py", line 46, in get_settings
-    all_settings = cls.query.order_by(cls.id.desc()).all()
+  File "/home/runner/Market-Harvest/models.py", line 44, in get_settings
+    """Get the current site settings or create default ones if they don't exist."""
                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/orm/query.py", line 2673, in all
     return self._iter().all()  # type: ignore
@@ -81,15 +83,29 @@ Traceback (most recent call last):
     self.dialect.do_execute(
   File "/home/runner/Market-Harvest/.pythonlibs/lib/python3.11/site-packages/sqlalchemy/engine/default.py", line 941, in do_execute
     cursor.execute(statement, parameters)
-sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) SSL connection has been closed unexpectedly
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedTable) relation "site_settings" does not exist
+LINE 2: FROM site_settings ORDER BY site_settings.id DESC
+             ^
 
 [SQL: SELECT site_settings.id AS site_settings_id, site_settings.site_title AS site_settings_site_title, site_settings.site_icon AS site_settings_site_icon, site_settings.default_theme AS site_settings_default_theme, site_settings.welcome_message AS site_settings_welcome_message, site_settings.footer_text AS site_settings_footer_text, site_settings.created_at AS site_settings_created_at, site_settings.updated_at AS site_settings_updated_at 
 FROM site_settings ORDER BY site_settings.id DESC]
-(Background on this error at: https://sqlalche.me/e/20/e3q8)
-2024-12-04 05:40:31,945 INFO: Cookie consent logged - Status: False, Timestamp: 2024-12-04T05:40:31.306Z [in /home/runner/Market-Harvest/app.py:99]
-2024-12-04 05:42:06,872 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:49]
-2024-12-04 05:42:06,872 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:58]
-2024-12-04 13:50:57,401 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:49]
-2024-12-04 13:50:57,405 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:58]
-2024-12-04 14:10:18,685 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:49]
-2024-12-04 14:10:18,685 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:58]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2024-12-04 05:27:31,391 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:49]
+2024-12-04 05:27:31,391 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:58]
+2024-12-04 05:27:56,333 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:49]
+2024-12-04 05:27:56,333 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:58]
+2024-12-04 05:28:06,731 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:49]
+2024-12-04 05:28:06,732 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:58]
+2024-12-04 05:28:21,292 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:49]
+2024-12-04 05:28:21,292 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:58]
+2024-12-04 05:28:40,419 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:49]
+2024-12-04 05:28:40,421 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:58]
+2024-12-04 05:28:51,638 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:49]
+2024-12-04 05:28:51,639 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:58]
+2024-12-04 05:29:26,811 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:49]
+2024-12-04 05:29:26,811 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:58]
+2024-12-04 05:29:28,020 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:49]
+2024-12-04 05:29:28,021 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:58]
+2024-12-04 05:30:43,455 INFO: Cookie consent logged - Status: False, Timestamp: 2024-12-04T05:30:42.733Z [in /home/runner/Market-Harvest/app.py:99]
+2024-12-04 05:31:13,923 INFO: Auth system startup [in /home/runner/Market-Harvest/app.py:49]
+2024-12-04 05:31:13,925 INFO: Mailgun configuration loaded successfully [in /home/runner/Market-Harvest/app.py:58]
