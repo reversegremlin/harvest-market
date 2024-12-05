@@ -70,23 +70,31 @@ else:
 # Add template context processors and filters
 @app.context_processor
 def inject_site_settings():
-    class DefaultSettings:
-        site_title = 'Market Harvest'
-        welcome_message = 'Welcome to our vibrant community!'
-        footer_text = '© 2024 Market Harvest. All rights reserved.'
-        default_theme = 'autumn'
-        site_icon = None
-
     def get_settings():
+        # Use a simple dictionary for default settings
+        default_settings = {
+            'site_title': 'Market Harvest',
+            'welcome_message': 'Welcome to our vibrant community!',
+            'footer_text': '© 2024 Market Harvest. All rights reserved.',
+            'default_theme': 'autumn',
+            'site_icon': None
+        }
+        
         try:
             from models import SiteSettings
             settings = SiteSettings.query.first()
-            return settings if settings else DefaultSettings()
+            if settings:
+                return settings
         except Exception as e:
             app.logger.error(f'Error accessing site settings: {str(e)}')
-            return DefaultSettings()
-            
-    return dict(site_settings=get_settings)
+        
+        # Create a simple object from the default settings
+        return type('DefaultSettings', (), default_settings)()
+    
+    # Cache the settings to prevent multiple database calls
+    if not hasattr(app, '_cached_settings'):
+        app._cached_settings = get_settings()
+    return dict(site_settings=lambda: app._cached_settings)
 
 @app.template_filter('b64encode')
 def b64encode_filter(s):
@@ -98,21 +106,12 @@ def b64encode_filter(s):
 def index():
     from flask_login import current_user
     
-    # Set default theme
-    theme = 'autumn'
-    
+    # Simple theme selection logic
     if current_user.is_authenticated:
-        # Use authenticated user's theme preference
-        theme = getattr(current_user, 'theme', theme)
+        theme = current_user.theme if hasattr(current_user, 'theme') else 'autumn'
     else:
-        # Get theme from site settings
-        try:
-            settings = inject_site_settings()['site_settings']()
-            theme = getattr(settings, 'default_theme', theme)
-        except Exception as e:
-            app.logger.error(f'Error getting site settings theme: {str(e)}')
+        theme = 'autumn'  # Default theme for non-authenticated users
     
-    app.logger.info(f'Rendering landing page with theme: {theme}')
     return render_template('landing.html', theme=theme)
 @app.route('/privacy')
 def privacy():
