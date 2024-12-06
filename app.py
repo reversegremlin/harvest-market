@@ -203,9 +203,8 @@ if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
     
     try:
+        # Initialize database and settings
         with app.app_context():
-            # Initialize database
-            db.engine.connect().close()
             db.create_all()
             
             # Check and initialize site settings if needed
@@ -220,11 +219,9 @@ if __name__ == "__main__":
                 db.session.add(default_settings)
                 db.session.commit()
                 app.logger.info("Default site settings created")
-        
-        app.logger.info(f"Starting server on port {port}")
-        app.run(host="0.0.0.0", port=port, debug=True)
     except Exception as e:
-        app.logger.error(f"Failed to start server: {str(e)}")
-        if hasattr(e, '__cause__') and e.__cause__:
-            app.logger.error(f"Caused by: {str(e.__cause__)}")
+        app.logger.error(f"Failed to initialize application: {str(e)}")
         raise
+
+    # Start the server without debug mode to prevent duplicate instances
+    app.run(host="0.0.0.0", port=port, debug=False, use_reloader=False)
