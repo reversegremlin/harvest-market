@@ -78,53 +78,40 @@ def inject_site_settings():
     def get_settings():
         from models import SiteSettings
         
-        # Default settings as a class
-        class BaseSettings:
-            site_title = 'Market Harvest'
-            welcome_message = 'Welcome to our vibrant community!'
-            footer_text = '© 2024 Market Harvest. All rights reserved.'
-            default_theme = 'autumn'
-            site_icon = None
-            created_at = None
-            updated_at = None
-
-        # Ensure database connection is available
-        try:
-            db.engine.connect().close()
-        except Exception as e:
-            app.logger.error(f'Database connection error: {str(e)}')
-            return BaseSettings()
+        # Default settings
+        default_settings = {
+            'site_title': 'Market Harvest',
+            'welcome_message': 'Welcome to our vibrant community!',
+            'footer_text': '© 2024 Market Harvest. All rights reserved.',
+            'default_theme': 'autumn',
+            'site_icon': None,
+        }
         
-        with _settings_lock:
-            try:
-                # Query settings in a transaction
-                with db.session.begin():
-                    settings = SiteSettings.query.with_for_update().first()
-                    if settings:
-                        # Verify all required attributes exist
-                        for attr in dir(BaseSettings):
-                            if not attr.startswith('_'):
-                                if not hasattr(settings, attr):
-                                    setattr(settings, attr, getattr(BaseSettings, attr))
-                        db.session.commit()
-                        return settings
-                    
-                    # Create new settings if none exist
-                    app.logger.info('No settings found in database, creating defaults')
-                    new_settings = SiteSettings()
-                    for attr in dir(BaseSettings):
-                        if not attr.startswith('_'):
-                            setattr(new_settings, attr, getattr(BaseSettings, attr))
-                    db.session.add(new_settings)
+        try:
+            # Get existing settings
+            settings = SiteSettings.query.first()
+            
+            if not settings:
+                # Create new settings if none exist
+                app.logger.info('Creating default site settings')
+                settings = SiteSettings(**default_settings)
+                db.session.add(settings)
+                try:
                     db.session.commit()
-                    return new_settings
-                    
-            except Exception as e:
-                db.session.rollback()
-                app.logger.error(f'Error accessing site settings: {str(e)}')
-                return BaseSettings()
-
-    return dict(site_settings=get_settings)
+                except Exception as e:
+                    db.session.rollback()
+                    app.logger.error(f'Failed to create default settings: {str(e)}')
+                    # Return object with default values
+                    return type('DefaultSettings', (), default_settings)()
+            
+            return settings
+            
+        except Exception as e:
+            app.logger.error(f'Error retrieving site settings: {str(e)}')
+            # Return object with default values
+            return type('DefaultSettings', (), default_settings)()
+    
+    return dict(site_settings=get_settings())
 
 @app.template_filter('b64encode')
 def b64encode_filter(s):
