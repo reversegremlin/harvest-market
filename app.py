@@ -149,34 +149,22 @@ def index():
     from flask_login import current_user
     
     app.logger.info('Processing index route request')
-    # Set default theme
-    theme = 'autumn'
+    theme = 'autumn'  # Default fallback theme
     
     try:
-        if current_user.is_authenticated:
-            app.logger.debug(f'User authenticated: {current_user.username}')
-            user_theme = getattr(current_user, 'theme', None)
-            app.logger.debug(f'User theme preference: {user_theme}')
-            theme = user_theme if user_theme else theme
-            app.logger.debug(f'Selected theme for authenticated user: {theme}')
+        if current_user.is_authenticated and hasattr(current_user, 'theme') and current_user.theme:
+            theme = current_user.theme
+            app.logger.debug(f'Using authenticated user theme: {theme}')
         else:
-            app.logger.debug('Anonymous user, fetching default theme from settings')
-            settings = inject_site_settings()['site_settings']
-            app.logger.debug(f'Site settings loaded with default theme: {getattr(settings, "default_theme", None)}')
-            theme = settings.default_theme if hasattr(settings, 'default_theme') else theme
-            app.logger.debug(f'Final theme for anonymous user: {theme}')
-            
-        app.logger.info(f'Rendering landing page with theme: {theme}')
-        template_response = render_template('landing.html', theme=theme)
-        app.logger.debug('Template rendered successfully')
-        return template_response
-        
+            settings = inject_site_settings().get('site_settings')
+            if settings and hasattr(settings, 'default_theme') and settings.default_theme:
+                theme = settings.default_theme
+                app.logger.debug(f'Using site settings theme: {theme}')
+            app.logger.debug('Using default theme for anonymous user')
     except Exception as e:
-        app.logger.error(f'Error in index route: {str(e)}')
-        app.logger.exception('Full traceback:')
-        # Continue with default theme
-        app.logger.info(f'Falling back to default theme: {theme}')
+        app.logger.error(f'Error in theme selection: {str(e)}')
     
+    app.logger.info(f'Rendering landing page with theme: {theme}')
     return render_template('landing.html', theme=theme)
 @app.route('/privacy')
 def privacy():
