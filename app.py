@@ -43,14 +43,35 @@ app.register_blueprint(admin_bp)
 # Set up logging
 if not os.path.exists('logs'):
     os.mkdir('logs')
-file_handler = RotatingFileHandler('logs/auth_system.log', maxBytes=10240, backupCount=10)
-file_handler.setFormatter(logging.Formatter(
+
+# Configure logging format
+formatter = logging.Formatter(
     '%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]'
-))
-file_handler.setLevel(logging.INFO)
+)
+
+# File handler for all levels
+file_handler = RotatingFileHandler('logs/auth_system.log', maxBytes=10240, backupCount=10)
+file_handler.setFormatter(formatter)
+file_handler.setLevel(logging.DEBUG)
+
+# Stream handler for console output
+console_handler = logging.StreamHandler()
+console_handler.setFormatter(formatter)
+console_handler.setLevel(logging.DEBUG)
+
+# Set up app logger
 app.logger.addHandler(file_handler)
-app.logger.setLevel(logging.INFO)
+app.logger.addHandler(console_handler)
+app.logger.setLevel(logging.DEBUG)
+
+# Log startup information
 app.logger.info('Auth system startup')
+app.logger.debug('Debug logging enabled')
+
+# Log configuration status
+app.logger.debug(f'SQLALCHEMY_DATABASE_URI configured: {bool(app.config.get("SQLALCHEMY_DATABASE_URI"))}')
+app.logger.debug(f'SECRET_KEY configured: {bool(app.config.get("SECRET_KEY"))}')
+app.logger.debug(f'WTF_CSRF_ENABLED: {app.config.get("WTF_CSRF_ENABLED")}')
 
 # Configure Mailgun
 app.config['MAILGUN_API_KEY'] = os.environ.get('MAILGUN_API_KEY')
@@ -75,6 +96,8 @@ _settings_lock = Lock()
 
 @app.context_processor
 def inject_site_settings():
+    app.logger.debug('Starting site settings injection')
+    
     # Default settings
     DEFAULT_SETTINGS = {
         'site_title': 'Market Harvest',
@@ -86,23 +109,32 @@ def inject_site_settings():
 
     try:
         from models import SiteSettings
-        settings = SiteSettings.get_settings()  # Use the class method from models.py
+        app.logger.debug('Fetching site settings from database')
+        settings = SiteSettings.get_settings()
         
-        # Create a dictionary with all required attributes
-        settings_dict = {
-            'site_title': settings.site_title or DEFAULT_SETTINGS['site_title'],
-            'welcome_message': settings.welcome_message or DEFAULT_SETTINGS['welcome_message'],
-            'footer_text': settings.footer_text or DEFAULT_SETTINGS['footer_text'],
-            'default_theme': settings.default_theme or DEFAULT_SETTINGS['default_theme'],
-            'site_icon': settings.site_icon
-        }
+        if settings:
+            app.logger.debug(f'Found settings with ID: {settings.id}')
+            # Create a dictionary with all required attributes
+            settings_dict = {
+                'site_title': settings.site_title or DEFAULT_SETTINGS['site_title'],
+                'welcome_message': settings.welcome_message or DEFAULT_SETTINGS['welcome_message'],
+                'footer_text': settings.footer_text or DEFAULT_SETTINGS['footer_text'],
+                'default_theme': settings.default_theme or DEFAULT_SETTINGS['default_theme'],
+                'site_icon': settings.site_icon
+            }
+            app.logger.debug(f'Created settings dictionary with theme: {settings_dict["default_theme"]}')
+        else:
+            app.logger.warning('No settings found in database, using defaults')
+            settings_dict = DEFAULT_SETTINGS.copy()
         
         # Convert to an object for attribute access
         settings_obj = type('Settings', (), settings_dict)()
+        app.logger.debug('Successfully created settings object')
         return {'site_settings': settings_obj}
         
     except Exception as e:
         app.logger.error(f'Error in site settings context processor: {str(e)}')
+        app.logger.exception('Full traceback:')
         # Return default settings as an object
         return {'site_settings': type('DefaultSettings', (), DEFAULT_SETTINGS)()}
 
@@ -116,22 +148,34 @@ def b64encode_filter(s):
 def index():
     from flask_login import current_user
     
+    app.logger.info('Processing index route request')
     # Set default theme
     theme = 'autumn'
     
     try:
         if current_user.is_authenticated:
-            # Use user's theme preference
-            theme = current_user.theme if current_user.theme else theme
+            app.logger.debug(f'User authenticated: {current_user.username}')
+            user_theme = getattr(current_user, 'theme', None)
+            app.logger.debug(f'User theme preference: {user_theme}')
+            theme = user_theme if user_theme else theme
+            app.logger.debug(f'Selected theme for authenticated user: {theme}')
         else:
-            # Get settings from context processor
+            app.logger.debug('Anonymous user, fetching default theme from settings')
             settings = inject_site_settings()['site_settings']
+            app.logger.debug(f'Site settings loaded with default theme: {getattr(settings, "default_theme", None)}')
             theme = settings.default_theme if hasattr(settings, 'default_theme') else theme
+            app.logger.debug(f'Final theme for anonymous user: {theme}')
             
         app.logger.info(f'Rendering landing page with theme: {theme}')
+        template_response = render_template('landing.html', theme=theme)
+        app.logger.debug('Template rendered successfully')
+        return template_response
+        
     except Exception as e:
         app.logger.error(f'Error in index route: {str(e)}')
+        app.logger.exception('Full traceback:')
         # Continue with default theme
+        app.logger.info(f'Falling back to default theme: {theme}')
     
     return render_template('landing.html', theme=theme)
 @app.route('/privacy')
