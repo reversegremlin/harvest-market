@@ -68,33 +68,63 @@ else:
         missing_configs.append('MAILGUN_DOMAIN')
     app.logger.warning(f'Mailgun configuration incomplete. Missing: {", ".join(missing_configs)}. Email features will be disabled.')
 # Add template context processors and filters
+from threading import Lock
+
+# Create a thread-safe lock for site settings
+_settings_lock = Lock()
+
 @app.context_processor
 def inject_site_settings():
     def get_settings():
-        # Use a simple dictionary for default settings
-        default_settings = {
-            'site_title': 'Market Harvest',
-            'welcome_message': 'Welcome to our vibrant community!',
-            'footer_text': '© 2024 Market Harvest. All rights reserved.',
-            'default_theme': 'autumn',
-            'site_icon': None
-        }
+        from models import SiteSettings
         
+        # Default settings as a class
+        class BaseSettings:
+            site_title = 'Market Harvest'
+            welcome_message = 'Welcome to our vibrant community!'
+            footer_text = '© 2024 Market Harvest. All rights reserved.'
+            default_theme = 'autumn'
+            site_icon = None
+            created_at = None
+            updated_at = None
+
+        # Ensure database connection is available
         try:
-            from models import SiteSettings
-            settings = SiteSettings.query.first()
-            if settings:
-                return settings
+            db.engine.connect().close()
         except Exception as e:
-            app.logger.error(f'Error accessing site settings: {str(e)}')
+            app.logger.error(f'Database connection error: {str(e)}')
+            return BaseSettings()
         
-        # Create a simple object from the default settings
-        return type('DefaultSettings', (), default_settings)()
-    
-    # Cache the settings to prevent multiple database calls
-    if not hasattr(app, '_cached_settings'):
-        app._cached_settings = get_settings()
-    return dict(site_settings=lambda: app._cached_settings)
+        with _settings_lock:
+            try:
+                # Query settings in a transaction
+                with db.session.begin():
+                    settings = SiteSettings.query.with_for_update().first()
+                    if settings:
+                        # Verify all required attributes exist
+                        for attr in dir(BaseSettings):
+                            if not attr.startswith('_'):
+                                if not hasattr(settings, attr):
+                                    setattr(settings, attr, getattr(BaseSettings, attr))
+                        db.session.commit()
+                        return settings
+                    
+                    # Create new settings if none exist
+                    app.logger.info('No settings found in database, creating defaults')
+                    new_settings = SiteSettings()
+                    for attr in dir(BaseSettings):
+                        if not attr.startswith('_'):
+                            setattr(new_settings, attr, getattr(BaseSettings, attr))
+                    db.session.add(new_settings)
+                    db.session.commit()
+                    return new_settings
+                    
+            except Exception as e:
+                db.session.rollback()
+                app.logger.error(f'Error accessing site settings: {str(e)}')
+                return BaseSettings()
+
+    return dict(site_settings=get_settings)
 
 @app.template_filter('b64encode')
 def b64encode_filter(s):
@@ -106,13 +136,34 @@ def b64encode_filter(s):
 def index():
     from flask_login import current_user
     
-    # Simple theme selection logic
-    if current_user.is_authenticated:
-        theme = current_user.theme if hasattr(current_user, 'theme') else 'autumn'
-    else:
-        theme = 'autumn'  # Default theme for non-authenticated users
+    # Set default theme and settings
+    theme = 'autumn'
+    default_settings = {
+        'site_title': 'Market Harvest',
+        'welcome_message': 'Welcome to our vibrant community!',
+        'footer_text': '© 2024 Market Harvest. All rights reserved.'
+    }
     
-    return render_template('landing.html', theme=theme)
+    try:
+        # Get authenticated user's theme if available
+        if current_user.is_authenticated and hasattr(current_user, 'theme'):
+            theme = current_user.theme
+        
+        # Get site settings with fallback
+        settings = inject_site_settings()['site_settings']()
+        if not settings:
+            app.logger.warning('Using fallback settings for landing page')
+            # Create a simple object that mimics SiteSettings
+            settings = type('DefaultSettings', (), default_settings)()
+        
+        app.logger.info(f'Rendering landing page with theme: {theme}')
+        return render_template('landing.html', theme=theme, site_settings=settings)
+    except Exception as e:
+        app.logger.error(f'Error rendering landing page: {str(e)}')
+        # Create emergency fallback settings
+        emergency_settings = type('EmergencySettings', (), default_settings)()
+        # Render with fallback settings instead of showing error
+        return render_template('landing.html', theme='autumn', site_settings=emergency_settings)
 @app.route('/privacy')
 def privacy():
     return render_template('privacy.html')
@@ -145,6 +196,33 @@ def log_consent():
 
 
 
+def find_available_port(start_port, max_port=65535):
+    """Find an available port starting from start_port."""
+    import socket
+    current_port = start_port
+    while current_port <= max_port:
+        try:
+            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+                s.bind(('', current_port))
+                return current_port
+        except OSError:
+            current_port += 1
+    raise OSError(f"No available ports found between {start_port} and {max_port}")
+
 if __name__ == "__main__":
-    # Run the application on port 5000 and bind to all network interfaces
-    app.run(host="0.0.0.0", port=5000)
+    # Get port from environment variable or use default 5000
+    start_port = int(os.environ.get('PORT', 5000))
+    
+    try:
+        # Initialize database
+        with app.app_context():
+            db.create_all()
+            app.logger.info("Database tables created successfully")
+        
+        # Find an available port
+        port = find_available_port(start_port)
+        app.logger.info(f"Starting server on port {port}")
+        app.run(host="0.0.0.0", port=port, debug=True)
+    except Exception as e:
+        app.logger.error(f"Failed to start server: {e}")
+        raise
