@@ -136,34 +136,16 @@ def b64encode_filter(s):
 def index():
     from flask_login import current_user
     
-    # Set default theme and settings
-    theme = 'autumn'
-    default_settings = {
-        'site_title': 'Market Harvest',
-        'welcome_message': 'Welcome to our vibrant community!',
-        'footer_text': '© 2024 Market Harvest. All rights reserved.'
-    }
-    
     try:
         # Get authenticated user's theme if available
-        if current_user.is_authenticated and hasattr(current_user, 'theme'):
-            theme = current_user.theme
-        
-        # Get site settings with fallback
-        settings = inject_site_settings()['site_settings']()
-        if not settings:
-            app.logger.warning('Using fallback settings for landing page')
-            # Create a simple object that mimics SiteSettings
-            settings = type('DefaultSettings', (), default_settings)()
+        theme = current_user.theme if current_user.is_authenticated else 'autumn'
         
         app.logger.info(f'Rendering landing page with theme: {theme}')
-        return render_template('landing.html', theme=theme, site_settings=settings)
+        return render_template('landing.html', theme=theme)
+        
     except Exception as e:
         app.logger.error(f'Error rendering landing page: {str(e)}')
-        # Create emergency fallback settings
-        emergency_settings = type('EmergencySettings', (), default_settings)()
-        # Render with fallback settings instead of showing error
-        return render_template('landing.html', theme='autumn', site_settings=emergency_settings)
+        return render_template('landing.html', theme='autumn')
 @app.route('/privacy')
 def privacy():
     return render_template('privacy.html')
@@ -216,6 +198,11 @@ if __name__ == "__main__":
     try:
         # Initialize database
         with app.app_context():
+            app.logger.info("Testing database connection...")
+            db.engine.connect().close()
+            app.logger.info("Database connection successful")
+            
+            app.logger.info("Creating database tables...")
             db.create_all()
             app.logger.info("Database tables created successfully")
         
@@ -224,5 +211,7 @@ if __name__ == "__main__":
         app.logger.info(f"Starting server on port {port}")
         app.run(host="0.0.0.0", port=port, debug=True)
     except Exception as e:
-        app.logger.error(f"Failed to start server: {e}")
+        app.logger.error(f"Failed to start server: {str(e)}")
+        if hasattr(e, '__cause__') and e.__cause__:
+            app.logger.error(f"Caused by: {str(e.__cause__)}")
         raise
