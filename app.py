@@ -223,5 +223,5 @@ if __name__ == "__main__":
         app.logger.error(f"Failed to initialize application: {str(e)}")
         raise
 
-    # Start the server without debug mode to prevent duplicate instances
+    # Start a single server instance without debug mode or reloader
     app.run(host="0.0.0.0", port=port, debug=False, use_reloader=False)
