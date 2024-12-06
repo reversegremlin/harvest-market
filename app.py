@@ -75,67 +75,36 @@ _settings_lock = Lock()
 
 @app.context_processor
 def inject_site_settings():
-    from models import SiteSettings
-    from sqlalchemy.exc import SQLAlchemyError
-    
-    # Default settings as a class for better attribute access
-    class DefaultSettings:
-        def __init__(self):
-            self.site_title = 'Market Harvest'
-            self.welcome_message = 'Welcome to our vibrant community!'
-            self.footer_text = '© 2024 Market Harvest. All rights reserved.'
-            self.default_theme = 'autumn'
-            self.site_icon = None
-    
+    # Default settings
+    DEFAULT_SETTINGS = {
+        'site_title': 'Market Harvest',
+        'welcome_message': 'Welcome to our vibrant community!',
+        'footer_text': '© 2024 Market Harvest. All rights reserved.',
+        'default_theme': 'autumn',
+        'site_icon': None
+    }
+
     try:
-        # Create a new session for this request
-        settings = None
-        with app.app_context():
-            try:
-                # Try to get existing settings
-                settings = db.session.query(SiteSettings).first()
-                
-                if not settings:
-                    # Log the attempt to create new settings
-                    app.logger.info('No settings found, creating defaults')
-                    
-                    # Create new settings
-                    default = DefaultSettings()
-                    settings = SiteSettings(
-                        site_title=default.site_title,
-                        welcome_message=default.welcome_message,
-                        footer_text=default.footer_text,
-                        default_theme=default.default_theme
-                    )
-                    
-                    # Add and commit in a transaction
-                    db.session.add(settings)
-                    db.session.commit()
-                    app.logger.info('Default settings created successfully')
-                
-                # Make sure to load the attributes before closing the session
-                settings.site_title
-                settings.welcome_message
-                settings.footer_text
-                settings.default_theme
-                settings.site_icon
-                
-            except SQLAlchemyError as e:
-                db.session.rollback()
-                app.logger.error(f'Database error in site settings: {str(e)}')
-                settings = DefaultSettings()
-            except Exception as e:
-                db.session.rollback()
-                app.logger.error(f'Unexpected error in site settings: {str(e)}')
-                settings = DefaultSettings()
-            finally:
-                db.session.close()
+        from models import SiteSettings
+        settings = SiteSettings.get_settings()  # Use the class method from models.py
         
-        return dict(site_settings=settings if settings else DefaultSettings())
+        # Create a dictionary with all required attributes
+        settings_dict = {
+            'site_title': settings.site_title or DEFAULT_SETTINGS['site_title'],
+            'welcome_message': settings.welcome_message or DEFAULT_SETTINGS['welcome_message'],
+            'footer_text': settings.footer_text or DEFAULT_SETTINGS['footer_text'],
+            'default_theme': settings.default_theme or DEFAULT_SETTINGS['default_theme'],
+            'site_icon': settings.site_icon
+        }
+        
+        # Convert to an object for attribute access
+        settings_obj = type('Settings', (), settings_dict)()
+        return {'site_settings': settings_obj}
         
     except Exception as e:
-        app.logger.error(f'Critical error in site settings context processor: {str(e)}')
-        return dict(site_settings=DefaultSettings())
+        app.logger.error(f'Error in site settings context processor: {str(e)}')
+        # Return default settings as an object
+        return {'site_settings': type('DefaultSettings', (), DEFAULT_SETTINGS)()}
 
 @app.template_filter('b64encode')
 def b64encode_filter(s):
@@ -147,22 +116,24 @@ def b64encode_filter(s):
 def index():
     from flask_login import current_user
     
+    # Set default theme
+    theme = 'autumn'
+    
     try:
-        # Get authenticated user's theme if available, otherwise use default from site settings
         if current_user.is_authenticated:
-            theme = current_user.theme
+            # Use user's theme preference
+            theme = current_user.theme if current_user.theme else theme
         else:
-            # Get site settings and use default theme, fall back to autumn if needed
+            # Get settings from context processor
             settings = inject_site_settings()['site_settings']
-            theme = getattr(settings, 'default_theme', 'autumn')
-        
+            theme = settings.default_theme if hasattr(settings, 'default_theme') else theme
+            
         app.logger.info(f'Rendering landing page with theme: {theme}')
-        return render_template('landing.html', theme=theme)
-        
     except Exception as e:
-        app.logger.error(f'Error rendering landing page: {str(e)}')
-        # Use autumn theme as ultimate fallback
-        return render_template('landing.html', theme='autumn')
+        app.logger.error(f'Error in index route: {str(e)}')
+        # Continue with default theme
+    
+    return render_template('landing.html', theme=theme)
 @app.route('/privacy')
 def privacy():
     return render_template('privacy.html')
