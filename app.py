@@ -193,10 +193,10 @@ def find_available_port(start_port, max_port=65535):
 
 if __name__ == "__main__":
     # Get port from environment variable or use default 5000
-    start_port = int(os.environ.get('PORT', 5000))
+    port = int(os.environ.get('PORT', 5000))
     
     try:
-        # Initialize database
+        # Initialize application and database
         with app.app_context():
             app.logger.info("Testing database connection...")
             db.engine.connect().close()
@@ -205,9 +205,21 @@ if __name__ == "__main__":
             app.logger.info("Creating database tables...")
             db.create_all()
             app.logger.info("Database tables created successfully")
+            
+            # Pre-check site settings
+            from models import SiteSettings
+            if not SiteSettings.query.first():
+                app.logger.info("Initializing default site settings...")
+                default_settings = SiteSettings(
+                    site_title='Market Harvest',
+                    welcome_message='Welcome to our vibrant community!',
+                    footer_text='© 2024 Market Harvest. All rights reserved.',
+                    default_theme='autumn'
+                )
+                db.session.add(default_settings)
+                db.session.commit()
+                app.logger.info("Default site settings created")
         
-        # Find an available port
-        port = find_available_port(start_port)
         app.logger.info(f"Starting server on port {port}")
         app.run(host="0.0.0.0", port=port, debug=True)
     except Exception as e:
