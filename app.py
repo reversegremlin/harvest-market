@@ -88,6 +88,7 @@ else:
     if not app.config['MAILGUN_DOMAIN']:
         missing_configs.append('MAILGUN_DOMAIN')
     app.logger.warning(f'Mailgun configuration incomplete. Missing: {", ".join(missing_configs)}. Email features will be disabled.')
+
 # Add template context processors and filters
 from threading import Lock
 
@@ -166,12 +167,15 @@ def index():
     
     app.logger.info(f'Rendering landing page with theme: {theme}')
     return render_template('landing.html', theme=theme)
+
 @app.route('/privacy')
 def privacy():
     return render_template('privacy.html')
+
 @app.route('/terms')
 def terms():
     return render_template('terms.html')
+
 @app.context_processor
 def utility_processor():
     from datetime import datetime
@@ -180,7 +184,6 @@ def utility_processor():
 @app.route('/about')
 def about():
     return render_template('about.html')
-
 
 @app.route('/log-consent', methods=['POST'])
 def log_consent():
@@ -196,40 +199,18 @@ def log_consent():
         app.logger.error(f'Error logging cookie consent: {str(e)}')
         return {'status': 'error', 'message': 'Failed to log consent'}, 500
 
-
-
-def find_available_port(start_port, max_port=65535):
-    """Find an available port starting from start_port."""
-    import socket
-    current_port = start_port
-    while current_port <= max_port:
-        try:
-            with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-                s.bind(('', current_port))
-                return current_port
-        except OSError:
-            current_port += 1
-    raise OSError(f"No available ports found between {start_port} and {max_port}")
-
 if __name__ == "__main__":
-    # Get port from environment variable or use default 5000
     port = int(os.environ.get('PORT', 5000))
     
     try:
-        # Initialize application and database
         with app.app_context():
-            app.logger.info("Testing database connection...")
+            # Initialize database
             db.engine.connect().close()
-            app.logger.info("Database connection successful")
-            
-            app.logger.info("Creating database tables...")
             db.create_all()
-            app.logger.info("Database tables created successfully")
             
-            # Pre-check site settings
+            # Check and initialize site settings if needed
             from models import SiteSettings
             if not SiteSettings.query.first():
-                app.logger.info("Initializing default site settings...")
                 default_settings = SiteSettings(
                     site_title='Market Harvest',
                     welcome_message='Welcome to our vibrant community!',

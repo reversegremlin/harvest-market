@@ -13,10 +13,6 @@ author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "workflow.run"
-args = "Flask Auth Server"
-
-[[workflows.workflow.tasks]]
-task = "workflow.run"
 args = "Flask DB Migrations"
 
 [[workflows.workflow.tasks]]
@@ -34,21 +30,6 @@ args = "Make Admin"
 [[workflows.workflow.tasks]]
 task = "workflow.run"
 args = "Flask Server"
-
-[[workflows.workflow]]
-name = "Flask Auth Server"
-author = "agent"
-
-[workflows.workflow.metadata]
-agentRequireRestartOnSave = false
-
-[[workflows.workflow.tasks]]
-task = "packager.installForAll"
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "python app.py"
-waitForPort = 5000
 
 [[workflows.workflow]]
 name = "Flask DB Migrations"
